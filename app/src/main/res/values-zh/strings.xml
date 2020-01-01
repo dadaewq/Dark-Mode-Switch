@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">切换夜间UI</string>
+    <string name="cNightUI">当前UI：　夜间</string>
+    <string name="cNonNightUI">当前UI：非夜间</string>
+    <string name="NightUI">夜间UI</string>
+    <string name="NonNightUI">非夜间UI</string>
+    <string name="method1">方法1:切换</string>
+    <string name="method2">方法2:切换</string>
+    <string name="yes1">切换成功</string>
+    <string name="yes2">切换成功\n\n重启设备生效</string>
+    <string name="no1">方法1无法切换!\n\n请尝试方法2！</string>
+    <string name="no2">无法切换</string>
+    <string name="error">切换出错%1$s</string>
+    <string name="needpermission">请用\n%1$s\n授予权限,已复制到剪贴板</string>
+</resources>

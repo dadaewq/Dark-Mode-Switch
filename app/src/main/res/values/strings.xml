@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Switch Night UI</string>
+    <string name="cNightUI">Current UI : 　　Night</string>
+    <string name="cNonNightUI">Current UI : Non-Night</string>
+    <string name="NightUI">Night UI</string>
+    <string name="NonNightUI">Non-Night UI</string>
+    <string name="method1">Method 1:Switch</string>
+    <string name="method2">Method 2:Switch</string>
+    <string name="yes1">Success</string>
+    <string name="yes2">Success\n\nReboot the device to take effect</string>
+    <string name="no1">Method 1 Can\'t switch!\n\nTry Method 2!</string>
+    <string name="no2">Can\'t switch</string>
+    <string name="error">Erro%1$s</string>
+    <string name="needpermission">Please grant permissions using\n%1$s\nIt has been copied to the clipboard</string>
+</resources>
