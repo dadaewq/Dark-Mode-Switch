@@ -18,7 +18,7 @@ adb shell pm grant com.modosa.switchnightui android.permission.WRITE_SECURE_SETT
 
 ### 最后重点说一下方法1，有的系统没有限制，直接可以切换。
 
-有的系统就无法使用方法1，这个时候除了用方法2，还有两个让方法1变得可用的办法，但是必须要Root！必须要Root！
+有的系统就无法使用方法1，这个时候除了用方法2，还有两个让方法1变得可用的办法，但是必须要Root!
 
 #### 第一个：把切换夜间UI移动到System分区，反正要让它成为系统应用，这样就可以用方法1了
 
@@ -26,5 +26,5 @@ adb shell pm grant com.modosa.switchnightui android.permission.WRITE_SECURE_SETT
 
 
 
-## 最后，再说一下，本应用只是打开系统的开关，并不可以强制全局深色，具体要看应用的适配，本应用也适配
+### 最后，再说一下，本应用只是打开系统的开关，并不可以强制全局深色，具体要看应用的适配，本应用也已适配
 
