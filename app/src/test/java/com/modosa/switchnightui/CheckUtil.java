@@ -45,4 +45,31 @@ class CheckUtil {
         Log.e("unlock+perm ", isNightModeUnlocked() + " " + canModify());
         return r1 || r2;
     }
+
 }
+
+//配置变更
+
+//    <activity
+//    android:name=".MyActivity"
+//    android:configChanges="uiMode" />
+
+
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//
+//        Log.e("new_uiMode", newConfig.uiMode + "");
+//        Log.e("mask", Configuration.UI_MODE_NIGHT_MASK + "");
+//        int currentNightMode = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+//        switch (currentNightMode) {
+//            case Configuration.UI_MODE_NIGHT_NO:
+//                Log.e("no", Configuration.UI_MODE_NIGHT_NO + "");
+//                break;
+//            case Configuration.UI_MODE_NIGHT_YES:
+//                Log.e("yes", Configuration.UI_MODE_NIGHT_YES + "");
+//                break;
+//        }
+//    }
+
+
