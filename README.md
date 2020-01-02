@@ -1,4 +1,4 @@
-## 切换深色模式
+## 深色模式切换
 (Support for Android 6.0 and above)
 
 提供两个方法来切换深色模式
@@ -20,7 +20,7 @@ adb shell pm grant com.modosa.switchnightui android.permission.WRITE_SECURE_SETT
 
 有的系统就无法使用方法1，这个时候除了用方法2，还有两个让方法1变得可用的办法，但是必须要Root!
 
-#### 第一个：把切换深色模式移动到System分区，反正要让它成为系统应用，这样就可以用方法1了
+#### 第一个：把深色模式切换移动到System分区，反正要让它成为系统应用，这样就可以用方法1了
 
 #### 第二个：需要修改**framework-res.apk**中资源的一个bool值，先复制到内部存储，打开apk修改resources.arsc中的bool，找到**config_lockDayNightMode**，修改为false后，复制并替换原来的Apk，然后重启，就可以使用方法1了。
 (这样做有一个好处就是同时你也可以用之前一些无法切换的应用了，因为这个操作相当于取消了系统对修改夜间主题的锁。)
