@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">Switch Night UI</string>
-    <string name="cNightUI">Current UI : 　　Night</string>
-    <string name="cNonNightUI">Current UI : Non-Night</string>
-    <string name="NightUI">Night UI</string>
-    <string name="NonNightUI">Non-Night UI</string>
+    <string name="app_name">Dark Mode Switch</string>
+    <string name="DarkModeOn">Dark Mode : ON</string>
+    <string name="DarkModeOff">Dark Mode : OFF</string>
+    <string name="DarkMode">Dark Mode</string>
     <string name="method1">Method 1:Switch</string>
     <string name="method2">Method 2:Switch</string>
     <string name="yes1">Success</string>

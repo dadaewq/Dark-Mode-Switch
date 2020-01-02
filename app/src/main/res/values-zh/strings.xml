@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">切换夜间UI</string>
-    <string name="cNightUI">当前UI：　夜间</string>
-    <string name="cNonNightUI">当前UI：非夜间</string>
-    <string name="NightUI">夜间UI</string>
-    <string name="NonNightUI">非夜间UI</string>
+    <string name="app_name">深色模式切换</string>
+    <string name="DarkModeOn">深色模式：已开启</string>
+    <string name="DarkModeOff">深色模式：已关闭</string>
+    <string name="DarkMode">深色模式</string>
     <string name="method1">方法1:切换</string>
     <string name="method2">方法2:切换</string>
     <string name="yes1">切换成功</string>

@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         status = findViewById(R.id.textView);
@@ -35,21 +36,21 @@ public class MainActivity extends AppCompatActivity {
         refreshStatus();
     }
 
-    public void onClick1(View view) {
+    public void onClick1(@SuppressWarnings("unused") View view) {
         changeUI1();
         refreshStatus();
     }
 
-    public void onClick2(View view) {
+    public void onClick2(@SuppressWarnings("unused") View view) {
         changeUI2();
         refreshStatus();
     }
 
     private void refreshStatus() {
         if (WriteSettingsUtil.isNightMode(this)) {
-            status.setText(R.string.cNightUI);
+            status.setText(R.string.DarkModeOn);
         } else {
-            status.setText(R.string.cNonNightUI);
+            status.setText(R.string.DarkModeOff);
         }
     }
 
@@ -60,26 +61,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                new CheckUtil(getApplicationContext(), uiModeManager).check();
-//                if (new CheckUtil(getApplicationContext(), uiModeManager).check()) {
                 int i = yes;
                 if (Objects.requireNonNull(uiModeManager).getNightMode() == yes) {
                     i = no;
                 }
                 uiModeManager.setNightMode(i);
                 if (uiModeManager.getNightMode() == i) {
-                    if (i == yes) {
-                        showToast(getString(R.string.yes1));
-                    } else {
-                        showToast(getString(R.string.yes1));
-                    }
+                    showToast(getString(R.string.yes1));
                 } else {
                     showToast(getString(R.string.no1));
                 }
-//                } else {
-//                    showToast(getString(R.string.no1));
-//                }
-
             }
         }, 0);
     }

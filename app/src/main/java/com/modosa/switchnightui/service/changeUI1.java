@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
-import com.modosa.switchnightui.CheckUtil;
 import com.modosa.switchnightui.R;
 
 import java.util.Objects;
@@ -35,8 +34,6 @@ public class changeUI1 extends TileService {
 
         UiModeManager uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
 
-        new CheckUtil(this, uiModeManager).check();
-//        if (new CheckUtil(this, uiModeManager).check()) {
         int i = yes;
         if (Objects.requireNonNull(uiModeManager).getNightMode() == yes) {
             i = no;
@@ -46,9 +43,6 @@ public class changeUI1 extends TileService {
         if (((UiModeManager) Objects.requireNonNull(getSystemService(UI_MODE_SERVICE))).getNightMode() != i) {
             Toast.makeText(this, getString(R.string.no1), Toast.LENGTH_SHORT).show();
         }
-//        } else {
-//            Toast.makeText(this, getString(R.string.no1), Toast.LENGTH_SHORT).show();
-//        }
 
         refreshState();
         showState();
@@ -58,11 +52,11 @@ public class changeUI1 extends TileService {
 
     private void showState() {
         Tile qsTile = getQsTile();
-        if (qsTile.getState() == yes) {
-            qsTile.setLabel(getString(R.string.NightUI));
-        } else {
-            qsTile.setLabel(getString(R.string.NonNightUI));
-        }
+//        if (qsTile.getState() == yes) {
+//            qsTile.setLabel(getString(R.string.DarkModeOn));
+//        } else {
+//            qsTile.setLabel(getString(R.string.DarkModeOff));
+//        }
         qsTile.updateTile();
     }
 

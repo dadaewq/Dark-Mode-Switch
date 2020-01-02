@@ -9,9 +9,12 @@ import android.widget.Toast;
 
 import java.lang.reflect.Method;
 
-public class CheckUtil {
-    private Context context;
-    private UiModeManager uiModeManager;
+class CheckUtil {
+    private final Context context;
+    private final UiModeManager uiModeManager;
+
+    // How to use
+    //                new CheckUtil(getApplicationContext(), uiModeManager).check();
 
     public CheckUtil(Context context, UiModeManager uiModeManager) {
         this.uiModeManager = uiModeManager;

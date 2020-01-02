@@ -1,0 +1,13 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_brightness_2_black_24dp"
+        android:shortcutId="changeUI1"
+        android:shortcutLongLabel="@string/app_name"
+        android:shortcutShortLabel="@string/app_name">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.ShortcutActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+</shortcuts>
