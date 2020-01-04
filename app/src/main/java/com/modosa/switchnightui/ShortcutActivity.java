@@ -3,9 +3,14 @@ package com.modosa.switchnightui;
 
 import android.app.Activity;
 import android.app.UiModeManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
+
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
 
 import java.util.Objects;
 
@@ -19,8 +24,31 @@ public class ShortcutActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
-        changeUI1();
 
+        if ("android.intent.action.CREATE_SHORTCUT".equals(getIntent().getAction())) {
+            createShortCut();
+        } else {
+            changeUI1();
+        }
+    }
+
+    private void createShortCut() {
+        if (ShortcutManagerCompat.isRequestPinShortcutSupported(this)) {
+            Intent intent = new Intent(new Intent(Intent.ACTION_VIEW))
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .setClass(this, getClass());
+
+            ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(this, "changeui1")
+                    .setLongLabel(getString(R.string.app_name))
+                    .setShortLabel(getString(R.string.action_switch))
+                    .setIcon(IconCompat.createWithResource(this, R.drawable.ic_brightness_2_black_24dp))
+                    .setIntent(intent)
+                    .build();
+
+            Intent pinnedShortcutCallbackIntent = ShortcutManagerCompat.createShortcutResultIntent(this, shortcut);
+            setResult(RESULT_OK, pinnedShortcutCallbackIntent);
+            finish();
+        }
     }
 
     private void changeUI1() {

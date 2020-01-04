@@ -4,7 +4,7 @@
         android:icon="@drawable/ic_brightness_2_black_24dp"
         android:shortcutId="changeUI1"
         android:shortcutLongLabel="@string/app_name"
-        android:shortcutShortLabel="@string/app_name">
+        android:shortcutShortLabel="@string/action_switch">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="com.modosa.switchnightui.ShortcutActivity"

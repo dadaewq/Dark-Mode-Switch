@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">深色模式切换</string>
+    <string name="action_switch">切换</string>
     <string name="DarkModeOn">深色模式：已开启</string>
     <string name="DarkModeOff">深色模式：已关闭</string>
     <string name="DarkMode">深色模式</string>
