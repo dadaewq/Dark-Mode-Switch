@@ -23,9 +23,8 @@ public class changeUI1 extends TileService {
 
     @Override
     public void onStartListening() {
-        refreshState();
-        showState();
         super.onStartListening();
+        refreshState();
     }
 
     @Override
@@ -45,28 +44,21 @@ public class changeUI1 extends TileService {
         }
 
         refreshState();
-        showState();
-
-    }
-
-
-    private void showState() {
-        Tile qsTile = getQsTile();
-//        if (qsTile.getState() == yes) {
-//            qsTile.setLabel(getString(R.string.DarkModeOn));
-//        } else {
-//            qsTile.setLabel(getString(R.string.DarkModeOff));
-//        }
-        qsTile.updateTile();
     }
 
     private void refreshState() {
         Tile qsTile = getQsTile();
-        if (((UiModeManager) Objects.requireNonNull(getSystemService(UI_MODE_SERVICE))).getNightMode() == yes) {
-            qsTile.setState(yes);
-        } else {
-            qsTile.setState(no);
+        try {
+            if (((UiModeManager) (Objects.requireNonNull(getSystemService(UI_MODE_SERVICE)))).getNightMode() == yes) {
+                qsTile.setState(Tile.STATE_ACTIVE);
+            } else {
+                qsTile.setState(Tile.STATE_INACTIVE);
+            }
+            qsTile.updateTile();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, e + "", Toast.LENGTH_SHORT).show();
         }
-        qsTile.updateTile();
+
     }
 }
