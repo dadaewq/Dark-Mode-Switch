@@ -1,5 +1,5 @@
 ## 深色模式切换
-(Support for Android 6.0 and above)
+(Support for Android 4.0 and above)
 
 提供两个方法来切换深色模式
 
