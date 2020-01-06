@@ -19,7 +19,6 @@ import java.util.Objects;
 public class changeUI1 extends TileService {
 
     private final int yes = UiModeManager.MODE_NIGHT_YES;
-    private final int no = UiModeManager.MODE_NIGHT_NO;
 
     @Override
     public void onStartListening() {
@@ -35,7 +34,7 @@ public class changeUI1 extends TileService {
 
         int i = yes;
         if (Objects.requireNonNull(uiModeManager).getNightMode() == yes) {
-            i = no;
+            i = UiModeManager.MODE_NIGHT_NO;
         }
         uiModeManager.setNightMode(i);
 

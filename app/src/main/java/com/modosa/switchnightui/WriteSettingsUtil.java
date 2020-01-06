@@ -1,8 +1,8 @@
 package com.modosa.switchnightui;
 
 import android.content.Context;
+import android.os.Build;
 import android.provider.Settings;
-import android.util.Log;
 
 
 /**
@@ -29,30 +29,26 @@ class WriteSettingsUtil {
     }
 
     static void putKey(Context context, OnEnableAccessibilityListener listener) {
-        String msg = "";
+        String msg;
         try {
+            int ui_mode = 2;
             if (isNightMode(context)) {
-                if (Settings.Secure.putInt(context.getContentResolver(), KEY_MODE, 1)) {
-                    msg = context.getString(R.string.yes2);
-                    listener.onSuccess(msg);
-                } else {
-                    msg = context.getString(R.string.no2);
-                    listener.onFailed(msg);
-                }
-            } else {
-                if (Settings.Secure.putInt(context.getContentResolver(), KEY_MODE, 2)) {
-                    msg = context.getString(R.string.yes2);
-                    listener.onSuccess(msg);
-                } else {
-                    msg = context.getString(R.string.no2);
-                    listener.onFailed(msg);
-                }
+                ui_mode = 1;
             }
+            if (Settings.Secure.putInt(context.getContentResolver(), KEY_MODE, ui_mode)) {
+                msg = context.getString(R.string.yes2);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    msg = context.getString(R.string.yes2old);
+                }
+                listener.onSuccess(msg);
+            } else {
+                msg = context.getString(R.string.no2);
+                listener.onFailed(msg);
+            }
+
         } catch (Exception e) {
             msg = String.format(context.getString(R.string.error), "\n\n" + e);
             listener.onFailed(msg);
-        } finally {
-            Log.e("putKey", msg);
         }
     }
 

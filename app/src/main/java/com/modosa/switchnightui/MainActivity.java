@@ -4,15 +4,16 @@ import android.app.UiModeManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Objects;
 
 /**
  * @author dadaewq
@@ -21,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final int yes = UiModeManager.MODE_NIGHT_YES;
     private final int no = UiModeManager.MODE_NIGHT_NO;
+    private TextView status;
     private UiModeManager uiModeManager;
 
-    private TextView status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +32,40 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        status = findViewById(R.id.textView);
         uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
+
+        status = findViewById(R.id.textView);
+        Button button1 = findViewById(R.id.change1);
+        Button button2 = findViewById(R.id.change2);
+
+        status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, getString(R.string.switchcaremode), Toast.LENGTH_SHORT).show();
+                if (Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType()) {
+                    uiModeManager.disableCarMode(0);
+                } else {
+                    uiModeManager.enableCarMode(2);
+                }
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeUI1();
+                refreshStatus();
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeUI2();
+                refreshStatus();
+            }
+        });
         refreshStatus();
     }
 
-    public void onClick1(@SuppressWarnings("unused") View view) {
-        changeUI1();
-        refreshStatus();
-    }
-
-    public void onClick2(@SuppressWarnings("unused") View view) {
-        changeUI2();
-        refreshStatus();
-    }
 
     private void refreshStatus() {
         if (WriteSettingsUtil.isNightMode(this)) {
@@ -56,13 +77,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void changeUI1() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            uiModeManager.enableCarMode(2);
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 int i = yes;
-                if (Objects.requireNonNull(uiModeManager).getNightMode() == yes) {
+                if (uiModeManager.getNightMode() == yes) {
                     i = no;
                 }
                 uiModeManager.setNightMode(i);
@@ -106,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -116,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
     private void copyCMD(CharSequence text) {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clipData = ClipData.newPlainText(null, text);
-        Objects.requireNonNull(clipboard).setPrimaryClip(clipData);
+        assert clipboard != null;
+        clipboard.setPrimaryClip(clipData);
     }
 
 }

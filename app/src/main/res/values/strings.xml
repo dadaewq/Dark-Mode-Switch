@@ -3,11 +3,13 @@
     <string name="action_switch">Switch</string>
     <string name="DarkModeOn">Dark Mode : ON</string>
     <string name="DarkModeOff">Dark Mode : OFF</string>
+    <string name="switchcaremode">Switch Car Mode</string>
     <string name="DarkMode">Dark Mode</string>
     <string name="method1">Method 1:Switch</string>
     <string name="method2">Method 2:Switch</string>
     <string name="yes1">Success</string>
     <string name="yes2">Success\n\nReboot the device to take effect</string>
+    <string name="yes2old">Success\n\nReboot the device and enable car mode to take effect</string>
     <string name="no1">Method 1 Can\'t switch!\n\nTry Method 2!</string>
     <string name="no2">Can\'t switch</string>
     <string name="error">Erro%1$s</string>

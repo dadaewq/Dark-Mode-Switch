@@ -31,7 +31,6 @@
             android:id="@+id/change1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClick1"
             android:text="@string/method1" />
 
         <Button
@@ -39,7 +38,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
-            android:onClick="onClick2"
             android:text="@string/method2" />
     </LinearLayout>
 
