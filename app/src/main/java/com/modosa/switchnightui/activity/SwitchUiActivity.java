@@ -1,4 +1,4 @@
-package com.modosa.switchnightui;
+package com.modosa.switchnightui.activity;
 
 
 import android.app.Activity;
@@ -12,6 +12,7 @@ import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 
+import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.uitl.SpUtil;
 import com.modosa.switchnightui.uitl.SwitchUtil;
 import com.modosa.switchnightui.uitl.WriteSettingsUtil;
@@ -21,7 +22,7 @@ import java.util.Objects;
 /**
  * @author dadaewq
  */
-public class ShortcutActivity extends Activity {
+public class SwitchUiActivity extends Activity {
 
     private SpUtil spUtil;
     private SwitchUtil switchUtil;
@@ -43,7 +44,7 @@ public class ShortcutActivity extends Activity {
             if (Objects.requireNonNull(uiModeManager).getNightMode() == WriteSettingsUtil.YES) {
                 want = WriteSettingsUtil.NO;
             }
-            switchui(want);
+            switchUi(want);
             finish();
         }
     }
@@ -55,7 +56,7 @@ public class ShortcutActivity extends Activity {
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     .setClass(this, getClass());
 
-            ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(this, "SwitchUI")
+            ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(this, "SwitchUi")
                     .setLongLabel(getString(R.string.app_name))
                     .setShortLabel(getString(R.string.action_switch))
                     .setIcon(IconCompat.createWithResource(this, R.drawable.ic_brightness_2_black_24dp))
@@ -69,7 +70,7 @@ public class ShortcutActivity extends Activity {
     }
 
 
-    private void switchui(int want) {
+    private void switchUi(int want) {
         if (want != WriteSettingsUtil.NO) {
             want = WriteSettingsUtil.YES;
         }
@@ -106,7 +107,7 @@ public class ShortcutActivity extends Activity {
         super.onConfigurationChanged(newconfig);
 
         if (spUtil.isStableMode()) {
-            switchui(want);
+            switchUi(want);
         } else {
             finish();
         }

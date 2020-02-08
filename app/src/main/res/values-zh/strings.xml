@@ -5,12 +5,14 @@
     <string name="DarkModeOn">深色模式：已开启</string>
     <string name="DarkModeOff">深色模式：已关闭</string>
     <string name="switchcarmode">切换驾驶模式</string>
+    <string name="switchforcedark">强制深色切换</string>
     <string name="StableModeOn">稳定模式：已开启 *</string>
     <string name="StableModeOff">稳定模式：已关闭</string>
-    <string name="force_darkOn">强制深色：已开启</string>
-    <string name="force_darkOff">强制深色：已关闭</string>
+    <string name="ForceDarkOn">强制深色：已开启</string>
+    <string name="ForceDarkOff">强制深色：已关闭</string>
     <string name="refresh">刷新</string>
     <string name="DarkMode">深色模式</string>
+    <string name="ForceDark">强制深色</string>
     <string name="Method1">方法1</string>
     <string name="Method2">方法2</string>
     <string name="Method3">方法3 (Root)</string>

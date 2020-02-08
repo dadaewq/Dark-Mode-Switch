@@ -7,7 +7,18 @@
         android:shortcutShortLabel="@string/action_switch">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.modosa.switchnightui.ShortcutActivity"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchUiActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_brightness_3_black_24dp"
+        android:shortcutId="SwitchForceDark"
+        android:shortcutLongLabel="@string/switchforcedark"
+        android:shortcutShortLabel="@string/action_switch">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchForceDarkActivity"
             android:targetPackage="com.modosa.switchnightui" />
     </shortcut>
 </shortcuts>

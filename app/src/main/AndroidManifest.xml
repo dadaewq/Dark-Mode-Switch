@@ -22,19 +22,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <receiver android:name=".AppWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.modosa.switchnightui.appwidget" />
-            </intent-filter>
 
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_info" />
-        </receiver>
 
         <service
-            android:name=".service.SwitchUI"
+            android:name=".service.SwitchUi"
             android:icon="@drawable/ic_brightness_2_black_24dp"
             android:label="@string/DarkMode"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -42,9 +33,18 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
+        <service
+            android:name=".service.SwitchForceDark"
+            android:icon="@drawable/ic_brightness_3_black_24dp"
+            android:label="@string/ForceDark"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:configChanges="uiMode"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -58,13 +58,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name=".ShortcutActivity"
+            android:name=".activity.SwitchUiActivity"
             android:configChanges="uiMode"
             android:exported="true"
             android:launchMode="singleInstance"
@@ -76,6 +75,42 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.SwitchForceDarkActivity"
+            android:exported="true"
+            android:label="@string/switchforcedark"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".receiver.SwitchUiAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.modosa.switchnightui.appwidget.switchui" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info_switchui" />
+        </receiver>
+        <receiver
+            android:name=".receiver.SwitchForceDarkWidget"
+            android:label="@string/switchforcedark">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.modosa.switchnightui.appwidget.switchforcedark" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info_switchforcedark" />
+        </receiver>
     </application>
 
 </manifest>

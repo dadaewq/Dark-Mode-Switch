@@ -4,12 +4,14 @@
     <string name="DarkModeOn">Dark Mode : ON</string>
     <string name="DarkModeOff">Dark Mode : OFF</string>
     <string name="switchcarmode">Switch Car Mode</string>
+    <string name="switchforcedark">Force Dark Switch</string>
     <string name="StableModeOn">Stable Mode : ON *</string>
     <string name="StableModeOff">Stable Mode : OFF</string>
-    <string name="force_darkOn">Force Dark: ON</string>
-    <string name="force_darkOff">Force Dark : OFF</string>
+    <string name="ForceDarkOn">Force Dark: ON</string>
+    <string name="ForceDarkOff">Force Dark : OFF</string>
     <string name="refresh">Refresh</string>
     <string name="DarkMode">Dark Mode</string>
+    <string name="ForceDark">Force Dark</string>
     <string name="Method1">Method 1</string>
     <string name="Method2">Method 2</string>
     <string name="Method3">Method 3 (Root)</string>

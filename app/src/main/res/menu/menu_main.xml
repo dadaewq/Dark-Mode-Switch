@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.modosa.switchnightui.MainActivity">
+    tools:context="com.modosa.switchnightui.activity.MainActivity">
     <item
         android:id="@+id/switchcarmode"
         android:orderInCategory="10"
@@ -13,9 +13,9 @@
         android:title="@string/StableModeOff"
         app:showAsAction="never" />
     <item
-        android:id="@+id/force_dark"
+        android:id="@+id/switchforcedark"
         android:orderInCategory="30"
-        android:title="@string/force_darkOff"
+        android:title="@string/ForceDarkOff"
         android:visible="false"
         app:showAsAction="never" />
     <item

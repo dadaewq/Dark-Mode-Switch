@@ -1,4 +1,4 @@
-package com.modosa.switchnightui;
+package com.modosa.switchnightui.activity;
 
 import android.app.UiModeManager;
 import android.content.res.Configuration;
@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.uitl.SpUtil;
 import com.modosa.switchnightui.uitl.SwitchUtil;
 import com.modosa.switchnightui.uitl.WriteSettingsUtil;
@@ -122,12 +123,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            MenuItem forceDark = menu.findItem(R.id.force_dark);
+            MenuItem forceDark = menu.findItem(R.id.switchforcedark);
             forceDark.setVisible(true);
             if (switchUtil.isForceDark()) {
-                forceDark.setTitle(getString(R.string.force_darkOn));
+                forceDark.setTitle(getString(R.string.ForceDarkOn));
             } else {
-                forceDark.setTitle(getString(R.string.force_darkOff));
+                forceDark.setTitle(getString(R.string.ForceDarkOff));
             }
         }
 
@@ -171,14 +172,22 @@ public class MainActivity extends AppCompatActivity {
                 item.setTitle(R.string.StableModeOff);
             }
             return true;
-        } else if (id == R.id.force_dark) {
+        } else if (id == R.id.switchforcedark) {
 
-            if (switchUtil.switchForceDark()) {
-                item.setTitle(R.string.force_darkOn);
+            boolean isSu = switchUtil.switchForceDark();
+            String msg = isSu ? "" : (getString(R.string.no_root) + "\n");
+
+            boolean isForceDark = switchUtil.isForceDark();
+
+            if (isForceDark) {
+                item.setTitle(getString(R.string.ForceDarkOn));
+                switchUtil.showToast(msg + getString(R.string.ForceDarkOn));
             } else {
-                item.setTitle(R.string.force_darkOff);
+                item.setTitle(getString(R.string.ForceDarkOff));
+                switchUtil.showToast(msg + getString(R.string.ForceDarkOff));
             }
             return true;
+
         }
         return super.onOptionsItemSelected(item);
     }

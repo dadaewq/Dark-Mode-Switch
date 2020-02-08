@@ -113,28 +113,13 @@ public class SwitchUtil {
 
         boolean isforce = isForceDark();
         if ("0".equals(checkRoot[3])) {
-
             ShellUtil.execWithRoot(setforce + !isforce);
-            if (isForceDark()) {
-                showToast(context.getString(R.string.force_darkOn));
-                return true;
-            } else {
-                showToast(context.getString(R.string.force_darkOff));
-                return false;
-            }
+
+            return true;
         } else {
             ShellUtil.exec(setforce + !isforce, false);
 
-            String msg = context.getString(R.string.no_root);
-            if (isForceDark()) {
-                msg += "\n" + context.getString(R.string.force_darkOn);
-                showToast(msg);
-                return true;
-            } else {
-                msg += "\n" + context.getString(R.string.force_darkOff);
-                showToast(msg);
-                return false;
-            }
+            return false;
         }
 
     }

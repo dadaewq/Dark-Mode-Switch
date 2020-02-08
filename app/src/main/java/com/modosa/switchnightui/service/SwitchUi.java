@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author dadaewq
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class SwitchUI extends TileService {
+public class SwitchUi extends TileService {
     private SpUtil spUtil;
     private SwitchUtil switchUtil;
 
@@ -41,12 +41,12 @@ public class SwitchUI extends TileService {
         if (Objects.requireNonNull(uiModeManager).getNightMode() == WriteSettingsUtil.YES) {
             want = WriteSettingsUtil.NO;
         }
-        switchui(want);
+        switchUi(want);
 
         refreshState();
     }
 
-    private void switchui(int want) {
+    private void switchUi(int want) {
         String msg = "";
         int method = spUtil.getMethod();
         if (method == 2) {
