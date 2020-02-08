@@ -64,10 +64,10 @@ class CheckUtil {
 //        int currentNightMode = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
 //        switch (currentNightMode) {
 //            case Configuration.UI_MODE_NIGHT_NO:
-//                Log.e("no", Configuration.UI_MODE_NIGHT_NO + "");
+//                Log.e("NO", Configuration.UI_MODE_NIGHT_NO + "");
 //                break;
 //            case Configuration.UI_MODE_NIGHT_YES:
-//                Log.e("yes", Configuration.UI_MODE_NIGHT_YES + "");
+//                Log.e("YES", Configuration.UI_MODE_NIGHT_YES + "");
 //                break;
 //        }
 //    }

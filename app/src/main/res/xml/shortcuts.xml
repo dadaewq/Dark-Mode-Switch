@@ -2,7 +2,7 @@
     <shortcut
         android:enabled="true"
         android:icon="@drawable/ic_brightness_2_black_24dp"
-        android:shortcutId="changeUI1"
+        android:shortcutId="SwitchUI"
         android:shortcutLongLabel="@string/app_name"
         android:shortcutShortLabel="@string/action_switch">
         <intent

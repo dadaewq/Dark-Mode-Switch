@@ -6,10 +6,10 @@ android {
     defaultConfig {
         resConfig 'zh'
         applicationId "com.modosa.switchnightui"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 29
-        versionCode 10
-        versionName "1.6"
+        versionCode 14
+        versionName "1.81"
     }
     buildTypes {
         release {
@@ -17,6 +17,10 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
@@ -28,4 +32,5 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.0.0'
 }

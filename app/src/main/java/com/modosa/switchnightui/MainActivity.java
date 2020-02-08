@@ -1,132 +1,228 @@
 package com.modosa.switchnightui;
 
 import android.app.UiModeManager;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.modosa.switchnightui.uitl.SpUtil;
+import com.modosa.switchnightui.uitl.SwitchUtil;
+import com.modosa.switchnightui.uitl.WriteSettingsUtil;
+
 
 /**
  * @author dadaewq
  */
 public class MainActivity extends AppCompatActivity {
 
-    private final int yes = UiModeManager.MODE_NIGHT_YES;
-    private final int no = UiModeManager.MODE_NIGHT_NO;
+    private SwitchUtil switchUtil;
+    private SpUtil spUtil;
     private TextView status;
     private UiModeManager uiModeManager;
-
+    private RadioGroup radioGroup1;
+    private int want = -1;
+    private boolean isstablemode;
+    private RadioButton on, off;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
-
-        uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
-
-        status = findViewById(R.id.textView);
-        Button button1 = findViewById(R.id.change1);
-        Button button2 = findViewById(R.id.change2);
-
-        status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, getString(R.string.switchcaremode), Toast.LENGTH_SHORT).show();
-                if (Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType()) {
-                    uiModeManager.disableCarMode(0);
-                } else {
-                    uiModeManager.enableCarMode(2);
-                }
-            }
-        });
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeUI1();
-                refreshStatus();
-            }
-        });
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeUI2();
-                refreshStatus();
-            }
-        });
+        setView();
+        setListener();
         refreshStatus();
     }
 
+    private void setView() {
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        spUtil = new SpUtil(this);
+        if (spUtil.isStableMode()) {
+            setTitle("* " + getString(R.string.app_name));
+
+        } else {
+            setTitle(getString(R.string.app_name));
+
+        }
+        on = findViewById(R.id.on);
+        off = findViewById(R.id.off);
+
+
+        uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
+        switchUtil = new SwitchUtil(this, uiModeManager);
+        radioGroup1 = findViewById(R.id.radioGroup1);
+
+        RadioButton radioButton2 = findViewById(R.id.radioButton2);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            radioButton2.append(" (" + getString(R.string.tips_method2) + ")");
+        }
+        int checked = spUtil.getMethod();
+
+        switch (checked) {
+            case 2:
+                radioGroup1.check(R.id.radioButton2);
+                break;
+            case 3:
+                radioGroup1.check(R.id.radioButton3);
+                break;
+            default:
+                radioGroup1.check(R.id.radioButton1);
+        }
+    }
+
+    private void setListener() {
+        radioGroup1.setOnCheckedChangeListener((group, checkedId) -> {
+            int method;
+            switch (checkedId) {
+                case R.id.radioButton2:
+                    method = 2;
+                    break;
+                case R.id.radioButton3:
+                    method = 3;
+                    break;
+                default:
+                    method = 1;
+            }
+            spUtil.putMethod(method);
+
+        });
+
+        on.setOnClickListener(v -> {
+            want = WriteSettingsUtil.YES;
+            switchui();
+        });
+
+        off.setOnClickListener(v -> {
+            want = WriteSettingsUtil.NO;
+            switchui();
+        });
+
+        status = findViewById(R.id.textView);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            MenuItem forceDark = menu.findItem(R.id.force_dark);
+            forceDark.setVisible(true);
+            if (switchUtil.isForceDark()) {
+                forceDark.setTitle(getString(R.string.force_darkOn));
+            } else {
+                forceDark.setTitle(getString(R.string.force_darkOff));
+            }
+        }
+
+        MenuItem menuItem2 = menu.findItem(R.id.switchstablemode);
+        if (spUtil.isStableMode()) {
+            isstablemode = true;
+            menuItem2.setTitle(R.string.StableModeOn);
+        } else {
+            isstablemode = false;
+            menuItem2.setTitle(R.string.StableModeOff);
+        }
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.refresh) {
+            recreate();
+
+        } else if (id == R.id.switchcarmode) {
+            switchUtil.showToast(getString(R.string.switchcarmode));
+            if (Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType()) {
+                uiModeManager.disableCarMode(0);
+            } else {
+                uiModeManager.enableCarMode(2);
+            }
+            return true;
+        } else if (id == R.id.switchstablemode) {
+
+            spUtil.switchStableMode(isstablemode);
+
+            if (spUtil.isStableMode()) {
+                switchUtil.showToast(getString(R.string.StableModeOn));
+                setTitle("* " + getString(R.string.app_name));
+                item.setTitle(R.string.StableModeOn);
+            } else {
+                switchUtil.showToast(getString(R.string.StableModeOff));
+                setTitle(getString(R.string.app_name));
+                item.setTitle(R.string.StableModeOff);
+            }
+            return true;
+        } else if (id == R.id.force_dark) {
+
+            if (switchUtil.switchForceDark()) {
+                item.setTitle(R.string.force_darkOn);
+            } else {
+                item.setTitle(R.string.force_darkOff);
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void switchui() {
+        String msg = "";
+        if (want != WriteSettingsUtil.NO) {
+            want = WriteSettingsUtil.YES;
+        }
+        switch (radioGroup1.getCheckedRadioButtonId()) {
+            case R.id.radioButton2:
+                switchUtil.switch2(want);
+                break;
+            case R.id.radioButton3:
+                if (switchUtil.switch3(want)) {
+                    msg = getString(R.string.no_root);
+                }
+                break;
+            default:
+                if (switchUtil.switch1(want)) {
+                    msg = String.format(getString(R.string.failmethod), "1");
+                }
+        }
+        if (!"".equals(msg)) {
+            switchUtil.showToast(msg);
+        }
+        refreshStatus();
+    }
 
     private void refreshStatus() {
-        if (WriteSettingsUtil.isNightMode(this)) {
+        if (uiModeManager.getNightMode() == WriteSettingsUtil.YES) {
             status.setText(R.string.DarkModeOn);
+            if (!WriteSettingsUtil.isNightMode(this)) {
+                status.append("*");
+            }
+            on.setChecked(true);
         } else {
             status.setText(R.string.DarkModeOff);
-        }
-    }
-
-
-    private void changeUI1() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            uiModeManager.enableCarMode(2);
+            if (WriteSettingsUtil.isNightMode(this)) {
+                status.append("*");
+            }
+            off.setChecked(true);
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                int i = yes;
-                if (uiModeManager.getNightMode() == yes) {
-                    i = no;
-                }
-                uiModeManager.setNightMode(i);
-                if (uiModeManager.getNightMode() == i) {
-                    showToast(getString(R.string.yes1));
-                } else {
-                    showToast(getString(R.string.no1));
-                }
-            }
-        }, 0);
-    }
-
-    private void changeUI2() {
-        WriteSettingsUtil.putKey(this, new WriteSettingsUtil.OnEnableAccessibilityListener() {
-            @Override
-            public void onSuccess(String t) {
-                showToast(t);
-            }
-
-            @Override
-            public void onFailed(String t) {
-                if (t.contains("WRITE_SECURE_SETTINGS")) {
-                    String CMD = "adb shell pm grant " + getPackageName() + " android.permission.WRITE_SECURE_SETTINGS";
-                    copyCMD(CMD);
-                    showToast(String.format(getString(R.string.needpermission), CMD));
-
-                } else {
-                    showToast(t);
-                }
-            }
-        });
-
-    }
-
-    private void showToast(final String text) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -135,11 +231,20 @@ public class MainActivity extends AppCompatActivity {
         refreshStatus();
     }
 
-    private void copyCMD(CharSequence text) {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clipData = ClipData.newPlainText(null, text);
-        assert clipboard != null;
-        clipboard.setPrimaryClip(clipData);
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newconfig) {
+        super.onConfigurationChanged(newconfig);
+        if (spUtil.isStableMode()) {
+            if (off.isChecked()) {
+                want = 1;
+            } else {
+                want = 2;
+            }
+            switchui();
+        } else {
+            recreate();
+        }
+        refreshStatus();
     }
 
 }

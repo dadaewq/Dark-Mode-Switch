@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.modosa.switchnightui.MainActivity">
+    <item
+        android:id="@+id/switchcarmode"
+        android:orderInCategory="10"
+        android:title="@string/switchcarmode"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/switchstablemode"
+        android:orderInCategory="20"
+        android:title="@string/StableModeOff"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/force_dark"
+        android:orderInCategory="30"
+        android:title="@string/force_darkOff"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/refresh"
+        android:orderInCategory="40"
+        android:title="@string/refresh"
+        app:showAsAction="never" />
+
+</menu>

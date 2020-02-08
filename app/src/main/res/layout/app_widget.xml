@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/widget_margin">
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/appwidget_text"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_centerVertical="true"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:background="#09C"-->
+    <!--        android:contentDescription="@string/appwidget_text"-->
+    <!--        android:text="@string/appwidget_text"-->
+    <!--        android:textColor="#ffffff"-->
+    <!--        android:textSize="24sp"-->
+    <!--        android:textStyle="bold|italic" />-->
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_brightness_2_black_24dp">
+
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/action_switch"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
+
+
+</RelativeLayout>
