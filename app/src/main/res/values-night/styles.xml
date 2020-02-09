@@ -1,8 +1,0 @@
-<resources>
-
-    <style name="AppTheme" parent="Theme.MaterialComponents.Dialog">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:colorBackground">@color/Background</item>
-    </style>
-</resources>
