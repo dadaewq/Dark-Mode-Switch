@@ -20,7 +20,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/refresh"
-        android:orderInCategory="40"
+        android:orderInCategory="50"
         android:title="@string/refresh"
         app:showAsAction="never" />
 

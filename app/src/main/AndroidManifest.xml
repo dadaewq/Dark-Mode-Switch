@@ -77,6 +77,7 @@
         </activity>
         <activity
             android:name=".activity.SwitchForceDarkActivity"
+            android:configChanges="uiMode"
             android:exported="true"
             android:label="@string/switchforcedark"
             android:launchMode="singleInstance"

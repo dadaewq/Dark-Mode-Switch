@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.modosa.switchnightui.R;
+import com.modosa.switchnightui.uitl.OpUtil;
 import com.modosa.switchnightui.uitl.SwitchUtil;
 
 /**
@@ -16,12 +17,13 @@ import com.modosa.switchnightui.uitl.SwitchUtil;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class SwitchForceDark extends TileService {
 
+    private OpUtil opUtil;
     private SwitchUtil switchUtil;
 
     @Override
     public void onStartListening() {
         super.onStartListening();
-
+        opUtil = new OpUtil(this);
         switchUtil = new SwitchUtil(this, null);
         refreshState();
     }
@@ -30,15 +32,27 @@ public class SwitchForceDark extends TileService {
     public void onClick() {
         super.onClick();
 
-        switchForceDark(switchUtil);
+        switchForceDark();
         refreshState();
     }
 
-    private void switchForceDark(SwitchUtil switchUtil) {
-        boolean isSu = switchUtil.switchForceDark();
-        String msg = isSu ? "" : (getString(R.string.no_root) + "\n");
-        boolean isForceDark = switchUtil.isForceDark();
-
+    private void switchForceDark() {
+        String msg = "";
+        boolean isSu, isForceDark;
+        if (opUtil.isOp()) {
+            isSu = opUtil.switchForceDark();
+            if (!isSu) {
+                switchUtil.showToast(getString(R.string.no_root));
+                return;
+            }
+            isForceDark = opUtil.isForceDark();
+        } else {
+            isSu = switchUtil.switchForceDark();
+            if (!isSu) {
+                msg = getString(R.string.no_root) + "\n";
+            }
+            isForceDark = switchUtil.isForceDark();
+        }
         if (isForceDark) {
             switchUtil.showToast(msg + getString(R.string.ForceDarkOn));
         } else {
@@ -49,7 +63,13 @@ public class SwitchForceDark extends TileService {
     private void refreshState() {
         Tile qsTile = getQsTile();
         try {
-            if (switchUtil.isForceDark()) {
+            boolean isForceDark;
+            if (opUtil.isOp()) {
+                isForceDark = opUtil.isForceDark();
+            } else {
+                isForceDark = switchUtil.isForceDark();
+            }
+            if (isForceDark) {
                 qsTile.setState(Tile.STATE_ACTIVE);
             } else {
                 qsTile.setState(Tile.STATE_INACTIVE);

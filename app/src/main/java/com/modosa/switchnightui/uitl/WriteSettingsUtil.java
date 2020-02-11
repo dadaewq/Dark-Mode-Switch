@@ -15,7 +15,7 @@ import com.modosa.switchnightui.R;
 public class WriteSettingsUtil {
     public static final int YES = UiModeManager.MODE_NIGHT_YES;
     public static final int NO = UiModeManager.MODE_NIGHT_NO;
-    private static final String KEY_MODE = "ui_night_mode";
+    private static final String KEY_NIGHT_MODE = "ui_night_mode";
 
     /**
      * need permission {@link android.Manifest.permission#WRITE_SECURE_SETTINGS},
@@ -26,7 +26,7 @@ public class WriteSettingsUtil {
 
         try {
             mNightMode = Settings.Secure.getInt(context.getContentResolver(),
-                    WriteSettingsUtil.KEY_MODE, -1);
+                    WriteSettingsUtil.KEY_NIGHT_MODE, -1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,7 +37,7 @@ public class WriteSettingsUtil {
     static void putKey(Context context, int nightmode, OnEnableAccessibilityListener listener) {
         String msg;
         try {
-            if (Settings.Secure.putInt(context.getContentResolver(), KEY_MODE, nightmode)) {
+            if (Settings.Secure.putInt(context.getContentResolver(), KEY_NIGHT_MODE, nightmode)) {
                 msg = String.format(
                         Build.VERSION.SDK_INT < Build.VERSION_CODES.M ?
                                 context.getString(R.string.yes2old) : context.getString(R.string.yes2),

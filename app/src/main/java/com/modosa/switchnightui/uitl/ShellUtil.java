@@ -111,6 +111,10 @@ class ShellUtil {
         return exec(cmd, true);
     }
 
+    static String[] execWithRoot(final List<String> cmds) {
+        return exec(cmds, true);
+    }
+
     private interface Output {
         void output(String text);
     }

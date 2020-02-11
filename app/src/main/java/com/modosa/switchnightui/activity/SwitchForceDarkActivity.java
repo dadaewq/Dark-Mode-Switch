@@ -10,12 +10,17 @@ import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 
 import com.modosa.switchnightui.R;
+import com.modosa.switchnightui.uitl.OpUtil;
 import com.modosa.switchnightui.uitl.SwitchUtil;
 
 /**
  * @author dadaewq
  */
 public class SwitchForceDarkActivity extends Activity {
+
+    private OpUtil opUtil;
+    private SwitchUtil switchUtil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,18 +28,31 @@ public class SwitchForceDarkActivity extends Activity {
         if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             createShortCut();
         } else {
-            SwitchUtil switchUtil = new SwitchUtil(this, null);
-            switchForceDark(switchUtil);
+            opUtil = new OpUtil(this);
+            switchUtil = new SwitchUtil(this, null);
+            switchForceDark();
             finish();
         }
     }
 
-    private void switchForceDark(SwitchUtil switchUtil) {
-        boolean isSu = switchUtil.switchForceDark();
-        String msg = isSu ? "" : (getString(R.string.no_root) + "\n");
+    private void switchForceDark() {
 
-        boolean isForceDark = switchUtil.isForceDark();
-
+        String msg = "";
+        boolean isSu, isForceDark;
+        if (opUtil.isOp()) {
+            isSu = opUtil.switchForceDark();
+            if (!isSu) {
+                switchUtil.showToast(getString(R.string.no_root));
+                return;
+            }
+            isForceDark = opUtil.isForceDark();
+        } else {
+            isSu = switchUtil.switchForceDark();
+            if (!isSu) {
+                msg = getString(R.string.no_root) + "\n";
+            }
+            isForceDark = switchUtil.isForceDark();
+        }
         if (isForceDark) {
             switchUtil.showToast(msg + getString(R.string.ForceDarkOn));
         } else {

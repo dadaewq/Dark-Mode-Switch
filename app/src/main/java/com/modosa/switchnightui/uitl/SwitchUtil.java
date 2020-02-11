@@ -18,6 +18,9 @@ import java.util.Objects;
  */
 public class SwitchUtil {
 
+    private static final String SERVICE_CALL_UIMODE = "service call uimode 4 i32 ";
+    private static final String CMD_GET_FORCE_DARK = "getprop debug.hwui.force_dark";
+    private static final String CMD_SET_FORCE_DARK = "setprop debug.hwui.force_dark ";
     private final UiModeManager uiModeManager;
     private final Context context;
 
@@ -84,7 +87,7 @@ public class SwitchUtil {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             uiModeManager.enableCarMode(2);
         }
-        String cmd = "service call uimode 4 i32 " + nightmode;
+        String cmd = CMD_SET_FORCE_DARK + nightmode;
 
         String[] checkRoot = ShellUtil.execWithRoot("exit");
 
@@ -99,25 +102,23 @@ public class SwitchUtil {
     }
 
     public boolean isForceDark() {
-        String getforce = "getprop debug.hwui.force_dark";
-        String[] result = ShellUtil.exec(getforce, false);
+        String[] result = ShellUtil.exec(CMD_GET_FORCE_DARK, false);
 
         return Boolean.valueOf(result[0]);
     }
 
 
     public boolean switchForceDark() {
-        String setforce = "setprop debug.hwui.force_dark ";
 
         String[] checkRoot = ShellUtil.execWithRoot("exit");
 
         boolean isforce = isForceDark();
         if ("0".equals(checkRoot[3])) {
-            ShellUtil.execWithRoot(setforce + !isforce);
+            ShellUtil.execWithRoot(CMD_SET_FORCE_DARK + !isforce);
 
             return true;
         } else {
-            ShellUtil.exec(setforce + !isforce, false);
+            ShellUtil.exec(CMD_SET_FORCE_DARK + !isforce, false);
 
             return false;
         }

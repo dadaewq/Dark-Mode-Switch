@@ -4,6 +4,7 @@ import android.app.UiModeManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RadioButton;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.modosa.switchnightui.R;
+import com.modosa.switchnightui.uitl.OpUtil;
 import com.modosa.switchnightui.uitl.SpUtil;
 import com.modosa.switchnightui.uitl.SwitchUtil;
 import com.modosa.switchnightui.uitl.WriteSettingsUtil;
@@ -25,6 +27,7 @@ import com.modosa.switchnightui.uitl.WriteSettingsUtil;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private OpUtil opUtil;
     private SwitchUtil switchUtil;
     private SpUtil spUtil;
     private TextView status;
@@ -32,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup radioGroup1;
     private int want = -1;
     private boolean isstablemode;
+    private boolean isop;
     private RadioButton on, off;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        isop = Settings.Secure.getInt(getContentResolver(), "op_force_dark_entire_world", -2) != -2;
         setView();
         setListener();
         refreshStatus();
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        opUtil = new OpUtil(this);
+        isop = opUtil.isOp();
         spUtil = new SpUtil(this);
         if (spUtil.isStableMode()) {
             setTitle("* " + getString(R.string.app_name));
@@ -125,10 +131,16 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             MenuItem forceDark = menu.findItem(R.id.switchforcedark);
             forceDark.setVisible(true);
-            if (switchUtil.isForceDark()) {
-                forceDark.setTitle(getString(R.string.ForceDarkOn));
+            boolean isForceDark;
+            if (isop) {
+                isForceDark = opUtil.isForceDark();
             } else {
-                forceDark.setTitle(getString(R.string.ForceDarkOff));
+                isForceDark = switchUtil.isForceDark();
+            }
+            if (isForceDark) {
+                forceDark.setTitle(R.string.ForceDarkOn);
+            } else {
+                forceDark.setTitle(R.string.ForceDarkOff);
             }
         }
 
@@ -174,18 +186,31 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.switchforcedark) {
 
-            boolean isSu = switchUtil.switchForceDark();
-            String msg = isSu ? "" : (getString(R.string.no_root) + "\n");
-
-            boolean isForceDark = switchUtil.isForceDark();
+            boolean isSu, isForceDark;
+            String msg = "";
+            if (isop) {
+                isSu = opUtil.switchForceDark();
+                if (!isSu) {
+                    switchUtil.showToast(getString(R.string.no_root));
+                    return true;
+                }
+                isForceDark = opUtil.isForceDark();
+            } else {
+                isSu = switchUtil.switchForceDark();
+                if (!isSu) {
+                    msg = getString(R.string.no_root) + "\n";
+                }
+                isForceDark = switchUtil.isForceDark();
+            }
 
             if (isForceDark) {
-                item.setTitle(getString(R.string.ForceDarkOn));
+                item.setTitle(R.string.ForceDarkOn);
                 switchUtil.showToast(msg + getString(R.string.ForceDarkOn));
             } else {
-                item.setTitle(getString(R.string.ForceDarkOff));
+                item.setTitle(R.string.ForceDarkOff);
                 switchUtil.showToast(msg + getString(R.string.ForceDarkOff));
             }
+
             return true;
 
         }
