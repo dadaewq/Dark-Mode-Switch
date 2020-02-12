@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isop = Settings.Secure.getInt(getContentResolver(), "op_force_dark_entire_world", -2) != -2;
+        isop = Settings.Secure.getInt(getContentResolver(), OpUtil.KEY_OP_FORCE_DARK_ENTIRE_WORLD, -2) != -2;
         setView();
         setListener();
         refreshStatus();

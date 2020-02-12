@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
  */
 public class SpUtil {
     private final String stablemode = "stablemode";
-    private final String op_force_dark_entire_world = "op_force_dark_entire_world";
     private final SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 

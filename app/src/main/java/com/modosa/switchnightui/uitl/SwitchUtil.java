@@ -18,7 +18,7 @@ import java.util.Objects;
  */
 public class SwitchUtil {
 
-    private static final String SERVICE_CALL_UIMODE = "service call uimode 4 i32 ";
+    static final String SERVICE_CALL_UIMODE = "service call uimode 4 i32 ";
     private static final String CMD_GET_FORCE_DARK = "getprop debug.hwui.force_dark";
     private static final String CMD_SET_FORCE_DARK = "setprop debug.hwui.force_dark ";
     private final UiModeManager uiModeManager;
@@ -87,7 +87,7 @@ public class SwitchUtil {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             uiModeManager.enableCarMode(2);
         }
-        String cmd = CMD_SET_FORCE_DARK + nightmode;
+        String cmd = SERVICE_CALL_UIMODE + nightmode;
 
         String[] checkRoot = ShellUtil.execWithRoot("exit");
 

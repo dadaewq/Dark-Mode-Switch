@@ -23,20 +23,18 @@ public class SwitchForceDark extends TileService {
     @Override
     public void onStartListening() {
         super.onStartListening();
-        opUtil = new OpUtil(this);
-        switchUtil = new SwitchUtil(this, null);
         refreshState();
     }
 
     @Override
     public void onClick() {
         super.onClick();
-
         switchForceDark();
         refreshState();
     }
 
     private void switchForceDark() {
+        refreshUtil();
         String msg = "";
         boolean isSu, isForceDark;
         if (opUtil.isOp()) {
@@ -61,6 +59,7 @@ public class SwitchForceDark extends TileService {
     }
 
     private void refreshState() {
+        refreshUtil();
         Tile qsTile = getQsTile();
         try {
             boolean isForceDark;
@@ -82,4 +81,12 @@ public class SwitchForceDark extends TileService {
 
     }
 
+    private void refreshUtil() {
+        if (opUtil == null) {
+            opUtil = new OpUtil(this);
+        }
+        if (switchUtil == null) {
+            switchUtil = new SwitchUtil(this, null);
+        }
+    }
 }
