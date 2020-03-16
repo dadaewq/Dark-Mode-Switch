@@ -99,7 +99,7 @@ public class SwitchUiActivity extends Activity {
         } else {
             msg += getString(R.string.DarkModeOff);
         }
-        switchUtil.showToast(msg);
+        switchUtil.showToast0(msg);
     }
 
     @Override

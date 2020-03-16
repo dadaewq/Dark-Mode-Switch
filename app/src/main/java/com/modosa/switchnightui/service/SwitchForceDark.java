@@ -40,7 +40,7 @@ public class SwitchForceDark extends TileService {
         if (opUtil.isOp()) {
             isSu = opUtil.switchForceDark();
             if (!isSu) {
-                switchUtil.showToast(getString(R.string.no_root));
+                switchUtil.showToast0(R.string.no_root);
                 return;
             }
             isForceDark = opUtil.isForceDark();
@@ -52,9 +52,9 @@ public class SwitchForceDark extends TileService {
             isForceDark = switchUtil.isForceDark();
         }
         if (isForceDark) {
-            switchUtil.showToast(msg + getString(R.string.ForceDarkOn));
+            switchUtil.showToast0(msg + getString(R.string.ForceDarkOn));
         } else {
-            switchUtil.showToast(msg + getString(R.string.ForceDarkOff));
+            switchUtil.showToast0(msg + getString(R.string.ForceDarkOff));
         }
     }
 

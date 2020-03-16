@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">深色模式切换</string>
+    <string name="title_instructions_before_use">用前须知</string>
+    <string name="tv_instructions_before_use">\n本应用的深色模式只是切换Android系统的一个UI状态\n深色模式下的显示需要应用自己适配(系统界面同理)\n有没有适配和适配的情况与本应用无关\n\n方法1可用性由系统决定\n方法2需要授权\n方法3需要Root\n\nAndroid 10及以上可用Root尝试切换强制深色</string>
+    <string name="checkbox1_instructions_before_use">我已经充分知晓</string>
+    <string name="checkbox2_instructions_before_use">不再提示</string>
     <string name="action_switch">切换</string>
     <string name="DarkModeOn">深色模式：已开启</string>
     <string name="DarkModeOff">深色模式：已关闭</string>
     <string name="switchcarmode">切换驾驶模式</string>
     <string name="switchforcedark">强制深色切换</string>
     <string name="StableModeOn">稳定模式：已开启 *</string>
+    <string name="tip_StableModeOn">\n每次点击刷新才可让本App主题跟随系统</string>
     <string name="StableModeOff">稳定模式：已关闭</string>
     <string name="ForceDarkOn">强制深色：已开启</string>
     <string name="ForceDarkOff">强制深色：已关闭</string>

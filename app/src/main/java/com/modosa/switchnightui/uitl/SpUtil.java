@@ -30,6 +30,26 @@ public class SpUtil {
     }
 
 
+    public boolean getBoolean(String key) {
+        return sharedPreferences.getBoolean(key, false);
+    }
+
+    public void putBoolean(String key, boolean value) {
+        editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
+    public String getString(String key) {
+        return sharedPreferences.getString(key, null);
+    }
+
+    public void putString(String key, String value) {
+        editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
     public void switchStableMode(boolean isstablemode) {
         editor = sharedPreferences.edit();
         if (isstablemode) {

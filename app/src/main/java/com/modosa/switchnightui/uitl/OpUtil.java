@@ -1,13 +1,19 @@
 package com.modosa.switchnightui.uitl;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.provider.Settings;
+import android.view.Window;
+
+import com.modosa.switchnightui.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OpUtil {
-    public static final String KEY_OP_FORCE_DARK_ENTIRE_WORLD = "op_force_dark_entire_world";
+    private static final String KEY_OP_FORCE_DARK_ENTIRE_WORLD = "op_force_dark_entire_world";
     private static final String KEY_AOSP_FORCE_DARK_MODE = "aosp_force_dark_mode";
     private static final String KEY_OP_FORCE_DARK_MODE = "op_force_dark_mode";
     private static final String CMD_SETTINGS_PUT_SECURE = "settings put secure ";
@@ -17,6 +23,19 @@ public class OpUtil {
 
     public OpUtil(Context context) {
         this.context = context;
+    }
+
+    public static void showAlertDialog(Context context, AlertDialog alertDialog) {
+        Window window = alertDialog.getWindow();
+        if (window != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                window.setBackgroundDrawable(new ColorDrawable(context.getResources().getColor(R.color.Background, null)));
+            } else {
+
+                window.setBackgroundDrawable(new ColorDrawable(context.getResources().getColor(R.color.Background)));
+            }
+        }
+        alertDialog.show();
     }
 
     public boolean isOp() {

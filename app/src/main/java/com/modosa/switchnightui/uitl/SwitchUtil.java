@@ -64,7 +64,7 @@ public class SwitchUtil {
                         return;
                     }
                 }
-                showToast(t);
+                showToast0(t);
             }
 
             @Override
@@ -72,10 +72,10 @@ public class SwitchUtil {
                 if (t.contains("WRITE_SECURE_SETTINGS")) {
                     String cmd = "adb shell pm grant " + context.getPackageName() + " android.permission.WRITE_SECURE_SETTINGS";
                     copyCmd(cmd);
-                    showToast(String.format(context.getString(R.string.needpermission), cmd));
+                    showToast0(String.format(context.getString(R.string.needpermission), cmd));
 
                 } else {
-                    showToast(t);
+                    showToast0(t);
                 }
             }
         });
@@ -84,6 +84,7 @@ public class SwitchUtil {
 
 
     public boolean switch3(int nightmode) {
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             uiModeManager.enableCarMode(2);
         }
@@ -104,7 +105,7 @@ public class SwitchUtil {
     public boolean isForceDark() {
         String[] result = ShellUtil.exec(CMD_GET_FORCE_DARK, false);
 
-        return Boolean.valueOf(result[0]);
+        return Boolean.parseBoolean(result[0]);
     }
 
 
@@ -133,8 +134,11 @@ public class SwitchUtil {
         clipboard.setPrimaryClip(clipData);
     }
 
-    public void showToast(final String text) {
+    public void showToast0(final String text) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
+    public void showToast0(final int stringId) {
+        Toast.makeText(context, stringId, Toast.LENGTH_SHORT).show();
+    }
 }

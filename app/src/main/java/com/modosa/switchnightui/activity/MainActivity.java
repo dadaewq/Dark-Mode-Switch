@@ -1,12 +1,16 @@
 package com.modosa.switchnightui.activity;
 
+import android.app.AlertDialog;
 import android.app.UiModeManager;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -27,6 +31,7 @@ import com.modosa.switchnightui.uitl.WriteSettingsUtil;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private final static String confirmPrompt = "ConfirmPrompt";
     private OpUtil opUtil;
     private SwitchUtil switchUtil;
     private SpUtil spUtil;
@@ -35,16 +40,30 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup radioGroup1;
     private int want = -1;
     private boolean isstablemode;
-    private boolean isop;
+    private boolean isOnePlus;
     private RadioButton on, off;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isop = Settings.Secure.getInt(getContentResolver(), OpUtil.KEY_OP_FORCE_DARK_ENTIRE_WORLD, -2) != -2;
+        init();
+        confirmPrompt();
         setView();
         setListener();
         refreshStatus();
+    }
+
+    private void init() {
+        opUtil = new OpUtil(this);
+        spUtil = new SpUtil(this);
+        isOnePlus = opUtil.isOp();
+    }
+
+    private void confirmPrompt() {
+        if (!spUtil.getBoolean(confirmPrompt)) {
+            showDialogConfirmPrompt();
+        }
     }
 
     private void setView() {
@@ -52,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        opUtil = new OpUtil(this);
-        isop = opUtil.isOp();
-        spUtil = new SpUtil(this);
+
         if (spUtil.isStableMode()) {
             setTitle("* " + getString(R.string.app_name));
 
@@ -132,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             MenuItem forceDark = menu.findItem(R.id.switchforcedark);
             forceDark.setVisible(true);
             boolean isForceDark;
-            if (isop) {
+            if (isOnePlus) {
                 isForceDark = opUtil.isForceDark();
             } else {
                 isForceDark = switchUtil.isForceDark();
@@ -163,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             recreate();
 
         } else if (id == R.id.switchcarmode) {
-            switchUtil.showToast(getString(R.string.switchcarmode));
+            switchUtil.showToast0(R.string.switchcarmode);
             if (Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType()) {
                 uiModeManager.disableCarMode(0);
             } else {
@@ -175,11 +192,11 @@ public class MainActivity extends AppCompatActivity {
             spUtil.switchStableMode(isstablemode);
 
             if (spUtil.isStableMode()) {
-                switchUtil.showToast(getString(R.string.StableModeOn));
+                switchUtil.showToast0(getString(R.string.StableModeOn) + getString(R.string.tip_StableModeOn));
                 setTitle("* " + getString(R.string.app_name));
                 item.setTitle(R.string.StableModeOn);
             } else {
-                switchUtil.showToast(getString(R.string.StableModeOff));
+                switchUtil.showToast0(R.string.StableModeOff);
                 setTitle(getString(R.string.app_name));
                 item.setTitle(R.string.StableModeOff);
             }
@@ -188,10 +205,10 @@ public class MainActivity extends AppCompatActivity {
 
             boolean isSu, isForceDark;
             String msg = "";
-            if (isop) {
+            if (isOnePlus) {
                 isSu = opUtil.switchForceDark();
                 if (!isSu) {
-                    switchUtil.showToast(getString(R.string.no_root));
+                    switchUtil.showToast0(R.string.no_root);
                     return true;
                 }
                 isForceDark = opUtil.isForceDark();
@@ -205,14 +222,19 @@ public class MainActivity extends AppCompatActivity {
 
             if (isForceDark) {
                 item.setTitle(R.string.ForceDarkOn);
-                switchUtil.showToast(msg + getString(R.string.ForceDarkOn));
+                switchUtil.showToast0(msg + getString(R.string.ForceDarkOn));
             } else {
                 item.setTitle(R.string.ForceDarkOff);
-                switchUtil.showToast(msg + getString(R.string.ForceDarkOff));
+                switchUtil.showToast0(msg + getString(R.string.ForceDarkOff));
             }
 
             return true;
 
+        } else if (id == R.id.timeup) {
+            Intent intent = new Intent(Intent.ACTION_VIEW)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .setClass(this, TimeUpActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -237,9 +259,50 @@ public class MainActivity extends AppCompatActivity {
                 }
         }
         if (!"".equals(msg)) {
-            switchUtil.showToast(msg);
+            switchUtil.showToast0(msg);
         }
         refreshStatus();
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (alertDialog != null) {
+            alertDialog.dismiss();
+        }
+    }
+
+    private void showDialogConfirmPrompt() {
+
+        View checkBoxView = View.inflate(this, R.layout.confirm_checkbox, null);
+
+        CheckBox checkBox1 = checkBoxView.findViewById(R.id.confirm_checkbox1);
+        CheckBox checkBox2 = checkBoxView.findViewById(R.id.confirm_checkbox2);
+        checkBox1.setText(R.string.checkbox1_instructions_before_use);
+        checkBox2.setText(R.string.checkbox2_instructions_before_use);
+        checkBox2.setEnabled(false);
+        checkBox1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            checkBox2.setChecked(false);
+            checkBox2.setEnabled(isChecked);
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(R.string.title_instructions_before_use)
+                .setView(checkBoxView)
+                .setNeutralButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    boolean hasBothConfirm = false;
+                    if (checkBox1.isChecked() && checkBox2.isChecked()) {
+                        hasBothConfirm = true;
+                    }
+                    spUtil.putBoolean(confirmPrompt, hasBothConfirm);
+                });
+
+        alertDialog = builder.create();
+        OpUtil.showAlertDialog(this, alertDialog);
+        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.rBackground));
+        alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(getResources().getColor(R.color.rBackground));
+
     }
 
     private void refreshStatus() {

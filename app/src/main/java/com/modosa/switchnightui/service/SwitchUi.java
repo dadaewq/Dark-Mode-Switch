@@ -66,7 +66,7 @@ public class SwitchUi extends TileService {
             }
         }
         if (!"".equals(msg)) {
-            switchUtil.showToast(msg);
+            switchUtil.showToast0(msg);
         }
 
     }
