@@ -1,7 +1,10 @@
-package com.modosa.switchnightui.uitl;
+package com.modosa.switchnightui.util.oneplus;
 
 import android.content.Context;
 import android.provider.Settings;
+
+import com.modosa.switchnightui.util.ShellUtil;
+import com.modosa.switchnightui.util.SwitchDarkModeUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -260,7 +263,7 @@ final class OPThemeUtils {
     }
 
     private static void enableAospDarkTheme(boolean enable) {
-        String cmd = SwitchUtil.SERVICE_CALL_UIMODE + (enable ? 2 : 0);
+        String cmd = SwitchDarkModeUtil.SERVICE_CALL_UIMODE + (enable ? 2 : 0);
         ShellUtil.execWithRoot(cmd);
     }
 

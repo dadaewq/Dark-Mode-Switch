@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory>
+        <SwitchPreferenceCompat
+            app:key="enableTimingSwitch"
+            app:title="@string/DarkMode" />
+        <Preference
+            app:key="timeOn"
+            app:title="@string/title_timeupon" />
+        <Preference
+            app:key="timeOff"
+            app:title="@string/title_timeupoff" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:isPreferenceVisible="false"
+        app:key="TimingSwitch2">
+        <SwitchPreferenceCompat
+            app:key="enableTimingSwitch2"
+            app:title="@string/ForceDark" />
+        <Preference
+            app:key="timeOn2"
+            app:title="@string/title_timeupon" />
+        <Preference
+            app:key="timeOff2"
+            app:title="@string/title_timeupoff" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

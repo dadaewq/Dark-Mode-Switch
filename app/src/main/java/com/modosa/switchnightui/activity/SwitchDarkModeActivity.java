@@ -1,8 +1,6 @@
 package com.modosa.switchnightui.activity;
 
 
-import android.app.Activity;
-import android.app.UiModeManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -13,38 +11,36 @@ import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 
 import com.modosa.switchnightui.R;
-import com.modosa.switchnightui.uitl.SpUtil;
-import com.modosa.switchnightui.uitl.SwitchUtil;
-import com.modosa.switchnightui.uitl.WriteSettingsUtil;
-
-import java.util.Objects;
+import com.modosa.switchnightui.base.BaseActivity;
+import com.modosa.switchnightui.util.SpUtil;
+import com.modosa.switchnightui.util.SwitchDarkModeUtil;
+import com.modosa.switchnightui.util.WriteSettingsUtil;
 
 /**
  * @author dadaewq
  */
-public class SwitchUiActivity extends Activity {
+public class SwitchDarkModeActivity extends BaseActivity {
 
     private SpUtil spUtil;
-    private SwitchUtil switchUtil;
-    private int want = -1;
-    private UiModeManager uiModeManager;
+    private SwitchDarkModeUtil switchDarkModeUtil;
+    private boolean enable = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
         spUtil = new SpUtil(this);
-        switchUtil = new SwitchUtil(this, uiModeManager);
+        switchDarkModeUtil = new SwitchDarkModeUtil(this);
 
         if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             createShortCut();
         } else {
-            want = WriteSettingsUtil.YES;
-            if (Objects.requireNonNull(uiModeManager).getNightMode() == WriteSettingsUtil.YES) {
-                want = WriteSettingsUtil.NO;
+            if (new SpUtil(this).getMethod() == 2) {
+                enable = !WriteSettingsUtil.isNightMode(this);
+            } else {
+                enable = !switchDarkModeUtil.isDarkMode();
             }
-            switchUi(want);
+            switchDarkModeUtil.setDarkModeWithResult(enable);
             finish();
         }
     }
@@ -69,45 +65,12 @@ public class SwitchUiActivity extends Activity {
         }
     }
 
-
-    private void switchUi(int want) {
-        if (want != WriteSettingsUtil.NO) {
-            want = WriteSettingsUtil.YES;
-        }
-        String msg = "";
-
-        int method = spUtil.getMethod();
-        if (method == 2) {
-            if (WriteSettingsUtil.isNightMode(this)) {
-                switchUtil.switch2(WriteSettingsUtil.NO);
-            } else {
-                switchUtil.switch2(WriteSettingsUtil.YES);
-            }
-            return;
-        } else if (method == 3) {
-            if (switchUtil.switch3(want)) {
-                msg = getString(R.string.no_root) + "\n";
-            }
-        } else {
-
-            if (switchUtil.switch1(want)) {
-                msg = String.format(getString(R.string.failmethod), "1") + "\n";
-            }
-        }
-        if (uiModeManager.getNightMode() == WriteSettingsUtil.YES) {
-            msg += getString(R.string.DarkModeOn);
-        } else {
-            msg += getString(R.string.DarkModeOff);
-        }
-        switchUtil.showToast0(msg);
-    }
-
     @Override
     public void onConfigurationChanged(@NonNull Configuration newconfig) {
         super.onConfigurationChanged(newconfig);
 
         if (spUtil.isStableMode()) {
-            switchUi(want);
+            switchDarkModeUtil.setDarkModeWithResult(enable);
         } else {
             finish();
         }

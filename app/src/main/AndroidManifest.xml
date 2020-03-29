@@ -18,6 +18,7 @@
         tools:ignore="ProtectedPermissions" />
 
     <application
+        android:name=".base.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,25 +26,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <!--        <activity android:name=".activity.TimeUpActivity"-->
-        <!--            android:configChanges="uiMode"-->
-        <!--            android:theme="@style/AppTheme1">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
 
-        <!--                <category android:name="android.intent.category.DEFAULT" />-->
-        <!--            </intent-filter>-->
+        <activity
+            android:name=".activity.TimingSwitchActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/title_timingswitch"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <!--        </activity>-->
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
-        <!--        <receiver-->
-        <!--            android:name=".receiver.AlarmReceiver"-->
-        <!--            android:enabled="true"-->
-        <!--            android:exported="true">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
-        <!--            </intent-filter>-->
-        <!--        </receiver>-->
+        <receiver
+            android:name=".receiver.TimingSwitchReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".service.SwitchUi"
@@ -67,6 +71,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="uiMode"
+            android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:screenOrientation="user">
             <intent-filter>
@@ -85,11 +90,11 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name=".activity.SwitchUiActivity"
+            android:name=".activity.SwitchDarkModeActivity"
             android:configChanges="uiMode"
             android:exported="true"
             android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@style/Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
@@ -101,10 +106,9 @@
         <activity
             android:name=".activity.SwitchForceDarkActivity"
             android:configChanges="uiMode"
-            android:exported="true"
             android:label="@string/switchforcedark"
             android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@style/Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />

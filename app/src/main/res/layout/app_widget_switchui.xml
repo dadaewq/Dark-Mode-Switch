@@ -9,10 +9,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_brightness_2_black_24dp">
-
-
-    </ImageView>
+        android:src="@drawable/ic_brightness_2_black_24dp" />
 
     <TextView
         android:layout_width="match_parent"

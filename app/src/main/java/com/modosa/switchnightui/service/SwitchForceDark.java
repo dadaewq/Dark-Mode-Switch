@@ -3,13 +3,13 @@ package com.modosa.switchnightui.service;
 import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 import com.modosa.switchnightui.R;
-import com.modosa.switchnightui.uitl.OpUtil;
-import com.modosa.switchnightui.uitl.SwitchUtil;
+import com.modosa.switchnightui.util.OpUtil;
+import com.modosa.switchnightui.util.SwitchForceDarkUtil;
+
 
 /**
  * @author dadaewq
@@ -17,8 +17,8 @@ import com.modosa.switchnightui.uitl.SwitchUtil;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class SwitchForceDark extends TileService {
 
-    private OpUtil opUtil;
-    private SwitchUtil switchUtil;
+    private SwitchForceDarkUtil switchForceDarkUtil;
+
 
     @Override
     public void onStartListening() {
@@ -29,46 +29,24 @@ public class SwitchForceDark extends TileService {
     @Override
     public void onClick() {
         super.onClick();
-        switchForceDark();
-        refreshState();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            switchForceDark();
+            refreshState();
+        } else {
+            OpUtil.showToast1(this, R.string.tip_need_sdk29);
+        }
     }
 
     private void switchForceDark() {
         refreshUtil();
-        String msg = "";
-        boolean isSu, isForceDark;
-        if (opUtil.isOp()) {
-            isSu = opUtil.switchForceDark();
-            if (!isSu) {
-                switchUtil.showToast0(R.string.no_root);
-                return;
-            }
-            isForceDark = opUtil.isForceDark();
-        } else {
-            isSu = switchUtil.switchForceDark();
-            if (!isSu) {
-                msg = getString(R.string.no_root) + "\n";
-            }
-            isForceDark = switchUtil.isForceDark();
-        }
-        if (isForceDark) {
-            switchUtil.showToast0(msg + getString(R.string.ForceDarkOn));
-        } else {
-            switchUtil.showToast0(msg + getString(R.string.ForceDarkOff));
-        }
+        switchForceDarkUtil.switchForceDark();
     }
 
     private void refreshState() {
         refreshUtil();
         Tile qsTile = getQsTile();
         try {
-            boolean isForceDark;
-            if (opUtil.isOp()) {
-                isForceDark = opUtil.isForceDark();
-            } else {
-                isForceDark = switchUtil.isForceDark();
-            }
-            if (isForceDark) {
+            if (switchForceDarkUtil.isForceDark()) {
                 qsTile.setState(Tile.STATE_ACTIVE);
             } else {
                 qsTile.setState(Tile.STATE_INACTIVE);
@@ -76,17 +54,24 @@ public class SwitchForceDark extends TileService {
             qsTile.updateTile();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, e + "", Toast.LENGTH_SHORT).show();
+            OpUtil.showToast0(this, e + "");
         }
 
     }
 
     private void refreshUtil() {
-        if (opUtil == null) {
-            opUtil = new OpUtil(this);
+        if (switchForceDarkUtil == null) {
+            switchForceDarkUtil = new SwitchForceDarkUtil(this);
         }
-        if (switchUtil == null) {
-            switchUtil = new SwitchUtil(this, null);
-        }
+//        if (OpSwitchUtil.isOnePlus(this)) {
+//            isOnePlus = true;
+//            if (opSwitchUtil == null) {
+//                opSwitchUtil = new OpSwitchUtil(this);
+//            }
+//        } else {
+//            if (switchUtil == null) {
+//                switchUtil = new SwitchUtil(this);
+//            }
+//        }
     }
 }

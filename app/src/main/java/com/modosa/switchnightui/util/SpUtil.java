@@ -1,7 +1,9 @@
-package com.modosa.switchnightui.uitl;
+package com.modosa.switchnightui.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import androidx.preference.PreferenceManager;
 
 /**
  * @author dadaewq
@@ -12,7 +14,7 @@ public class SpUtil {
     private SharedPreferences.Editor editor;
 
     public SpUtil(Context context) {
-        sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public int getMethod() {
@@ -29,8 +31,11 @@ public class SpUtil {
         return sharedPreferences.getBoolean(stablemode, false);
     }
 
+    public boolean getBoolean(String key, boolean defValue) {
+        return sharedPreferences.getBoolean(key, defValue);
+    }
 
-    public boolean getBoolean(String key) {
+    public boolean getFalseBoolean(String key) {
         return sharedPreferences.getBoolean(key, false);
     }
 

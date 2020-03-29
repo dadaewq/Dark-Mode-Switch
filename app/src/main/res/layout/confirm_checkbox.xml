@@ -18,14 +18,37 @@
             android:textColor="@color/rBackground" />
 
         <CheckBox
+            android:id="@+id/confirm_checkboxBugreport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:textSize="16sp" />
+
+        <CheckBox
             android:id="@+id/confirm_checkbox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/confirm_checkbox2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
             android:textSize="16sp" />
 
         <CheckBox
-            android:id="@+id/confirm_checkbox2"
+            android:id="@+id/confirm_checkbox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/confirm_checkbox4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"

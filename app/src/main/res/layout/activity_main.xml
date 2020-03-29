@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/Background"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -64,9 +54,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/Method3" />
         </RadioGroup>
-
     </LinearLayout>
-
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -97,6 +85,5 @@
             android:text="@string/off"
             android:textSize="25sp" />
     </RadioGroup>
-
 
 </LinearLayout>

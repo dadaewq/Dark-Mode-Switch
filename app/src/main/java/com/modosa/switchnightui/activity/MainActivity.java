@@ -1,5 +1,6 @@
 package com.modosa.switchnightui.activity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.UiModeManager;
 import android.content.DialogInterface;
@@ -7,40 +8,46 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.modosa.switchnightui.R;
-import com.modosa.switchnightui.uitl.OpUtil;
-import com.modosa.switchnightui.uitl.SpUtil;
-import com.modosa.switchnightui.uitl.SwitchUtil;
-import com.modosa.switchnightui.uitl.WriteSettingsUtil;
+import com.modosa.switchnightui.base.BaseActivity;
+import com.modosa.switchnightui.util.OpUtil;
+import com.modosa.switchnightui.util.SpUtil;
+import com.modosa.switchnightui.util.SwitchDarkModeUtil;
+import com.modosa.switchnightui.util.SwitchForceDarkUtil;
+import com.modosa.switchnightui.util.WriteSettingsUtil;
 
 
 /**
  * @author dadaewq
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+    public static final String SP_KEY_ENABLE_BUG_REPORT = "enableBugReport";
+    private final static String CONFIRM_PROMPT = "ConfirmPrompt01";
 
-    private final static String confirmPrompt = "ConfirmPrompt";
-    private OpUtil opUtil;
-    private SwitchUtil switchUtil;
+
+    private SwitchDarkModeUtil switchDarkModeUtil;
+    private SwitchForceDarkUtil switchForceDarkUtil;
+
     private SpUtil spUtil;
     private TextView status;
     private UiModeManager uiModeManager;
     private RadioGroup radioGroup1;
     private int want = -1;
     private boolean isstablemode;
-    private boolean isOnePlus;
     private RadioButton on, off;
     private AlertDialog alertDialog;
 
@@ -55,13 +62,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        opUtil = new OpUtil(this);
         spUtil = new SpUtil(this);
-        isOnePlus = opUtil.isOp();
+
+        switchDarkModeUtil = new SwitchDarkModeUtil(this);
+        switchForceDarkUtil = new SwitchForceDarkUtil(this);
+
     }
 
     private void confirmPrompt() {
-        if (!spUtil.getBoolean(confirmPrompt)) {
+        if (!spUtil.getFalseBoolean(CONFIRM_PROMPT)) {
             showDialogConfirmPrompt();
         }
     }
@@ -71,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Window window = getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.alertdialog_background);
+        }
 
         if (spUtil.isStableMode()) {
             setTitle("* " + getString(R.string.app_name));
@@ -84,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
-        switchUtil = new SwitchUtil(this, uiModeManager);
         radioGroup1 = findViewById(R.id.radioGroup1);
 
         RadioButton radioButton2 = findViewById(R.id.radioButton2);
@@ -124,13 +136,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         on.setOnClickListener(v -> {
-            want = WriteSettingsUtil.YES;
-            switchui();
+            want = UiModeManager.MODE_NIGHT_YES;
+            switchDarkMode();
+
         });
 
         off.setOnClickListener(v -> {
-            want = WriteSettingsUtil.NO;
-            switchui();
+            want = UiModeManager.MODE_NIGHT_NO;
+            switchDarkMode();
         });
 
         status = findViewById(R.id.textView);
@@ -145,20 +158,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        MenuItem carMode = menu.findItem(R.id.switchcarmode);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            carMode.setVisible(true);
             MenuItem forceDark = menu.findItem(R.id.switchforcedark);
             forceDark.setVisible(true);
-            boolean isForceDark;
-            if (isOnePlus) {
-                isForceDark = opUtil.isForceDark();
-            } else {
-                isForceDark = switchUtil.isForceDark();
-            }
-            if (isForceDark) {
+
+            if (switchForceDarkUtil.isForceDark()) {
                 forceDark.setTitle(R.string.ForceDarkOn);
             } else {
                 forceDark.setTitle(R.string.ForceDarkOff);
             }
+        } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            carMode.setVisible(true);
         }
 
         MenuItem menuItem2 = menu.findItem(R.id.switchstablemode);
@@ -180,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
             recreate();
 
         } else if (id == R.id.switchcarmode) {
-            switchUtil.showToast0(R.string.switchcarmode);
+            OpUtil.showToast0(this, R.string.switchcarmode);
             if (Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType()) {
                 uiModeManager.disableCarMode(0);
             } else {
@@ -192,75 +204,30 @@ public class MainActivity extends AppCompatActivity {
             spUtil.switchStableMode(isstablemode);
 
             if (spUtil.isStableMode()) {
-                switchUtil.showToast0(getString(R.string.StableModeOn) + getString(R.string.tip_StableModeOn));
+                OpUtil.showToast0(this, getString(R.string.StableModeOn) + getString(R.string.tip_StableModeOn));
                 setTitle("* " + getString(R.string.app_name));
-                item.setTitle(R.string.StableModeOn);
             } else {
-                switchUtil.showToast0(R.string.StableModeOff);
+                OpUtil.showToast0(this, R.string.StableModeOff);
                 setTitle(getString(R.string.app_name));
-                item.setTitle(R.string.StableModeOff);
             }
             return true;
         } else if (id == R.id.switchforcedark) {
-
-            boolean isSu, isForceDark;
-            String msg = "";
-            if (isOnePlus) {
-                isSu = opUtil.switchForceDark();
-                if (!isSu) {
-                    switchUtil.showToast0(R.string.no_root);
-                    return true;
-                }
-                isForceDark = opUtil.isForceDark();
-            } else {
-                isSu = switchUtil.switchForceDark();
-                if (!isSu) {
-                    msg = getString(R.string.no_root) + "\n";
-                }
-                isForceDark = switchUtil.isForceDark();
-            }
-
-            if (isForceDark) {
-                item.setTitle(R.string.ForceDarkOn);
-                switchUtil.showToast0(msg + getString(R.string.ForceDarkOn));
-            } else {
-                item.setTitle(R.string.ForceDarkOff);
-                switchUtil.showToast0(msg + getString(R.string.ForceDarkOff));
-            }
-
+            switchForceDarkUtil.switchForceDark();
             return true;
 
         } else if (id == R.id.timeup) {
             Intent intent = new Intent(Intent.ACTION_VIEW)
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    .setClass(this, TimeUpActivity.class);
+                    .setClass(this, TimingSwitchActivity.class);
             startActivity(intent);
         }
+
         return super.onOptionsItemSelected(item);
     }
 
-    private void switchui() {
-        String msg = "";
-        if (want != WriteSettingsUtil.NO) {
-            want = WriteSettingsUtil.YES;
-        }
-        switch (radioGroup1.getCheckedRadioButtonId()) {
-            case R.id.radioButton2:
-                switchUtil.switch2(want);
-                break;
-            case R.id.radioButton3:
-                if (switchUtil.switch3(want)) {
-                    msg = getString(R.string.no_root);
-                }
-                break;
-            default:
-                if (switchUtil.switch1(want)) {
-                    msg = String.format(getString(R.string.failmethod), "1");
-                }
-        }
-        if (!"".equals(msg)) {
-            switchUtil.showToast0(msg);
-        }
+
+    private void switchDarkMode() {
+        switchDarkModeUtil.setDarkModeWithTip(want);
         refreshStatus();
     }
 
@@ -276,37 +243,82 @@ public class MainActivity extends AppCompatActivity {
 
         View checkBoxView = View.inflate(this, R.layout.confirm_checkbox, null);
 
+        CheckBox checkboxBugreport = checkBoxView.findViewById(R.id.confirm_checkboxBugreport);
         CheckBox checkBox1 = checkBoxView.findViewById(R.id.confirm_checkbox1);
         CheckBox checkBox2 = checkBoxView.findViewById(R.id.confirm_checkbox2);
+        CheckBox checkBox3 = checkBoxView.findViewById(R.id.confirm_checkbox3);
+        CheckBox checkBox4 = checkBoxView.findViewById(R.id.confirm_checkbox4);
+        checkboxBugreport.setText(R.string.checkbox_enable_bugReport);
         checkBox1.setText(R.string.checkbox1_instructions_before_use);
         checkBox2.setText(R.string.checkbox2_instructions_before_use);
+        checkBox3.setText(R.string.checkbox3_instructions_before_use);
+        checkBox4.setText(R.string.checkbox4_instructions_before_use);
+
+        checkboxBugreport.setChecked(spUtil.getBoolean(SP_KEY_ENABLE_BUG_REPORT, true));
         checkBox2.setEnabled(false);
+        checkBox3.setEnabled(false);
+        checkBox4.setEnabled(false);
+
+        checkboxBugreport.setOnCheckedChangeListener((buttonView, isChecked) -> spUtil.putBoolean(SP_KEY_ENABLE_BUG_REPORT, checkboxBugreport.isChecked()));
+
         checkBox1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             checkBox2.setChecked(false);
             checkBox2.setEnabled(isChecked);
         });
 
+        checkBox2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            checkBox3.setChecked(false);
+            checkBox3.setEnabled(isChecked);
+        });
+
+        checkBox3.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            checkBox4.setChecked(false);
+            checkBox4.setEnabled(isChecked);
+        });
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(R.string.title_instructions_before_use)
                 .setView(checkBoxView)
-                .setNeutralButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                .setPositiveButton(android.R.string.no, null)
+                .setNeutralButton(android.R.string.yes, (dialog, which) -> {
                     boolean hasBothConfirm = false;
-                    if (checkBox1.isChecked() && checkBox2.isChecked()) {
+                    if (checkBox1.isChecked() && checkBox2.isChecked() && checkBox3.isChecked() && checkBox4.isChecked()) {
                         hasBothConfirm = true;
                     }
-                    spUtil.putBoolean(confirmPrompt, hasBothConfirm);
+                    spUtil.putBoolean(CONFIRM_PROMPT, hasBothConfirm);
                 });
 
         alertDialog = builder.create();
         OpUtil.showAlertDialog(this, alertDialog);
-        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.rBackground));
-        alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(getResources().getColor(R.color.rBackground));
+
+
+        Button button = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+        button.setEnabled(false);
+
+        CountDownTimer timer = new CountDownTimer(10000, 1000) {
+            final String oK = getString(android.R.string.ok);
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTick(long millisUntilFinished) {
+                button.setText(oK + "(" + millisUntilFinished / 1000 + "s" + ")");
+            }
+
+            @Override
+            public void onFinish() {
+                button.setText(oK);
+                button.setEnabled(true);
+//                button.setClickable(true);
+            }
+        };
+        //调用 CountDownTimer 对象的 start() 方法开始倒计时，也不涉及到线程处理
+        timer.start();
+
 
     }
 
     private void refreshStatus() {
-        if (uiModeManager.getNightMode() == WriteSettingsUtil.YES) {
+        if (uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES) {
             status.setText(R.string.DarkModeOn);
             if (!WriteSettingsUtil.isNightMode(this)) {
                 status.append("*");
@@ -333,11 +345,11 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newconfig);
         if (spUtil.isStableMode()) {
             if (off.isChecked()) {
-                want = 1;
+                want = UiModeManager.MODE_NIGHT_NO;
             } else {
-                want = 2;
+                want = UiModeManager.MODE_NIGHT_YES;
             }
-            switchui();
+            switchDarkModeUtil.setDarkModeWithTip(want);
         } else {
             recreate();
         }

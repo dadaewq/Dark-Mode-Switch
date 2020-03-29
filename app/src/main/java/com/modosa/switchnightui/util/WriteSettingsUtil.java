@@ -1,4 +1,4 @@
-package com.modosa.switchnightui.uitl;
+package com.modosa.switchnightui.util;
 
 import android.app.UiModeManager;
 import android.content.Context;
@@ -34,33 +34,30 @@ public class WriteSettingsUtil {
 
     }
 
-    static void putKey(Context context, int nightmode, OnEnableAccessibilityListener listener) {
-        String msg;
+
+    static ResultMsg putKey(Context context, int nightmode) {
+        ResultMsg resultMsg = new ResultMsg();
+        String msg = null;
         try {
             if (Settings.Secure.putInt(context.getContentResolver(), KEY_NIGHT_MODE, nightmode)) {
-                msg = String.format(
-                        Build.VERSION.SDK_INT < Build.VERSION_CODES.M ?
-                                context.getString(R.string.yes2old) : context.getString(R.string.yes2),
-                        nightmode == 2 ?
-                                context.getString(R.string.on) : context.getString(R.string.off)
-                );
-
-                listener.onSuccess(msg);
+                resultMsg.setSuccess();
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                    msg = String.format(context.getString(R.string.yes2old),
+                            nightmode == 2 ? context.getString(R.string.on) : context.getString(R.string.off));
+                } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                    msg = String.format(context.getString(R.string.yes2),
+                            nightmode == 2 ? context.getString(R.string.on) : context.getString(R.string.off));
+                }
             } else {
                 msg = String.format(context.getString(R.string.failmethod), "2");
-                listener.onFailed(msg);
             }
 
         } catch (Exception e) {
             msg = String.format(context.getString(R.string.error), "\n\n" + e);
-            listener.onFailed(msg);
         }
+        resultMsg.setMsg(msg);
+        return resultMsg;
     }
 
-    public interface OnEnableAccessibilityListener {
-        void onSuccess(String t);
-
-        void onFailed(String t);
-    }
 }
 

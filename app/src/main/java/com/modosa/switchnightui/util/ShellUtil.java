@@ -1,4 +1,4 @@
-package com.modosa.switchnightui.uitl;
+package com.modosa.switchnightui.util;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-class ShellUtil {
+public class ShellUtil {
 
     private static String[] exec(final String sh, final List<String> cmds) {
         final String[] myResult = new String[4];
@@ -100,31 +100,31 @@ class ShellUtil {
     }
 
 
-    static String[] exec(final String cmd, boolean isRoot) {
+    public static String[] exec(final String cmd, boolean isRoot) {
         List<String> cmds = new ArrayList<>();
         cmds.add(cmd);
         return exec(cmds, isRoot);
     }
 
 
-    static String[] execWithRoot(final String cmd) {
+    public static String[] execWithRoot(final String cmd) {
         return exec(cmd, true);
     }
 
-    static String[] execWithRoot(final List<String> cmds) {
+    public static String[] execWithRoot(final List<String> cmds) {
         return exec(cmds, true);
     }
 
-    private interface Output {
+    interface Output {
         void output(String text);
     }
 
     static class OutputReader extends Thread implements Closeable {
-        private final Output output;
-        private final BufferedReader reader;
-        private boolean isRunning;
+        final Output output;
+        final BufferedReader reader;
+        boolean isRunning;
 
-        private OutputReader(BufferedReader reader, Output output) {
+        OutputReader(BufferedReader reader, Output output) {
             this.output = output;
             this.reader = reader;
             this.isRunning = true;
@@ -153,7 +153,7 @@ class ShellUtil {
             }
         }
 
-        private void cancel() {
+        void cancel() {
             synchronized (this) {
                 isRunning = false;
                 this.notifyAll();

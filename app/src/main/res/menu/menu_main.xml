@@ -6,6 +6,7 @@
         android:id="@+id/switchcarmode"
         android:orderInCategory="10"
         android:title="@string/switchcarmode"
+        android:visible="false"
         app:showAsAction="never" />
     <item
         android:id="@+id/switchstablemode"
@@ -20,13 +21,12 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/timeup"
-        android:orderInCategory="50"
-        android:title="定时切换"
-        android:visible="false"
+        android:orderInCategory="40"
+        android:title="@string/title_timingswitch"
         app:showAsAction="never" />
     <item
         android:id="@+id/refresh"
-        android:orderInCategory="60"
+        android:orderInCategory="100"
         android:title="@string/refresh"
         app:showAsAction="never" />
 

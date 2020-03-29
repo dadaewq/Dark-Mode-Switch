@@ -1,4 +1,4 @@
-package com.modosa.switchnightui.uitl;
+package com.modosa.switchnightui.util.oneplus;
 
 import android.content.Context;
 import android.content.Intent;
