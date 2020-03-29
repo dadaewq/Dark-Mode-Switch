@@ -1,9 +1,10 @@
 ## 深色模式切换
 
+### [English](https://github.com/dadaewq/Dark-Mode-Switch/blob/master/README-en.md)
+
 本应用旨在切换Android系统的 深色/夜间/黑暗/暗色 模式/主题/UI。（支持定时切换）
 
 此开关就是Android9.0开发者选项中的夜间模式和Android10开始有的深色主题，本应用支持了Android4.1+。
-
 
 ##### Android 10及以上可用Root尝试切换强制深色，等同于开发者选项的"覆盖'强制启用 SmartDark功能'的设置"、MIUI的"全局反色"等开关。（已适配一加）
 
