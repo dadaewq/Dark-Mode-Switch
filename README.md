@@ -4,7 +4,10 @@
 
 此开关就是Android9.0开发者选项中的夜间模式和Android10开始有的深色主题，本应用支持了Android4.1+。
 
-提供3个等效方法来切换深色模式：
+
+##### Android 10及以上可用Root尝试切换强制深色，等同于开发者选项的"覆盖'强制启用 SmartDark功能'的设置"、MIUI的"全局反色"等开关。（已适配一加）
+
+本应用提供3个等效方法来切换深色模式：
 
 ##### 方法1 可用性由系统决定
 
@@ -13,6 +16,8 @@
 ` adb shell pm grant com.modosa.switchnightui android.permission.WRITE_SECURE_SETTINGS `
 
 ##### 方法3 需要Root
+
+应用提供磁贴、微件、Shortcut、快捷方式和设置助手应用来快捷切换，切换方法跟随主界面选择。
 
 ## 下载
 [<img src="https://github.com/dadaewq/Dark-Mode-Switch/raw/master/app/src/main/ic_launcher-web.png"
@@ -23,10 +28,6 @@
 #### 注意事项：
 
 OPPO等设备开启深色模式后可能会被系统自动关闭，此时需要开启稳定模式以切换，稳定模式下点刷新可以让本APP主题跟随系统。据反馈，部分OPPO设备在锁屏后还是会自动关闭深色模式，这个暂时无解。Android10在打开省电模式时会强制系统进入深色模式，此时本应用无法关闭深色模式。
-
-应用提供磁贴、微件、Shortcut、快捷方式和设置助手应用来快捷切换，切换方法跟随主界面选择。
-
-##### Android 10及以上可用Root尝试切换强制深色，等同于开发者选项的"覆盖'强制启用 SmartDark功能'的设置"、MIUI的"全局反色"等开关。（已适配一加）
 
 (如果设备有核心破解的话，方法1、2、3都可以直接用，无需其他多余的操作。)
 
