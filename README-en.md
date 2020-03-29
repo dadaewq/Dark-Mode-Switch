@@ -41,3 +41,5 @@ Part of the system limits method 1, we provide two methods that require **Root**
 
 (2) Need to modify a bool value of resources in **framework-res.apk**, open the apk to modify the bool in **resources.arsc**, find **config_lockDayNightMode**, modify it to false, replace the original Apk, and reboot the device.
 (This has the advantage that at the same time you can also use some previous applications that could not be switched, because this operation is equivalent to canceling the system lock on modifying the night theme.)
+
+### [LICENSE](https://github.com/dadaewq/Dark-Mode-Switch/blob/master/LICENSE)
