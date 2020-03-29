@@ -1,31 +1,41 @@
 ## 深色模式切换
-(Support for Android 4.0 and above)
 
-提供两个方法来切换深色模式
+本应用旨在切换Android系统的 深色/夜间/黑暗/暗色 模式/主题/UI。（支持定时切换）
 
-## 第一种：设备有核心破解
+此开关就是Android9.0开发者选项中的夜间模式和Android10开始有的深色主题，本应用支持了Android4.1+。
 
-如果设备有核心破解的话，方法1、方法2都可以直接用，无需其他多余的操作。
+提供3个等效方法来切换深色模式：
 
-## 第二种：设备没有核心破解
+##### 方法1 可用性由系统决定
 
-### 先说一下方法2，你需要为应用授权，你可以下载 ADB 后，输入指令授予权限：
+##### 方法2 需要授权
 
-adb shell pm grant com.modosa.switchnightui android.permission.WRITE_SECURE_SETTINGS
+` adb shell pm grant com.modosa.switchnightui android.permission.WRITE_SECURE_SETTINGS `
 
-或者有Root的话也可以自行在终端授权等，授权后就可以用方法2了
+##### 方法3 需要Root
+
+## 下载
+[<img src="https://github.com/dadaewq/Dark-Mode-Switch/raw/master/app/src/main/ic_launcher-web.png"
+     alt="Get it on CoolApk"
+     height="80">](https://www.coolapk.com/apk/com.modosa.switchnightui)
 
 
-### 最后重点说一下方法1，有的系统没有限制，直接可以切换。
+#### 注意事项：
 
-有的系统就无法使用方法1，这个时候除了用方法2，还有两个让方法1变得可用的办法，但是必须要Root!
+OPPO等设备开启深色模式后可能会被系统自动关闭，此时需要开启稳定模式以切换，稳定模式下点刷新可以让本APP主题跟随系统。据反馈，部分OPPO设备在锁屏后还是会自动关闭深色模式，这个暂时无解。Android10在打开省电模式时会强制系统进入深色模式，此时本应用无法关闭深色模式。
 
-#### 第一个：把深色模式切换移动到System分区，反正要让它成为系统应用，这样就可以用方法1了
+应用提供磁贴、微件、Shortcut、快捷方式和设置助手应用来快捷切换，切换方法跟随主界面选择。
 
-#### 第二个：需要修改**framework-res.apk**中资源的一个bool值，先复制到内部存储，打开apk修改resources.arsc中的bool，找到**config_lockDayNightMode**，修改为false后，复制并替换原来的Apk，然后重启，就可以使用方法1了。
+##### Android 10及以上可用Root尝试切换强制深色，等同于开发者选项的"覆盖'强制启用 SmartDark功能'的设置"、MIUI的"全局反色"等开关。（已适配一加）
+
+(如果设备有核心破解的话，方法1、2、3都可以直接用，无需其他多余的操作。)
+
+##### 有关方法1：
+
+部分系统限制了方法1，提供两种方法需要用到Root权限来解除这个限制：
+
+(1)把本应用移动到`/system/priv-app/`下，重启设备即可。
+
+(2)需要修改**framework-res.apk**中资源的一个bool值，打开apk修改resources.arsc中的bool，找到**config_lockDayNightMode**，修改为false后，替换原来的Apk，重启设备即可。
 (这样做有一个好处就是同时你也可以用之前一些无法切换的应用了，因为这个操作相当于取消了系统对修改夜间主题的锁。)
-
-
-
-### 最后，再说一下，本应用只是打开系统的开关，并不可以强制全局深色，具体要看应用的适配，本应用也已适配
 
