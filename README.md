@@ -41,3 +41,5 @@ OPPO等设备开启深色模式后可能会被系统自动关闭，此时需要�
 (2)需要修改**framework-res.apk**中资源的一个bool值，打开apk修改resources.arsc中的bool，找到**config_lockDayNightMode**，修改为false后，替换原来的Apk，重启设备即可。
 (这样做有一个好处就是同时你也可以用之前一些无法切换的应用了，因为这个操作相当于取消了系统对修改夜间主题的锁。)
 
+### [LICENSE](https://github.com/dadaewq/Dark-Mode-Switch/blob/master/LICENSE)
+
