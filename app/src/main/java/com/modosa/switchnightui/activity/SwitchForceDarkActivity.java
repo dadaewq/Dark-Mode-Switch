@@ -1,7 +1,6 @@
 package com.modosa.switchnightui.activity;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,13 +10,14 @@ import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 
 import com.modosa.switchnightui.R;
+import com.modosa.switchnightui.base.BaseActivity;
 import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SwitchForceDarkUtil;
 
 /**
  * @author dadaewq
  */
-public class SwitchForceDarkActivity extends Activity {
+public class SwitchForceDarkActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,6 @@ public class SwitchForceDarkActivity extends Activity {
         if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             createShortCut();
         } else {
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 new SwitchForceDarkUtil(this).switchForceDark();
             } else {

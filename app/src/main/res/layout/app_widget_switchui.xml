@@ -16,8 +16,9 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/action_switch"
-        android:textColor="@android:color/white"
-        android:textSize="15sp" />
+        android:textColor="@color/rBackground"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

@@ -23,7 +23,7 @@ public class SwitchDarkModeActivity extends BaseActivity {
 
     private SpUtil spUtil;
     private SwitchDarkModeUtil switchDarkModeUtil;
-    private boolean enable = true;
+    private boolean enable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

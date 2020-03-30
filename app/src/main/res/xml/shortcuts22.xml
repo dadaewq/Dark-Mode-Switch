@@ -1,0 +1,24 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_brightness_2_black_24dp"
+        android:shortcutId="SwitchUI"
+        android:shortcutLongLabel="@string/app_name"
+        android:shortcutShortLabel="@string/action_switch">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchDarkModeActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_brightness_3_black_24dp"
+        android:shortcutId="SwitchForceDark"
+        android:shortcutLongLabel="@string/switchforcedark"
+        android:shortcutShortLabel="@string/action_switch">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchForceDarkActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+</shortcuts>

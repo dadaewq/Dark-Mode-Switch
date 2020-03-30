@@ -55,7 +55,7 @@ public class SpUtil {
         editor.apply();
     }
 
-    public void switchStableMode(boolean isstablemode) {
+    public void reverseStableMode(boolean isstablemode) {
         editor = sharedPreferences.edit();
         if (isstablemode) {
             editor.putBoolean(stablemode, false);

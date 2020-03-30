@@ -15,13 +15,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 import com.modosa.switchnightui.R;
-import com.modosa.switchnightui.base.BaseActivity;
+import com.modosa.switchnightui.base.BaseAppCompatActivity;
 import com.modosa.switchnightui.fragment.TimingSwitchFragment;
 
 /**
  * @author dadaewq
  */
-public class TimingSwitchActivity extends BaseActivity {
+public class TimingSwitchActivity extends BaseAppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

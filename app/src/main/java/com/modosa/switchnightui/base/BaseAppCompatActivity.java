@@ -1,8 +1,9 @@
 package com.modosa.switchnightui.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.modosa.switchnightui.util.SpUtil;
 import com.modosa.switchnightui.util.TimingSwitchUtil;
@@ -10,7 +11,7 @@ import com.modosa.switchnightui.util.TimingSwitchUtil;
 /**
  * @author dadaewq
  */
-abstract public class BaseActivity extends Activity {
+abstract public class BaseAppCompatActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

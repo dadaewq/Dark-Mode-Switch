@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
 import com.modosa.switchnightui.R;
-import com.modosa.switchnightui.base.BaseActivity;
+import com.modosa.switchnightui.base.BaseAppCompatActivity;
 import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SpUtil;
 import com.modosa.switchnightui.util.SwitchDarkModeUtil;
@@ -34,7 +34,7 @@ import com.modosa.switchnightui.util.WriteSettingsUtil;
 /**
  * @author dadaewq
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseAppCompatActivity {
     public static final String SP_KEY_ENABLE_BUG_REPORT = "enableBugReport";
     private final static String CONFIRM_PROMPT = "ConfirmPrompt01";
 
@@ -87,10 +87,8 @@ public class MainActivity extends BaseActivity {
 
         if (spUtil.isStableMode()) {
             setTitle("* " + getString(R.string.app_name));
-
         } else {
             setTitle(getString(R.string.app_name));
-
         }
         on = findViewById(R.id.on);
         off = findViewById(R.id.off);
@@ -201,7 +199,7 @@ public class MainActivity extends BaseActivity {
             return true;
         } else if (id == R.id.switchstablemode) {
 
-            spUtil.switchStableMode(isstablemode);
+            spUtil.reverseStableMode(isstablemode);
 
             if (spUtil.isStableMode()) {
                 OpUtil.showToast0(this, getString(R.string.StableModeOn) + getString(R.string.tip_StableModeOn));
@@ -343,13 +341,16 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(@NonNull Configuration newconfig) {
         super.onConfigurationChanged(newconfig);
+
         if (spUtil.isStableMode()) {
-            if (off.isChecked()) {
-                want = UiModeManager.MODE_NIGHT_NO;
-            } else {
-                want = UiModeManager.MODE_NIGHT_YES;
+            if (want != -1) {
+                if (off.isChecked()) {
+                    want = UiModeManager.MODE_NIGHT_NO;
+                } else {
+                    want = UiModeManager.MODE_NIGHT_YES;
+                }
+                switchDarkModeUtil.setDarkModeWithTip(want);
             }
-            switchDarkModeUtil.setDarkModeWithTip(want);
         } else {
             recreate();
         }
