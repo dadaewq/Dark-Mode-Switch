@@ -44,11 +44,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/confirm_checkbox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <CheckBox
-            android:id="@+id/confirm_checkbox4"
+            android:id="@+id/confirm_checkbox_last"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"

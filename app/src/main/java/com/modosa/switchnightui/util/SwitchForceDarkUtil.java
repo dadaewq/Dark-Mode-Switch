@@ -48,6 +48,8 @@ public class SwitchForceDarkUtil {
         if (OpSwitchForceDarkUtil.isOnePlus(context)) {
             OpSwitchForceDarkUtil opSwitchForceDarkUtil = new OpSwitchForceDarkUtil(context);
             isSu = opSwitchForceDarkUtil.setForceDark(enable);
+            //也加入普通的切换，增加覆盖
+            setNormalForceDark(enable);
             if (!isSu) {
                 OpUtil.showToast0(context, R.string.no_root);
             }

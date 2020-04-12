@@ -2,4 +2,6 @@
 <resources>
     <color name="Background">#F5F5F5</color>
     <color name="rBackground">#121212</color>
+    <color name="Color121212">#121212</color>
+    <color name="ColorF5F5F5">#F5F5F5</color>
 </resources>

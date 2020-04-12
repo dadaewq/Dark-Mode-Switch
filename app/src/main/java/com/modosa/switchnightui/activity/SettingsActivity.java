@@ -1,11 +1,6 @@
 package com.modosa.switchnightui.activity;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.Window;
 
@@ -16,16 +11,19 @@ import androidx.fragment.app.FragmentManager;
 
 import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.base.BaseAppCompatActivity;
-import com.modosa.switchnightui.fragment.TimingSwitchFragment;
+import com.modosa.switchnightui.fragment.SettingsFragment;
 
 /**
  * @author dadaewq
  */
-public class TimingSwitchActivity extends BaseAppCompatActivity {
+public class SettingsActivity extends BaseAppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
+    }
 
+    private void init() {
         setContentView(R.layout.activity_preference);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -37,11 +35,9 @@ public class TimingSwitchActivity extends BaseAppCompatActivity {
         if (window != null) {
             window.setBackgroundDrawableResource(R.drawable.alertdialog_background);
         }
-        ignoreBatteryOptimization();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.framelayout, new TimingSwitchFragment()).commit();
-
+        fragmentManager.beginTransaction().replace(R.id.framelayout, new SettingsFragment()).commit();
     }
 
     @Override
@@ -54,19 +50,4 @@ public class TimingSwitchActivity extends BaseAppCompatActivity {
         }
     }
 
-    @SuppressLint("BatteryLife")
-    private void ignoreBatteryOptimization() {
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-            if (powerManager != null && !powerManager.isIgnoringBatteryOptimizations(getPackageName())) {
-                Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-                        .setData(Uri.parse("package:" + getPackageName()));
-                try {
-                    startActivity(intent);
-                } catch (Exception ignore) {
-                }
-            }
-        }
-    }
 }

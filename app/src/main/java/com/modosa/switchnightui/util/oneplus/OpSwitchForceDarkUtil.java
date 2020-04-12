@@ -1,6 +1,7 @@
 package com.modosa.switchnightui.util.oneplus;
 
 import android.content.Context;
+import android.os.Build;
 import android.provider.Settings;
 
 import com.modosa.switchnightui.util.ShellUtil;
@@ -26,7 +27,7 @@ public class OpSwitchForceDarkUtil {
     }
 
     public static boolean isOnePlus(Context context) {
-        return Settings.Secure.getInt(context.getContentResolver(), OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION, -2) != -2;
+        return Build.BRAND.toLowerCase().contains("oneplus") || Settings.Secure.getInt(context.getContentResolver(), OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION, -2) != -2;
     }
 
     public static boolean isOnePlusForceDark(Context context) {
@@ -89,48 +90,6 @@ public class OpSwitchForceDarkUtil {
     public boolean switchForceDark() {
 
         return setForceDark(!isForceDark());
-
-//        String[] checkRoot = ShellUtil.execWithRoot("exit");
-//        if ("0".equals(checkRoot[3])) {
-//            String cmd;
-//            boolean isEnabled;
-//            if (isForceDark()) {
-//                isEnabled = false;
-//                cmd = CMD_SETTINGS_PUT_SECURE + KEY_AOSP_FORCE_DARK_MODE + OPThemeUtils.BLANK + 0;
-//                ShellUtil.execWithRoot(cmd);
-//
-//                int oneplusTheme = Settings.System.getInt(context.getContentResolver(), OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION, 0);
-//
-//                if (oneplusTheme == 0) {
-//                    OPThemeUtils.enableLightThemes(context);
-//                } else if (oneplusTheme == 1) {
-//                    OPThemeUtils.enableDarkThemes(context);
-//                } else {
-//                    OPThemeUtils.enableColorfulThemes(context);
-//                }
-//            } else {
-//                isEnabled = true;
-//                List<String> cmds = new ArrayList<>();
-//                cmd = CMD_SETTINGS_PUT_SECURE + KEY_AOSP_FORCE_DARK_MODE + OPThemeUtils.BLANK + 1;
-//                cmds.add(cmd);
-//
-//                int getOemBlackMode = Settings.System.getInt(context.getContentResolver(), OPThemeUtils.KEY_DARK_MODE_ACTION, 0);
-//
-//                cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION + OPThemeUtils.BLANK + getOemBlackMode;
-//                cmds.add(cmd);
-//
-//                ShellUtil.execWithRoot(cmds);
-//
-//                OPThemeUtils.setCurrentBasicColorMode(1);
-//            }
-//            int oneplusTheme = Settings.System.getInt(context.getContentResolver(), OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION, 0);
-//
-//            setNightMode(oneplusTheme, isEnabled);
-//            return true;
-//        } else {
-//            return false;
-//        }
-//
 
     }
 

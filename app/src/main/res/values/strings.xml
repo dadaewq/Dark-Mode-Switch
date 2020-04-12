@@ -5,28 +5,32 @@
         \nPlease read this notice calmly \n
         \nThe dark mode in this App is only to switch a UI state of the Android system
         \nThe display in the dark mode requires the application to adapt itself (the system interface is the same)
-        \nIt is not related to this App whether other applications adapt or not and the situation of their adaptation\n
-        \nThe availability of Method 1 is determined by the system
+        \nIt is not related to this App whether other applications adapt or not and the situation of their adaptation
+        \n\nThe availability of Method 1 is determined by the system
         \nMethod 2 requires authorization
         \nMethod 3 requires Root\n
         \nSome devices may be automatically turned off dark mode by the system after turning on dark mode.Only then need to turn on stable mode to switch
         \n\nAndroid 10 and above can attempts to switch force dark with Root.
         \nThis App provides tiles, widgets, static shortcuts,pinned shortcuts and setting assistant applications to quickly switch. The switching method follows the main interface selection.\n
     </string>
-    <string name="checkbox1_instructions_before_use">It is not the problem of this App that the system interface or other applications do not turn black after using this App to turn on dark mode</string>
+    <string name="checkbox1_instructions_before_use">It is not the problem of this App that the system interface or other applications do not turn dark after using this App to turn on dark mode</string>
     <string name="checkbox2_instructions_before_use">I have fully understood</string>
-    <string name="checkbox3_instructions_before_use">It is their adaptation problem that their interface is not blackened or abnormal</string>
-    <string name="checkbox4_instructions_before_use">No longer prompt</string>
+    <string name="checkbox3_instructions_before_use">Some applications set restrictions on the dark mode of the following system for different devices</string>
+    <string name="checkbox4_instructions_before_use">It is their adaptation problem that their interface is not darken or abnormal</string>
+    <string name="checkbox_last_instructions_before_use">No longer prompt</string>
     <string name="action_switch">Switch</string>
     <string name="DarkModeOn">Dark Mode : ON</string>
     <string name="DarkModeOff">Dark Mode : OFF</string>
     <string name="switchcarmode">Switch Car Mode</string>
     <string name="switchforcedark">Force Dark Switch</string>
-    <string name="StableModeOn">Stable Mode : ON *</string>
+    <string name="StableMode">Stable Mode</string>
+    <string name="title_dialog_EnableStableMode">Turn on stable mode</string>
+    <string name="message_dialog_EnableStableMode">In general, the stable mode does not need to be turned on. It only needs to be turned on when the dark mode is turned on and automatically turned off by the system.\n\nEach time you switch dark mode, click \" Refresh\" in the menu to update the theme of this App.</string>
     <string name="tip_StableModeOn">\nEach click Refresh can make this App theme follow the system</string>
     <string name="StableModeOff">Stable Mode : OFF</string>
     <string name="ForceDarkOn">Force Dark: ON</string>
     <string name="ForceDarkOff">Force Dark : OFF</string>
+    <string name="settings">Settings</string>
     <string name="refresh">Refresh</string>
     <string name="DarkMode">Dark Mode</string>
     <string name="ForceDark">Force Dark</string>
@@ -38,7 +42,7 @@
     <string name="yes2">%1$s Success\n\nReboot the device to take effect</string>
     <string name="yes2old">%1$s Success\n\nReboot the device and enable car mode to take effect</string>
     <string name="tips_method2">Reboot the device to take effect</string>
-    <string name="failmethod">Method %1$s faild!Please try other methods</string>
+    <string name="failmethod">Method %1$s is unavailable!Please try other methods</string>
     <string name="error">Error %1$s</string>
     <string name="no_root">Unable to acquire root access</string>
     <string name="needpermission">Please grant permissions using\n%1$s\nIt has been copied to the clipboard</string>
@@ -47,6 +51,23 @@
     <string name="title_timeupon">Start time</string>
     <string name="title_timeupoff">End time</string>
     <string name="checkbox_enable_bugReport">Allow tracking bugs through network for optimization and improvement</string>
-
-
+    <string name="title_general">General</string>
+    <string name="title_advanced">Advanced</string>
+    <string name="title_excludeFromRecents">Exclude from recents</string>
+    <string name="summary_excludeFromRecents">Not displayed in the recent app list after exiting the app on the main interface</string>
+    <string name="title_others">Others</string>
+    <string name="title_help">Help</string>
+    <string name="title_about">About</string>
+    <string name="rate">Rate</string>
+    <string name="title_Introduction">What\'s this</string>
+    <string name="desc_Introduction">Switch the dark mode of Android system conveniently\nSupport Android 4.1+</string>
+    <string name="title_developer">Developer</string>
+    <string name="desc_developer">Developer</string>
+    <string name="title_certification">Certification</string>
+    <string name="title_green_apps">Comply to “Convention of Green Apps for Android”</string>
+    <string name="title_other_works">Other Works</string>
+    <string name="name_install_lion">Install Lion</string>
+    <string name="desc_install_lion">Provide multiple installers to install APK and uninstall apps silently without root or using root</string>
+    <string name="title_licenses">Open Source Licenses</string>
+    <string name="License_MulanPSL_2">MulanPSL 2.0</string>
 </resources>

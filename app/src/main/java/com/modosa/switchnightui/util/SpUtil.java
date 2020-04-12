@@ -9,7 +9,6 @@ import androidx.preference.PreferenceManager;
  * @author dadaewq
  */
 public class SpUtil {
-    private final String stablemode = "stablemode";
     private final SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -28,6 +27,7 @@ public class SpUtil {
     }
 
     public boolean isStableMode() {
+        String stablemode = "stablemode";
         return sharedPreferences.getBoolean(stablemode, false);
     }
 
@@ -39,7 +39,7 @@ public class SpUtil {
         return sharedPreferences.getBoolean(key, false);
     }
 
-    public void putBoolean(String key, boolean value) {
+    void putBoolean(String key, boolean value) {
         editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
         editor.apply();
@@ -52,16 +52,6 @@ public class SpUtil {
     public void putString(String key, String value) {
         editor = sharedPreferences.edit();
         editor.putString(key, value);
-        editor.apply();
-    }
-
-    public void reverseStableMode(boolean isstablemode) {
-        editor = sharedPreferences.edit();
-        if (isstablemode) {
-            editor.putBoolean(stablemode, false);
-        } else {
-            editor.putBoolean(stablemode, true);
-        }
         editor.apply();
     }
 }

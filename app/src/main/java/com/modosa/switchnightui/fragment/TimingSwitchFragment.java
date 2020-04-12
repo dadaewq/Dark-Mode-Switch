@@ -64,7 +64,6 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
     }
 
     private void initView() {
-
         timeon = findPreference(TimingSwitchUtil.SP_KEY_TIMEON);
         timeoff = findPreference(TimingSwitchUtil.SP_KEY_TIMEOFF);
         timeon.setSummary(spUtil.getString(TimingSwitchUtil.SP_KEY_TIMEON));
@@ -264,6 +263,9 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
     }
 
     interface CallBack {
+        /**
+         * 设置好时间后开始设置定时任务
+         */
         void set();
     }
 

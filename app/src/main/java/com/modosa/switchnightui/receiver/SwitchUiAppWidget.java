@@ -10,6 +10,7 @@ import android.widget.RemoteViews;
 
 import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.activity.SwitchDarkModeActivity;
+import com.modosa.switchnightui.util.OpUtil;
 
 /**
  * Implementation of App Widget functionality.
@@ -50,15 +51,7 @@ public class SwitchUiAppWidget extends AppWidgetProvider {
     }
 
     private void startActivity(Context context) {
-
-        Intent intent = new Intent(new Intent(Intent.ACTION_VIEW))
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .setClass(context, SwitchDarkModeActivity.class);
-
-        //设置data域的时候，把控件id一起设置进去，
-        // 因为在绑定的时候，是将同一个id绑定在一起的，所以哪个控件点击，发送的intent中data中的id就是哪个控件的id
-
-        context.startActivity(intent);
+        OpUtil.startMyClass(context, SwitchDarkModeActivity.class);
     }
 
 

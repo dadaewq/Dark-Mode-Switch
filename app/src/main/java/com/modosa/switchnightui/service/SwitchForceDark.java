@@ -63,15 +63,5 @@ public class SwitchForceDark extends TileService {
         if (switchForceDarkUtil == null) {
             switchForceDarkUtil = new SwitchForceDarkUtil(this);
         }
-//        if (OpSwitchUtil.isOnePlus(this)) {
-//            isOnePlus = true;
-//            if (opSwitchUtil == null) {
-//                opSwitchUtil = new OpSwitchUtil(this);
-//            }
-//        } else {
-//            if (switchUtil == null) {
-//                switchUtil = new SwitchUtil(this);
-//            }
-//        }
     }
 }

@@ -3,7 +3,7 @@ package com.modosa.switchnightui.base;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
-import com.modosa.switchnightui.activity.MainActivity;
+import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SpUtil;
 
 /**
@@ -15,7 +15,7 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
 
-        if (new SpUtil(this).getBoolean(MainActivity.SP_KEY_ENABLE_BUG_REPORT, true)) {
+        if (new SpUtil(this).getBoolean(OpUtil.SP_KEY_ENABLE_BUG_REPORT, true)) {
             String scretCode = null;
 
 
