@@ -219,16 +219,7 @@ public class MainActivity extends BaseAppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBackPressed() {
-        boolean removeTask = false;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && spUtil.getFalseBoolean("excludeFromRecents")) {
-            removeTask = true;
-        }
-
-        if (removeTask) {
-            finishAndRemoveTask();
-        } else {
-            finish();
-        }
+        OpUtil.finishAndRemoveTask(this);
     }
 
     @Override

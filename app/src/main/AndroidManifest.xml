@@ -29,6 +29,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".activity.AboutActivity"
+            android:excludeFromRecents="true"
             android:theme="@style/AppTheme.About">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +40,6 @@
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="uiMode"
-            android:launchMode="singleInstance"
             android:screenOrientation="user">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,9 +58,8 @@
         </activity>
         <activity
             android:name=".activity.SettingsActivity"
-            android:label="@string/settings"
-            android:launchMode="singleInstance"
-            android:theme="@style/AppTheme">
+            android:excludeFromRecents="true"
+            android:label="@string/settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -96,9 +95,8 @@
         </activity>
         <activity
             android:name=".activity.TimingSwitchActivity"
-            android:label="@string/title_timingswitch"
-            android:launchMode="singleInstance"
-            android:theme="@style/AppTheme">
+            android:excludeFromRecents="true"
+            android:label="@string/title_timingswitch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

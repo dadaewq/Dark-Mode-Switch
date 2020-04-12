@@ -18,6 +18,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.browser.customtabs.CustomTabsIntent;
+
 import com.modosa.switchnightui.R;
 
 /**
@@ -130,6 +133,20 @@ public class OpUtil {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static void finishAndRemoveTask(Activity activity) {
+        boolean removeTask = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && new SpUtil(activity).getFalseBoolean("excludeFromRecents")) {
+            removeTask = true;
+        }
+        if (removeTask) {
+            activity.finishAndRemoveTask();
+        } else {
+            activity.finish();
+        }
+    }
+
+
     public static void showDialogConfirmPrompt(Context context, AlertDialog alertDialog) {
 
         OpUtil.showAlertDialog(context, alertDialog);
@@ -156,6 +173,17 @@ public class OpUtil {
         timer.start();
     }
 
+    public static void launchCustomTabsUrl(Context context, String url) {
+        try {
+            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                    .setShowTitle(true)
+                    .build();
+
+            customTabsIntent.launchUrl(context, Uri.parse(url));
+        } catch (Exception e) {
+            showToast1(context, "" + e);
+        }
+    }
 
     public static void openUrl(Context context, String url) {
         try {

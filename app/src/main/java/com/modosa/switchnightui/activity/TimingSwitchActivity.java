@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.view.MenuItem;
 import android.view.Window;
 
 import androidx.annotation.Nullable;
@@ -44,19 +43,8 @@ public class TimingSwitchActivity extends BaseAppCompatActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
     @SuppressLint("BatteryLife")
     private void ignoreBatteryOptimization() {
-
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
             if (powerManager != null && !powerManager.isIgnoringBatteryOptimizations(getPackageName())) {

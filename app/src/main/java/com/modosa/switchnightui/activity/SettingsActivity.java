@@ -1,7 +1,6 @@
 package com.modosa.switchnightui.activity;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.Window;
 
 import androidx.annotation.Nullable;
@@ -39,15 +38,4 @@ public class SettingsActivity extends BaseAppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.framelayout, new SettingsFragment()).commit();
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
 }

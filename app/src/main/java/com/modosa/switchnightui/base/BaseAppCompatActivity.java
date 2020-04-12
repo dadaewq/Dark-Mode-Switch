@@ -2,6 +2,7 @@ package com.modosa.switchnightui.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +24,16 @@ abstract public class BaseAppCompatActivity extends AppCompatActivity {
 
         if (new SpUtil(context).getFalseBoolean(TimingSwitchUtil.ENABLE_TIMING_SWITCH2)) {
             new TimingSwitchUtil(getApplicationContext()).setAllSwitchAlarm2();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 }

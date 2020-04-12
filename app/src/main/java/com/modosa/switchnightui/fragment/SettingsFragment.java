@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
@@ -121,7 +123,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                 OpUtil.showDialogConfirmPrompt(context, alertDialog);
                 break;
             case "help":
-                OpUtil.openUrl(context, "https://dadaewq.gitee.io/tutorials/switchnightui.html");
+                OpUtil.launchCustomTabsUrl(context, "https://dadaewq.gitee.io/tutorials/switchnightui.html");
                 break;
             case "about":
                 OpUtil.startMyClass(context, AboutActivity.class);

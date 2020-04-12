@@ -55,7 +55,7 @@
     <string name="title_general">常规</string>
     <string name="title_advanced">高级</string>
     <string name="title_excludeFromRecents">在最近任务列表隐藏</string>
-    <string name="summary_excludeFromRecents">在主界面退出应用后不在最近任务列表中显示</string>
+    <string name="summary_excludeFromRecents">退出应用后不在最近任务列表中显示</string>
     <string name="title_others">其他</string>
     <string name="title_help">帮助</string>
     <string name="title_about">关于</string>
@@ -68,7 +68,7 @@
     <string name="title_green_apps">遵循《Android绿色应用公约》</string>
     <string name="title_other_works">其他作品</string>
     <string name="name_install_lion">安装狮</string>
-    <string name="desc_install_lion">提供多个安装器，免Root或使用Root进行静默安装APK与卸载应用</string>
+    <string name="desc_install_lion">提供多个安装器，免Root或使用Root来静默安装APK与卸载应用</string>
     <string name="title_licenses">开源许可证</string>
     <string name="License_MulanPSL_2">木兰宽松许可证 2.0</string>
 </resources>

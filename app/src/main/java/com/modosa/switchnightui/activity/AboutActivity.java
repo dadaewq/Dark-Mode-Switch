@@ -52,7 +52,7 @@ public class AboutActivity extends AbsAboutActivity {
             finish();
             return true;
         } else if (item.getItemId() == R.id.rate) {
-            OpUtil.openUrl(this, "https://www.coolapk.com/apk/com.modosa.switchnightui");
+            OpUtil.launchCustomTabsUrl(this, "https://www.coolapk.com/apk/com.modosa.switchnightui");
             return true;
         } else {
             return super.onOptionsItemSelected(item);
