@@ -70,4 +70,5 @@
     <string name="desc_install_lion">Provide multiple installers to install APK and uninstall apps silently without root or using root</string>
     <string name="title_licenses">Open Source Licenses</string>
     <string name="License_MulanPSL_2">MulanPSL 2.0</string>
+    <string name="xposeddescription">Removed the restrictions on the dark mode of the following system in some applications.\nSupports Coolapk currently</string>
 </resources>
