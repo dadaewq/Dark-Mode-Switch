@@ -15,7 +15,11 @@ public class XModule implements IXposedHookLoadPackage {
                 XposedHelpers.findAndHookMethod("com.coolapk.market.AppSetting", loadPackageParam.classLoader, "shouldDisableXposed", XC_MethodReplacement.returnConstant(false));
 
 //                XposedHelpers.findAndHookMethod("com.coolapk.market.util.XposedUtils", loadPackageParam.classLoader, "disableXposed", XC_MethodReplacement.returnConstant(true));
+            } catch (Exception e) {
+                XposedBridge.log("" + e);
+            }
 
+            try {
                 XposedHelpers.findAndHookMethod("com.coolapk.market.util.NightModeHelper", loadPackageParam.classLoader, "isThisRomSupportSystemTheme", XC_MethodReplacement.returnConstant(true));
 
             } catch (Exception e) {
