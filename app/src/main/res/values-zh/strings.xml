@@ -27,8 +27,6 @@
     <string name="StableMode">稳定模式</string>
     <string name="title_dialog_EnableStableMode">开启稳定模式</string>
     <string name="message_dialog_EnableStableMode">稳定模式一般无需开启，只有当开启深色模式出现被系统自动关闭的情况时才需要开启。\n\n每次切换深色模式后点击菜单中的\"刷新\"可更新本App的主题。</string>
-    <string name="tip_StableModeOn">\n每次点击刷新才可让本App主题跟随系统</string>
-    <string name="StableModeOff">稳定模式：已关闭</string>
     <string name="ForceDarkOn">强制深色：已开启</string>
     <string name="ForceDarkOff">强制深色：已关闭</string>
     <string name="settings">设置</string>

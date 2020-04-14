@@ -26,8 +26,6 @@
     <string name="StableMode">Stable Mode</string>
     <string name="title_dialog_EnableStableMode">Turn on stable mode</string>
     <string name="message_dialog_EnableStableMode">In general, the stable mode does not need to be turned on. It only needs to be turned on when the dark mode is turned on and automatically turned off by the system.\n\nEach time you switch dark mode, click \" Refresh\" in the menu to update the theme of this App.</string>
-    <string name="tip_StableModeOn">\nEach click Refresh can make this App theme follow the system</string>
-    <string name="StableModeOff">Stable Mode : OFF</string>
     <string name="ForceDarkOn">Force Dark: ON</string>
     <string name="ForceDarkOff">Force Dark : OFF</string>
     <string name="settings">Settings</string>

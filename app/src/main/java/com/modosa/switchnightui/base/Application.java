@@ -9,6 +9,7 @@ import com.modosa.switchnightui.util.SpUtil;
 /**
  * @author dadaewq
  */
+@SuppressWarnings("WeakerAccess")
 public class Application extends android.app.Application {
 
     @Override

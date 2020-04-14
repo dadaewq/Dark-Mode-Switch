@@ -73,14 +73,14 @@ public class AboutActivity extends AbsAboutActivity {
         items.add(new Card(getString(R.string.desc_Introduction)));
 
         items.add(new Category(getString(R.string.title_developer)));
-        items.add(new Contributor(R.drawable.avatar_dadaewq, "dadaewq", getString(R.string.desc_developer), "http://www.coolapk.com/u/460110"));
+        items.add(new Contributor(R.drawable.avatar_dadaewq_circle_middle, "dadaewq", getString(R.string.desc_developer), "http://www.coolapk.com/u/460110"));
 
         items.add(new Category(getString(R.string.title_certification)));
-        items.add(new Contributor(R.drawable.ic_green_apps, getString(R.string.title_green_apps), "https://green-android.org", "https://green-android.org"));
+        items.add(new Contributor(R.mipmap.ic_green_apps, getString(R.string.title_green_apps), "https://green-android.org", "https://green-android.org"));
 
 
         items.add(new Category(getString(R.string.title_other_works)));
-        items.add(new Contributor(R.drawable.ic_install_lion, getString(R.string.name_install_lion), getString(R.string.desc_install_lion), "https://www.coolapk.com/apk/com.modosa.apkinstaller"));
+        items.add(new Contributor(R.mipmap.ic_install_lion, getString(R.string.name_install_lion), getString(R.string.desc_install_lion), "https://www.coolapk.com/apk/com.modosa.apkinstaller"));
 
 
         items.add(new Category(getString(R.string.title_licenses)));

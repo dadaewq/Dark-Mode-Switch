@@ -6,6 +6,10 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
+/**
+ * @author dadaewq
+ */
+@SuppressWarnings("WeakerAccess")
 public class XModule implements IXposedHookLoadPackage {
 
     @Override

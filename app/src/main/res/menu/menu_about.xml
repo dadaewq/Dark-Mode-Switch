@@ -4,7 +4,7 @@
     tools:context="com.modosa.switchnightui.activity.MainActivity">
     <item
         android:id="@+id/rate"
-        android:icon="@drawable/rate"
+        android:icon="@drawable/ic_rate"
         android:orderInCategory="10"
         android:title="@string/rate"
         app:showAsAction="ifRoom" />
