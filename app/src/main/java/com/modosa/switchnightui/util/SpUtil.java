@@ -16,11 +16,11 @@ public class SpUtil {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public int getMethod() {
+    public int getWorkMode() {
         return sharedPreferences.getInt("method", -1);
     }
 
-    public void putMethod(int checked) {
+    public void putWorkMode(int checked) {
         editor = sharedPreferences.edit();
         editor.putInt("method", checked);
         editor.apply();

@@ -28,6 +28,7 @@ import com.modosa.switchnightui.R;
  */
 public class OpUtil {
     public static final String SP_KEY_ENABLE_BUG_REPORT = "enableBugReport";
+    private static final String SP_KEY_EXCLUDE_FROM_RECENTS = "excludeFromRecents";
     public final static String CONFIRM_PROMPT = "ConfirmPrompt01";
 
     public static void showAlertDialog(Context context, AlertDialog alertDialog) {
@@ -136,7 +137,7 @@ public class OpUtil {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void finishAndRemoveTask(Activity activity) {
         boolean removeTask = false;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && new SpUtil(activity).getFalseBoolean("excludeFromRecents")) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && new SpUtil(activity).getFalseBoolean(SP_KEY_EXCLUDE_FROM_RECENTS)) {
             removeTask = true;
         }
         if (removeTask) {

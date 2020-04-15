@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -34,11 +33,9 @@ public class MainActivity extends BaseAppCompatActivity {
     private SwitchForceDarkUtil switchForceDarkUtil;
 
     private SpUtil spUtil;
-    private TextView status;
     private UiModeManager uiModeManager;
     private RadioGroup radioGroup1;
     private int want = -1;
-    private boolean isstablemode;
     private RadioButton on, off;
     private AlertDialog alertDialog;
 
@@ -86,9 +83,9 @@ public class MainActivity extends BaseAppCompatActivity {
         RadioButton radioButton2 = findViewById(R.id.radioButton2);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            radioButton2.append(" (" + getString(R.string.tips_method2) + ")");
+            radioButton2.append(" (" + getString(R.string.tips_workmode2) + ")");
         }
-        int checked = spUtil.getMethod();
+        int checked = spUtil.getWorkMode();
 
         switch (checked) {
             case 2:
@@ -104,18 +101,18 @@ public class MainActivity extends BaseAppCompatActivity {
 
     private void setListener() {
         radioGroup1.setOnCheckedChangeListener((group, checkedId) -> {
-            int method;
+            int workMode;
             switch (checkedId) {
                 case R.id.radioButton2:
-                    method = 2;
+                    workMode = 2;
                     break;
                 case R.id.radioButton3:
-                    method = 3;
+                    workMode = 3;
                     break;
                 default:
-                    method = 1;
+                    workMode = 1;
             }
-            spUtil.putMethod(method);
+            spUtil.putWorkMode(workMode);
 
         });
 
@@ -130,7 +127,6 @@ public class MainActivity extends BaseAppCompatActivity {
             switchDarkMode();
         });
 
-        status = findViewById(R.id.textView);
     }
 
     @Override
@@ -194,20 +190,23 @@ public class MainActivity extends BaseAppCompatActivity {
             setTitle(getString(R.string.app_name));
         }
 
-        if (uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES) {
-            status.setText(R.string.DarkModeOn);
-            if (!WriteSettingsUtil.isNightMode(this)) {
-                status.append("*");
-            }
-            on.setChecked(true);
-        } else {
-            status.setText(R.string.DarkModeOff);
-            if (WriteSettingsUtil.isNightMode(this)) {
-                status.append("*");
-            }
-            off.setChecked(true);
-        }
 
+        String suffixOn = " ", suffixOff = " ";
+        if (uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES) {
+            on.setChecked(true);
+            if (!WriteSettingsUtil.isNightMode(this)) {
+                suffixOff = "*";
+            }
+        } else {
+            off.setChecked(true);
+            if (WriteSettingsUtil.isNightMode(this)) {
+                suffixOn = "*";
+            }
+        }
+        on.setText(R.string.on);
+        off.setText(R.string.off);
+        on.append(suffixOn);
+        off.append(suffixOff);
     }
 
     @Override

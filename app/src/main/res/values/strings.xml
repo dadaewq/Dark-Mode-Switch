@@ -2,16 +2,17 @@
     <string name="app_name">Dark Mode Switch</string>
     <string name="title_instructions_before_use">Instructions before use</string>
     <string name="tv_instructions_before_use">
-        \nPlease read this notice calmly \n
+        \nPlease read this notice calmly\n
         \nThe dark mode in this App is only to switch a UI state of the Android system
         \nThe display in the dark mode requires the application to adapt itself (the system interface is the same)
-        \nIt is not related to this App whether other applications adapt or not and the situation of their adaptation
-        \n\nThe availability of Method 1 is determined by the system
-        \nMethod 2 requires authorization
-        \nMethod 3 requires Root\n
-        \nSome devices may be automatically turned off dark mode by the system after turning on dark mode.Only then need to turn on stable mode to switch
-        \n\nAndroid 10 and above can attempts to switch force dark with Root.
-        \nThis App provides tiles, widgets, static shortcuts,pinned shortcuts and setting assistant applications to quickly switch. The switching method follows the main interface selection.\n
+        \nIt is not related to this App whether other applications adapt or not and the situation of their adaptation\n
+        \nThis App has the following work modes
+        \n1.Normal mode：The availability of it is determined by the system
+        \n2.Compatible mode：requires ADB authorization
+        \n3.Root mode\n
+        \nSome devices may be automatically turned off dark mode by the system after turning on dark mode.Only then need to turn on stable mode to switch\n
+        \nAndroid 10 and above can attempts to switch force dark with Root.
+        \nThis App provides tiles, widgets, static shortcuts,pinned shortcuts and setting assistant applications to quickly switch.\n
     </string>
     <string name="checkbox1_instructions_before_use">It is not the problem of this App that the system interface or other applications do not turn dark after using this App to turn on dark mode</string>
     <string name="checkbox2_instructions_before_use">I have fully understood</string>
@@ -32,18 +33,19 @@
     <string name="refresh">Refresh</string>
     <string name="DarkMode">Dark Mode</string>
     <string name="ForceDark">Force Dark</string>
-    <string name="Method1">Method 1</string>
-    <string name="Method2">Method 2</string>
-    <string name="Method3">Method 3 (Root)</string>
-    <string name="on">ON</string>
-    <string name="off">OFF</string>
+    <string name="WorkMode">Work Mode</string>
+    <string name="WorkMode1">Normal</string>
+    <string name="WorkMode2">Compatible</string>
+    <string name="WorkMode3">Root</string>
+    <string name="on">ON </string>
+    <string name="off">OFF </string>
     <string name="yes2">%1$s Success\n\nReboot the device to take effect</string>
     <string name="yes2old">%1$s Success\n\nReboot the device and enable car mode to take effect</string>
-    <string name="tips_method2">Reboot the device to take effect</string>
-    <string name="failmethod">Method %1$s is unavailable!Please try other methods</string>
+    <string name="tips_workmode2">Reboot the device to take effect</string>
+    <string name="failworkmode">%1$s mode is unavailable!Please try other mode</string>
     <string name="error">Error %1$s</string>
     <string name="no_root">Unable to acquire root access</string>
-    <string name="needpermission">Please grant permissions using\n%1$s\nIt has been copied to the clipboard</string>
+    <string name="tip_needpermission">Please grant permissions using\n%1$s\nIt has been copied to the clipboard</string>
     <string name="tip_need_sdk29">Switching force dark requires Android 10 and above</string>
     <string name="title_timingswitch">Timing Switch</string>
     <string name="title_timeupon">Start time</string>

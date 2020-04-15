@@ -6,13 +6,14 @@
         \n恳请您先冷静地阅读本须知\n
         \n本应用的深色模式只是切换Android系统的一个UI状态
         \n深色模式下的显示需要应用自己适配(系统界面同理)
-        \n有没有适配和适配的情况与本应用无关
-        \n\n方法1 可用性由系统决定
-        \n方法2 需要授权
-        \n方法3 需要Root
-        \n\n部分设备开启深色模式后可能会被系统自动关闭，此时才需要开启稳定模式以切换
-        \n\nAndroid 10及以上可用Root尝试切换强制深色。
-        \n本应用提供磁贴、微件、Shortcut、快捷方式和设置助手应用来快捷切换，切换方法跟随主界面选择。\n
+        \n有没有适配和适配的情况与本应用无关\n
+        \n本应用有以下工作模式
+        \n1.普通模式：可用性由系统决定
+        \n2.兼容模式：需要ADB授权
+        \n3.Root模式\n
+        \n部分设备开启深色模式后可能会被系统自动关闭，此时才需要开启稳定模式以切换。\n
+        \nAndroid 10及以上可用Root尝试切换强制深色。
+        \n本应用提供磁贴、微件、Shortcut、快捷方式和设置助手应用来快捷切换。\n
     </string>
     <string name="checkbox1_instructions_before_use">使用本应用开启深色模式后系统界面或其他应用没有变黑不是本应用的问题</string>
     <string name="checkbox2_instructions_before_use">我已经充分知晓</string>
@@ -33,18 +34,19 @@
     <string name="refresh">刷新</string>
     <string name="DarkMode">深色模式</string>
     <string name="ForceDark">强制深色</string>
-    <string name="Method1">方法1</string>
-    <string name="Method2">方法2</string>
-    <string name="Method3">方法3 (Root)</string>
+    <string name="WorkMode">工作模式</string>
+    <string name="WorkMode1">普通</string>
+    <string name="WorkMode2">兼容</string>
+    <string name="WorkMode3">Root</string>
     <string name="on">开启</string>
     <string name="off">关闭</string>
     <string name="yes2">%1$s 成功\n\n重启设备生效</string>
     <string name="yes2old">%1$s 成功\n\n重启设备并开启驾驶模式生效</string>
-    <string name="tips_method2">重启设备生效</string>
-    <string name="failmethod">方法%1$s不可用!请尝试其他方法</string>
+    <string name="tips_workmode2">重启设备生效</string>
+    <string name="failworkmode">%1$s模式不可用!请尝试其他模式</string>
     <string name="error">切换出错 %1$s</string>
     <string name="no_root">无法获取Root权限</string>
-    <string name="needpermission">请用\n%1$s\n授予权限,已复制到剪贴板</string>
+    <string name="tip_needpermission">请用\n%1$s\n授予权限,已复制到剪贴板</string>
     <string name="tip_need_sdk29">切换强制深色需要Android10及以上</string>
     <string name="title_timingswitch">定时切换</string>
     <string name="title_timeupon">开启时间</string>

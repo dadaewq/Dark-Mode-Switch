@@ -38,7 +38,7 @@ public class SwitchUi extends TileService {
 
     private void switchDarkMode() {
         refreshUtil();
-        if (new SpUtil(this).getMethod() == 2) {
+        if (new SpUtil(this).getWorkMode() == 2) {
             enable = !WriteSettingsUtil.isNightMode(this);
         } else {
             enable = !switchDarkModeUtil.isDarkMode();

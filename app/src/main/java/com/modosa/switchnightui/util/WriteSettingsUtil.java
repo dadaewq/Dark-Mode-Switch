@@ -1,6 +1,5 @@
 package com.modosa.switchnightui.util;
 
-import android.app.UiModeManager;
 import android.content.Context;
 import android.os.Build;
 import android.provider.Settings;
@@ -13,8 +12,6 @@ import com.modosa.switchnightui.R;
  * @author dadaewq
  */
 public class WriteSettingsUtil {
-    public static final int YES = UiModeManager.MODE_NIGHT_YES;
-    public static final int NO = UiModeManager.MODE_NIGHT_NO;
     private static final String KEY_NIGHT_MODE = "ui_night_mode";
 
     /**
@@ -49,7 +46,7 @@ public class WriteSettingsUtil {
                             nightmode == 2 ? context.getString(R.string.on) : context.getString(R.string.off));
                 }
             } else {
-                msg = String.format(context.getString(R.string.failmethod), "2");
+                msg = String.format(context.getString(R.string.failworkmode), context.getString(R.string.WorkMode2));
             }
 
         } catch (Exception e) {

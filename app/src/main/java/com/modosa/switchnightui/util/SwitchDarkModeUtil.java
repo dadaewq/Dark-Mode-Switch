@@ -32,7 +32,7 @@ public class SwitchDarkModeUtil {
     }
 
     public void switchDarkModeWithResult() {
-        if (new SpUtil(context).getMethod() == 2) {
+        if (new SpUtil(context).getWorkMode() == 2) {
             setDarkModeWithResult(!WriteSettingsUtil.isNightMode(context));
         } else {
             setDarkModeWithResult(!isDarkMode());
@@ -43,7 +43,7 @@ public class SwitchDarkModeUtil {
         String msg = setDarkMode(enable).getMsg();
 
         if (!TextUtils.isEmpty(msg)) {
-            OpUtil.showToast0(context, msg);
+            OpUtil.showToast1(context, msg);
         }
     }
 
@@ -96,8 +96,8 @@ public class SwitchDarkModeUtil {
 
         String msg = "";
 
-        int method = spUtil.getMethod();
-        if (method == 2) {
+        int workMode = spUtil.getWorkMode();
+        if (workMode == 2) {
             ResultMsg resultMsg = switch2(want);
             msg = resultMsg.getMsg();
 
@@ -109,13 +109,13 @@ public class SwitchDarkModeUtil {
 
         } else {
             result.setSuccess();
-            if (method == 3) {
+            if (workMode == 3) {
                 if (switch3(want)) {
                     msg = context.getString(R.string.no_root);
                 }
             } else {
                 if (switch1(want)) {
-                    msg = String.format(context.getString(R.string.failmethod), "1");
+                    msg = String.format(context.getString(R.string.failworkmode), context.getString(R.string.WorkMode1));
                 }
             }
         }
@@ -128,10 +128,10 @@ public class SwitchDarkModeUtil {
 
 
     /**
-     * Switch Dark Mode  Method1
+     * Switch Dark Mode  WorkMode1
      *
      * @param nightmode nightmode
-     * @return method1 cannot use
+     * @return WorkMode1 cannot use
      */
     private boolean switch1(final int nightmode) {
         boolean av = true;
@@ -148,7 +148,7 @@ public class SwitchDarkModeUtil {
     }
 
     /**
-     * Switch Dark Mode  Method1
+     * Switch Dark Mode  WorkMode1
      *
      * @param nightmode nightmode
      * @return ResultMsg
@@ -172,7 +172,7 @@ public class SwitchDarkModeUtil {
             if (resultMsg.getMsg().contains("WRITE_SECURE_SETTINGS")) {
                 String cmd = "adb shell pm grant " + context.getPackageName() + " android.permission.WRITE_SECURE_SETTINGS";
                 OpUtil.copyCmd(context, cmd);
-                resultMsg.setMsg(String.format(context.getString(R.string.needpermission), cmd));
+                resultMsg.setMsg(String.format(context.getString(R.string.tip_needpermission), cmd));
             }
 
         }
@@ -181,7 +181,7 @@ public class SwitchDarkModeUtil {
     }
 
     /**
-     * Switch Dark Mode  Method1
+     * Switch Dark Mode  WorkMode1
      *
      * @param nightmode nightmode
      * @return wether without su

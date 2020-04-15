@@ -35,7 +35,7 @@ public class SwitchDarkModeActivity extends BaseActivity {
         if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             createShortCut();
         } else {
-            if (new SpUtil(this).getMethod() == 2) {
+            if (new SpUtil(this).getWorkMode() == 2) {
                 enable = !WriteSettingsUtil.isNightMode(this);
             } else {
                 enable = !switchDarkModeUtil.isDarkMode();
