@@ -18,6 +18,7 @@ public class Application extends android.app.Application {
 
         if (new SpUtil(this).getBoolean(OpUtil.SP_KEY_ENABLE_BUG_REPORT, true)) {
             String scretCode = null;
+            //TODO
 
 
             AppCenter.start(this, scretCode, Analytics.class, Crashes.class);

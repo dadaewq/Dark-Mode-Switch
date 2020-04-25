@@ -27,7 +27,6 @@ class CheckUtil {
             Method misNightModeLocked = uiModeManager.getClass().getDeclaredMethod("isNightModeLocked");
             misNightModeLocked.setAccessible(true);
             return !(boolean) misNightModeLocked.invoke(uiModeManager);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

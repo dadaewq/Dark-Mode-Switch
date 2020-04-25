@@ -15,14 +15,4 @@
         <item name="aboutPageHeaderContentScrim">@color/Color121212</item>
     </style>
 
-    <!--    <style name="AppTheme.About1" parent="Theme.AppCompat.DayNight.Dialog">-->
-    <!--        <item name="windowActionBar">false</item>-->
-    <!--        <item name="windowNoTitle">true</item>-->
-    <!--        <item name="colorAccent">@color/rBackground</item>-->
-    <!--        <item name="aboutPageHeaderBackground">@color/Color121212</item>-->
-    <!--        <item name="aboutPageHeaderTextColor">@color/ColorF5F5F5</item>-->
-    <!--        <item name="aboutPageHeaderContentScrim">@color/Color121212</item>-->
-    <!--    </style>-->
-
-
 </resources>

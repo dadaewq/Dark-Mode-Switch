@@ -31,16 +31,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".activity.AboutActivity"
-            android:excludeFromRecents="true"
-            android:theme="@style/AppTheme.About">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".activity.MainActivity"
             android:configChanges="uiMode"
             android:screenOrientation="user">
@@ -63,6 +53,16 @@
             android:name=".activity.SettingsActivity"
             android:excludeFromRecents="true"
             android:label="@string/settings">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.AboutActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/AppTheme.About">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

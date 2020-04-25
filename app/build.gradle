@@ -8,8 +8,8 @@ android {
         applicationId "com.modosa.switchnightui"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 30
-        versionName "2.3.0"
+        versionCode 33
+        versionName "2.3.2-fix"
     }
     buildTypes {
         release {
@@ -24,7 +24,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "${defaultConfig.applicationId}_${defaultConfig.getVersionName()}_${defaultConfig.getVersionCode()}.apk"
+            outputFileName = "${applicationId}_${versionName}_${versionCode}.apk"
         }
     }
 }
@@ -35,10 +35,12 @@ dependencies {
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
 
+    //noinspection GradleDependency
     implementation 'androidx.appcompat:appcompat:1.2.0-beta01'
-    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.browser:browser:1.2.0'
 
+    //be careful to dump this
     implementation 'com.google.android.material:material:1.2.0-alpha05'
 
     implementation 'com.drakeet.about:about:2.4.1'
@@ -49,7 +51,7 @@ dependencies {
     compileOnly 'de.robv.android.xposed:api:82'
 //    compileOnly 'de.robv.android.xposed:api:82:sources'
 
-//    implementation'com.luckycatlabs:SunriseSunsetCalculator:1.2'
-//    implementation 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
+    implementation 'com.blankj:utilcodex:1.28.1'
+    implementation 'com.luckycatlabs:SunriseSunsetCalculator:1.2'
 
 }

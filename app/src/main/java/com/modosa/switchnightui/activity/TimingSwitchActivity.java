@@ -1,16 +1,23 @@
 package com.modosa.switchnightui.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.modosa.switchnightui.R;
@@ -38,9 +45,34 @@ public class TimingSwitchActivity extends BaseAppCompatActivity {
         }
         ignoreBatteryOptimization();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.framelayout, new TimingSwitchFragment()).commit();
+        Button button = findViewById(R.id.uptateSun);
+        Activity activity = this;
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(v -> {
 
+            if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 666);
+            } else {
+                getSupportFragmentManager().findFragmentByTag("TimingSwitch").onActivityResult(665, 666, null);
+            }
+        });
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.framelayout, new TimingSwitchFragment(), "TimingSwitch").commit();
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == 666) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                getSupportFragmentManager().findFragmentByTag("TimingSwitch").onActivityResult(665, 666, null);
+//            } else {
+//                ToastUtils.showLong("未获得位置权限");
+            }
+        }
     }
 
     @SuppressLint("BatteryLife")

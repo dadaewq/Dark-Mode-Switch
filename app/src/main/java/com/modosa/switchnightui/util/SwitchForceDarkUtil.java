@@ -80,6 +80,7 @@ public class SwitchForceDarkUtil {
         if ("0".equals(checkRoot[3])) {
             ShellUtil.execWithRoot(CMD_SET_FORCE_DARK + enable);
             return true;
+
         } else {
             ShellUtil.exec(CMD_SET_FORCE_DARK + enable, false);
             return false;

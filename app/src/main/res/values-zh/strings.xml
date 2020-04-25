@@ -72,4 +72,10 @@
     <string name="title_licenses">开源许可证</string>
     <string name="License_MulanPSL_2">木兰宽松许可证 2.0</string>
     <string name="xposeddescription">解除部分应用对跟随系统深色模式的限制，目前支持酷安</string>
+    <string name="uptateSun">点击获取日出日落以更新时间</string>
+    <string name="tip_need_access_Location_info">需要允许访问位置信息</string>
+    <string name="tip_fail_getLocation">获取位置失败</string>
+    <string name="tip_success_getLocation">更新成功</string>
+    <string name="title_second_confirm">切换前确认</string>
+    <string name="message_second_confirm">您看到此对话框是因为您尚未在“用前须知”中确认“不再提示”\n\n请您再次确认：深色模式一定需要应用自己的适配,不然切换后应用不会有变化,也就是部分用户认为的“无效”</string>
 </resources>

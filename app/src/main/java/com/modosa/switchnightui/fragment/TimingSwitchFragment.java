@@ -5,6 +5,9 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.app.UiModeManager;
 import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,12 +18,16 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator;
 import com.modosa.switchnightui.R;
+import com.modosa.switchnightui.util.LocationUtil;
 import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SpUtil;
 import com.modosa.switchnightui.util.TimingSwitchUtil;
 
 import java.util.Calendar;
+
+import static com.modosa.switchnightui.util.LocationUtil.openGpsSettings;
 
 /**
  * @author dadaewq
@@ -52,6 +59,16 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
+
+        if (requestCode == 665) {
+            updateSunRiseAndSunSet();
+        }
+
+    }
+
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
@@ -61,6 +78,84 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
         spUtil = new SpUtil(context);
         timingSwitchUtil = new TimingSwitchUtil(context);
         initView();
+//        updateSunRiseAndSunSet();
+    }
+
+    private void updateSunRiseAndSunSet() {
+
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.e("TAG", "onLocationChanged: ");
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                Log.e("TAG", "onStatusChanged: ");
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                Log.e("TAG", "onProviderEnabled: ");
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                Log.e("TAG", "onProviderDisabled: ");
+            }
+        };
+
+        if (!LocationUtil.isLocationEnabled()) {
+            //no Network and GPS providers is enabled
+            OpUtil.showToast0(context, R.string.tip_need_access_Location_info);
+            openGpsSettings();
+            return;
+        }
+
+        Location getLocation = LocationUtil.getLocation(context, locationListener);
+        Log.e("getLocation", "" + getLocation);
+
+        if (getLocation == null) {
+            OpUtil.showToast0(context, R.string.tip_fail_getLocation);
+            return;
+        }
+        Calendar calendar = Calendar.getInstance();
+        com.luckycatlabs.sunrisesunset.dto.Location location = new com.luckycatlabs.sunrisesunset.dto.Location(getLocation.getLatitude(), getLocation.getLongitude());
+
+        SunriseSunsetCalculator sunriseSunsetCalculator = new SunriseSunsetCalculator(location, calendar.getTimeZone());
+        String Sunrise = sunriseSunsetCalculator.getOfficialSunriseForDate(calendar);
+        String Sunset = sunriseSunsetCalculator.getOfficialSunsetForDate(calendar);
+
+        Log.e("Sunrise", ": " + Sunrise);
+        Log.e("Sunset-", ": " + Sunset);
+
+//        Log.e("Sunrise_", ": " + LocalTime.parse(Sunrise));
+//        Log.e("Sunset_", ": " + LocalTime.parse(Sunset));
+
+
+        TimingSwitchUtil timingSwitchUtil = new TimingSwitchUtil(context);
+        SpUtil spUtil = new SpUtil(context);
+
+        updateView(timeon, Sunset);
+        updateView(timeoff, Sunrise);
+        if (spUtil.getFalseBoolean(TimingSwitchUtil.ENABLE_TIMING_SWITCH)) {
+            timingSwitchUtil.setAllSwitchAlarm();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            updateView(timeon2, Sunset);
+            updateView(timeoff2, Sunrise);
+            if (spUtil.getFalseBoolean(TimingSwitchUtil.ENABLE_TIMING_SWITCH2)) {
+                timingSwitchUtil.setAllSwitchAlarm2();
+            }
+        }
+
+        OpUtil.showToast0(context, R.string.tip_success_getLocation);
+    }
+
+    private void updateView(Preference preference, String time) {
+        spUtil.putString(preference.getKey(), time);
+        preference.setSummary(time);
     }
 
     private void initView() {

@@ -71,4 +71,10 @@
     <string name="title_licenses">Open Source Licenses</string>
     <string name="License_MulanPSL_2">MulanPSL 2.0</string>
     <string name="xposeddescription">Removed the restrictions on the dark mode of the following system in some applications.\nSupports Coolapk currently</string>
+    <string name="uptateSun">Click to update time according to sunrise and sunset</string>
+    <string name="tip_need_access_Location_info">Need to allow access to location information</string>
+    <string name="tip_fail_getLocation">Failed to get location</string>
+    <string name="tip_success_getLocation">update completed</string>
+    <string name="title_second_confirm">Confirm before switching</string>
+    <string name="message_second_confirm">The reason why you see this dialog is that you have not confirmed \"No longer prompt\" in the \"Instructions before use\".\n\nPlease confirm again: the dark mode must apply its own adaptation, otherwise the application will not change after switching which is considered \"invalid\" by some users</string>
 </resources>
