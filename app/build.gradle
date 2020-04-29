@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion '30.0.0 rc1'
+    buildToolsVersion '30.0.0 rc2'
     defaultConfig {
         resConfig 'zh'
         applicationId "com.modosa.switchnightui"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 33
-        versionName "2.3.2-fix"
+        versionName "2.3.2-newIcon"
     }
     buildTypes {
         release {
