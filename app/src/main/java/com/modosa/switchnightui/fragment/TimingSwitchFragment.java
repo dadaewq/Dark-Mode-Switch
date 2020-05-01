@@ -32,6 +32,7 @@ import static com.modosa.switchnightui.util.LocationUtil.openGpsSettings;
 /**
  * @author dadaewq
  */
+@SuppressWarnings("ConstantConditions")
 public class TimingSwitchFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
     private final boolean isSupportForceDark = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
     private Context context;

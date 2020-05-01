@@ -43,7 +43,7 @@ public class MainActivity extends BaseAppCompatActivity {
     private int want = -1;
     private RadioButton on, off;
     private AlertDialog alertDialog;
-    private TextView name_darkmode;
+    private TextView nameDarkmode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class MainActivity extends BaseAppCompatActivity {
     @Keep
     private String hookTitleReturnString() {
 //        如果需要hook，不要注释下一行
-        Log.e("hook2ReturnTrue", ": ");
+        Log.i("hook2ReturnTrue", ": ");
 
         return getString(R.string.DarkMode);
     }
@@ -186,7 +186,7 @@ public class MainActivity extends BaseAppCompatActivity {
             window.setBackgroundDrawableResource(R.drawable.alertdialog_background);
         }
 
-        name_darkmode = findViewById(R.id.name_darkmode);
+        nameDarkmode = findViewById(R.id.name_darkmode);
         on = findViewById(R.id.on);
         off = findViewById(R.id.off);
 
@@ -320,9 +320,9 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     private void refreshStatus() {
-        name_darkmode.setText(hookTitleReturnString());
+        nameDarkmode.setText(hookTitleReturnString());
         if (!spUtil.getFalseBoolean(OpUtil.CONFIRM_PROMPT)) {
-            name_darkmode.append(" ?");
+            nameDarkmode.append(" ?");
         }
         if (spUtil.isStableMode()) {
             setTitle("* " + getString(R.string.app_name));

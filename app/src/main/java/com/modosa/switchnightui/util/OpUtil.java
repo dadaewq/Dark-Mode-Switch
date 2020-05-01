@@ -3,6 +3,11 @@ package com.modosa.switchnightui.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.UiModeManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -20,8 +25,12 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.app.NotificationCompat;
 
 import com.modosa.switchnightui.R;
+import com.modosa.switchnightui.activity.MainActivity;
+import com.modosa.switchnightui.activity.SwitchDarkModeActivity;
+import com.modosa.switchnightui.receiver.TimingSwitchReceiver;
 
 /**
  * @author dadaewq
@@ -72,6 +81,58 @@ public class OpUtil {
             showToast1(context, "" + e);
         }
     }
+
+    // 添加常驻通知
+    public static void addPermanentNotification(Context context) {
+        String channelId = R.string.title_permanentNotification + "";
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            Notification notification = new NotificationCompat.Builder(context, channelId)
+                    .setContentText(context.getString(R.string.DarkMode))
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.drawable.ic_noti)
+                    .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0))
+                    .setNotificationSilent()
+                    .addAction(0, context.getString(R.string.on), getSwitchPendingIntent1(context, UiModeManager.MODE_NIGHT_YES))
+                    .addAction(0, context.getString(R.string.off), getSwitchPendingIntent1(context, UiModeManager.MODE_NIGHT_NO))
+                    .build();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel = new NotificationChannel(channelId, context.getString(R.string.title_permanentNotification), NotificationManager.IMPORTANCE_LOW);
+                notificationManager.createNotificationChannel(channel);
+            }
+            // 设置常驻 Flag
+            notification.flags = Notification.FLAG_ONGOING_EVENT;
+            //展示通知栏
+            notificationManager.notify(R.string.app_name, notification);
+
+        }
+    }
+
+    public static void cancelPermanentNotification(Context context) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(R.string.app_name);
+    }
+
+    private static PendingIntent getSwitchPendingIntent(Context context, int darkMode) {
+
+        Intent intent = new Intent(context, SwitchDarkModeActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .putExtra("darkMode", darkMode);
+        try {
+            return PendingIntent.getActivity(context, darkMode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getSwitchPendingIntent1(context, darkMode);
+        }
+    }
+
+    private static PendingIntent getSwitchPendingIntent1(Context context, int darkMode) {
+        Intent intent = new Intent(context, TimingSwitchReceiver.class)
+                .putExtra("darkMode", darkMode);
+        return PendingIntent.getBroadcast(context, darkMode + 2, intent, 0);
+    }
+
 
     public static AlertDialog createDialogConfirmPrompt(Context context) {
         SpUtil spUtil = new SpUtil(context);

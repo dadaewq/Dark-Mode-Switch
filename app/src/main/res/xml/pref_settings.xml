@@ -13,7 +13,9 @@
         <Preference
             app:key="switchcarmode"
             app:title="@string/switchcarmode" />
-
+        <SwitchPreferenceCompat
+            app:key="permanentNotification"
+            app:title="@string/title_permanentNotification" />
         <SwitchPreferenceCompat
             app:key="excludeFromRecents"
             app:summary="@string/summary_excludeFromRecents"

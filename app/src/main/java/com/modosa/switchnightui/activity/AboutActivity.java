@@ -88,6 +88,7 @@ public class AboutActivity extends AbsAboutActivity {
         items.add(new License("MultiType", "drakeet", License.APACHE_2, "https://github.com/drakeet/MultiType"));
         items.add(new License("about-page", "drakeet", License.APACHE_2, "https://github.com/drakeet/about-page"));
         items.add(new License("AndroidX", "Google", License.APACHE_2, "https://source.google.com"));
+        items.add(new License("material-components-android", "Google", License.APACHE_2, "https://github.com/material-components/material-components-android"));
         items.add(new License("AndroidUtilCode", "Blankj", License.APACHE_2, "https://github.com/Blankj/AndroidUtilCode"));
         items.add(new License("sunrisesunsetlib-java", "mikereedell", License.APACHE_2, "https://github.com/mikereedell/sunrisesunsetlib-java"));
     }

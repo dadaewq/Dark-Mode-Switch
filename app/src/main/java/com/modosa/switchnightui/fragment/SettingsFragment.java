@@ -20,9 +20,12 @@ import com.modosa.switchnightui.util.OpUtil;
 /**
  * @author dadaewq
  */
+@SuppressWarnings("ConstantConditions")
 public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
+    public static final String SP_KEY_PERMANENT_NOTIFICATION = "permanentNotification";
     private Context context;
     private SwitchPreferenceCompat stableMode;
+    private SwitchPreferenceCompat permanentNotification;
     private UiModeManager uiModeManager;
     private AlertDialog alertDialog;
     private boolean enableStableMode = false;
@@ -51,6 +54,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
     }
 
+
     private void initView() {
         stableMode = findPreference("stablemode");
         assert stableMode != null;
@@ -61,6 +65,16 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             return true;
         });
 
+        permanentNotification = findPreference("permanentNotification");
+        assert permanentNotification != null;
+        permanentNotification.setOnPreferenceClickListener(v -> {
+            if (permanentNotification.isChecked()) {
+                OpUtil.addPermanentNotification(context);
+            } else {
+                OpUtil.cancelPermanentNotification(context);
+            }
+            return true;
+        });
 
         findPreference("timeup").setOnPreferenceClickListener(this);
         findPreference("switchcarmode").setOnPreferenceClickListener(this);
@@ -103,6 +117,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
 
         switch (preference.getKey()) {
+            case "timeup":
+                OpUtil.startMyClass(context, TimingSwitchActivity.class);
+                break;
             case "switchcarmode":
                 if (uiModeManager != null) {
                     OpUtil.showToast0(context, R.string.switchcarmode);
@@ -112,9 +129,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                         uiModeManager.enableCarMode(2);
                     }
                 }
-                break;
-            case "timeup":
-                OpUtil.startMyClass(context, TimingSwitchActivity.class);
                 break;
             case "instructions_before_use":
                 alertDialog = OpUtil.createDialogConfirmPrompt(context);

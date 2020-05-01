@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.modosa.switchnightui.fragment.SettingsFragment;
+import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SpUtil;
 import com.modosa.switchnightui.util.TimingSwitchUtil;
 
@@ -16,11 +18,17 @@ abstract public class BaseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = getApplicationContext();
-        if (new SpUtil(context).getFalseBoolean(TimingSwitchUtil.ENABLE_TIMING_SWITCH)) {
+        SpUtil spUtil = new SpUtil(context);
+
+        if (spUtil.getFalseBoolean(SettingsFragment.SP_KEY_PERMANENT_NOTIFICATION)) {
+            OpUtil.addPermanentNotification(context);
+        }
+
+        if (spUtil.getFalseBoolean(TimingSwitchUtil.ENABLE_TIMING_SWITCH)) {
             new TimingSwitchUtil(getApplicationContext()).setAllSwitchAlarm();
         }
 
-        if (new SpUtil(context).getFalseBoolean(TimingSwitchUtil.ENABLE_TIMING_SWITCH2)) {
+        if (spUtil.getFalseBoolean(TimingSwitchUtil.ENABLE_TIMING_SWITCH2)) {
             new TimingSwitchUtil(getApplicationContext()).setAllSwitchAlarm2();
         }
     }

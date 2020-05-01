@@ -55,6 +55,7 @@
     <string name="title_advanced">Advanced</string>
     <string name="title_excludeFromRecents">Exclude from recents</string>
     <string name="summary_excludeFromRecents">Not displayed in the recent app list after exiting the app</string>
+    <string name="title_permanentNotification">Permanent Notification</string>
     <string name="title_others">Others</string>
     <string name="title_help">Help</string>
     <string name="title_about">About</string>
@@ -68,7 +69,7 @@
     <string name="title_other_works">Other Works</string>
     <string name="name_install_lion">Install Lion</string>
     <string name="desc_install_lion">Provide multiple installers to install APK and uninstall apps silently without root or using root</string>
-    <string name="title_licenses">Open Source Licenses</string>
+    <string name="title_licenses">About Open Source</string>
     <string name="License_MulanPSL_2">MulanPSL 2.0</string>
     <string name="xposeddescription">Removed the restrictions on the dark mode of the following system in some applications.\nSupports Coolapk currently</string>
     <string name="uptateSun">Click to update time according to sunrise and sunset</string>

@@ -16,6 +16,8 @@ import com.modosa.switchnightui.util.SpUtil;
 import com.modosa.switchnightui.util.SwitchDarkModeUtil;
 import com.modosa.switchnightui.util.WriteSettingsUtil;
 
+import java.util.Objects;
+
 /**
  * @author dadaewq
  */
@@ -35,12 +37,19 @@ public class SwitchDarkModeActivity extends BaseActivity {
         if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             createShortCut();
         } else {
-            if (new SpUtil(this).getWorkMode() == 2) {
-                enable = !WriteSettingsUtil.isNightMode(this);
+            Intent intent = getIntent();
+            if (intent != null && intent.hasExtra("darkMode")) {
+                int nightMode = Objects.requireNonNull(intent.getExtras()).getInt("darkMode");
+                switchDarkModeUtil.setDarkModeWithResult(nightMode);
             } else {
-                enable = !switchDarkModeUtil.isDarkMode();
+                if (new SpUtil(this).getWorkMode() == 2) {
+                    enable = !WriteSettingsUtil.isNightMode(this);
+                } else {
+                    enable = !switchDarkModeUtil.isDarkMode();
+                }
+                switchDarkModeUtil.setDarkModeWithResult(enable);
             }
-            switchDarkModeUtil.setDarkModeWithResult(enable);
+
             finish();
         }
     }
