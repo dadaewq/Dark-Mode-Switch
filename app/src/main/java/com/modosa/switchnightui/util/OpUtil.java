@@ -88,22 +88,22 @@ public class OpUtil {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null) {
             Notification notification = new NotificationCompat.Builder(context, channelId)
-                    .setContentText(context.getString(R.string.DarkMode))
+                    .setContentTitle(context.getString(R.string.app_name))
                     .setWhen(System.currentTimeMillis())
                     .setSmallIcon(R.drawable.ic_noti)
                     .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0))
                     .setNotificationSilent()
-                    .addAction(0, context.getString(R.string.on), getSwitchPendingIntent1(context, UiModeManager.MODE_NIGHT_YES))
-                    .addAction(0, context.getString(R.string.off), getSwitchPendingIntent1(context, UiModeManager.MODE_NIGHT_NO))
+                    .addAction(0, context.getString(R.string.on), getSwitchPendingIntent(context, UiModeManager.MODE_NIGHT_YES))
+                    .addAction(0, context.getString(R.string.off), getSwitchPendingIntent(context, UiModeManager.MODE_NIGHT_NO))
                     .build();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel = new NotificationChannel(channelId, context.getString(R.string.title_permanentNotification), NotificationManager.IMPORTANCE_DEFAULT);
                 notificationManager.createNotificationChannel(channel);
             }
-            // 设置常驻 Flag
+            // 设置常驻Flag
             notification.flags = Notification.FLAG_ONGOING_EVENT;
-            //展示通知栏
+
             notificationManager.notify(R.string.app_name, notification);
 
         }
@@ -111,7 +111,9 @@ public class OpUtil {
 
     public static void cancelPermanentNotification(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(R.string.app_name);
+        if (notificationManager != null) {
+            notificationManager.cancel(R.string.app_name);
+        }
     }
 
     private static PendingIntent getSwitchPendingIntent(Context context, int darkMode) {
