@@ -22,7 +22,7 @@
     <string name="action_switch">Switch</string>
     <string name="DarkModeOn">Dark Mode : ON</string>
     <string name="DarkModeOff">Dark Mode : OFF</string>
-    <string name="switchcarmode">Switch Car Mode</string>
+    <string name="CarMode">Car Mode</string>
     <string name="switchforcedark">Force Dark Switch</string>
     <string name="StableMode">Stable Mode</string>
     <string name="title_dialog_EnableStableMode">Turn on stable mode</string>
@@ -45,6 +45,8 @@
     <string name="failworkmode">%1$s mode is unavailable!Please try other mode</string>
     <string name="error">Error %1$s</string>
     <string name="no_root">Unable to acquire root access</string>
+    <string name="tip_needpermission_WRITE_SETTINGS">Please grant permission</string>
+    <string name="tip_needpermission_WRITE_SECURE_SETTINGS">Please grant Root permission or grant permissions using\n%1$s\nIt has been copied to the clipboard</string>
     <string name="tip_needpermission">Please grant permissions using\n%1$s\nIt has been copied to the clipboard</string>
     <string name="tip_need_sdk29">Switching force dark requires Android 10 and above</string>
     <string name="title_timingswitch">Timing Switch</string>
@@ -55,6 +57,7 @@
     <string name="title_advanced">Advanced</string>
     <string name="title_excludeFromRecents">Exclude from recents</string>
     <string name="summary_excludeFromRecents">Not displayed in the recent app list after exiting the app</string>
+    <string name="title_batterySaver">title_batterySaver</string>
     <string name="title_permanentNotification">Permanent Notification</string>
     <string name="title_others">Others</string>
     <string name="title_help">Help</string>
@@ -78,4 +81,6 @@
     <string name="tip_success_getLocation">update completed</string>
     <string name="title_second_confirm">Confirm before switching</string>
     <string name="message_second_confirm">The reason why you see this dialog is that you have not confirmed \"No longer prompt\" in the \"Instructions before use\".\n\nPlease confirm again: the dark mode must apply its own adaptation, otherwise the application will not change after switching which is considered \"invalid\" by some users</string>
+    <string name="tip_cannotBatterySaver">设备当前无法切换省电模式</string>
+
 </resources>

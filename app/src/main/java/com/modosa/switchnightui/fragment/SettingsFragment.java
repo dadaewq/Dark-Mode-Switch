@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
@@ -15,20 +17,26 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.activity.AboutActivity;
 import com.modosa.switchnightui.activity.TimingSwitchActivity;
+import com.modosa.switchnightui.util.BatterySaverUtil;
 import com.modosa.switchnightui.util.OpUtil;
 
 /**
  * @author dadaewq
  */
 @SuppressWarnings("ConstantConditions")
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
     public static final String SP_KEY_PERMANENT_NOTIFICATION = "permanentNotification";
     private Context context;
     private SwitchPreferenceCompat stableMode;
+    private SwitchPreferenceCompat carMode;
+    private SwitchPreferenceCompat batterySaver;
     private SwitchPreferenceCompat permanentNotification;
     private UiModeManager uiModeManager;
     private AlertDialog alertDialog;
     private boolean enableStableMode = false;
+    private PowerManager powerManager;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         this.context = context;
     }
 
+
     private void init() {
         uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
         initView();
@@ -65,6 +74,45 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             return true;
         });
 
+        carMode = findPreference("carmode");
+        assert carMode != null;
+        carMode.setOnPreferenceClickListener(v -> {
+            if (carMode.isChecked()) {
+                uiModeManager.enableCarMode(2);
+            } else {
+                uiModeManager.disableCarMode(0);
+            }
+            return true;
+        });
+
+        batterySaver = findPreference("batterySaver");
+        assert batterySaver != null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+
+            BatterySaverUtil batterySaverUtil = new BatterySaverUtil(context);
+            batterySaver.setOnPreferenceClickListener(v -> {
+                boolean isOpen = batterySaver.isChecked();
+                String message = batterySaverUtil.setBatterySaver(isOpen);
+
+                boolean isPowerSaveMode = powerManager.isPowerSaveMode();
+                batterySaver.setChecked(isPowerSaveMode);
+                if (message == null) {
+                    if (isOpen != isPowerSaveMode) {
+                        OpUtil.showToast0(context, R.string.tip_cannotBatterySaver);
+                    }
+                } else {
+                    OpUtil.showToast1(context, message);
+                }
+
+
+                return true;
+            });
+        } else {
+            batterySaver.setVisible(false);
+        }
+
         permanentNotification = findPreference("permanentNotification");
         assert permanentNotification != null;
         permanentNotification.setOnPreferenceClickListener(v -> {
@@ -76,8 +124,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             return true;
         });
 
+
         findPreference("timeup").setOnPreferenceClickListener(this);
-        findPreference("switchcarmode").setOnPreferenceClickListener(this);
+//        findPreference("switchcarmode").setOnPreferenceClickListener(this);
         findPreference("instructions_before_use").setOnPreferenceClickListener(this);
         findPreference("help").setOnPreferenceClickListener(this);
         findPreference("about").setOnPreferenceClickListener(this);
@@ -105,6 +154,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            batterySaver.setChecked(powerManager.isPowerSaveMode());
+        }
+        carMode.setChecked(Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType());
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (alertDialog != null) {
@@ -120,16 +178,16 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             case "timeup":
                 OpUtil.startMyClass(context, TimingSwitchActivity.class);
                 break;
-            case "switchcarmode":
-                if (uiModeManager != null) {
-                    OpUtil.showToast0(context, R.string.switchcarmode);
-                    if (Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType()) {
-                        uiModeManager.disableCarMode(0);
-                    } else {
-                        uiModeManager.enableCarMode(2);
-                    }
-                }
-                break;
+//            case "switchcarmode":
+//                if (uiModeManager != null) {
+//                    OpUtil.showToast0(context, R.string.switchcarmode);
+//                    if (Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType()) {
+//                        uiModeManager.disableCarMode(0);
+//                    } else {
+//                        uiModeManager.enableCarMode(2);
+//                    }
+//                }
+//                break;
             case "instructions_before_use":
                 alertDialog = OpUtil.createDialogConfirmPrompt(context);
                 OpUtil.showDialogConfirmPrompt(context, alertDialog);

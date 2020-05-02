@@ -23,7 +23,7 @@
     <string name="action_switch">切换</string>
     <string name="DarkModeOn">深色模式：已开启</string>
     <string name="DarkModeOff">深色模式：已关闭</string>
-    <string name="switchcarmode">切换驾驶模式</string>
+    <string name="CarMode">驾驶模式</string>
     <string name="switchforcedark">强制深色切换</string>
     <string name="StableMode">稳定模式</string>
     <string name="title_dialog_EnableStableMode">开启稳定模式</string>
@@ -46,6 +46,8 @@
     <string name="failworkmode">%1$s模式不可用!请尝试其他模式</string>
     <string name="error">切换出错 %1$s</string>
     <string name="no_root">无法获取Root权限</string>
+    <string name="tip_needpermission_WRITE_SETTINGS">请先授予权限</string>
+    <string name="tip_needpermission_WRITE_SECURE_SETTINGS">请授予Root权限或用\n%1$s\n授予权限,已复制到剪贴板</string>
     <string name="tip_needpermission">请用\n%1$s\n授予权限,已复制到剪贴板</string>
     <string name="tip_need_sdk29">切换强制深色需要Android10及以上</string>
     <string name="title_timingswitch">定时切换</string>
@@ -56,6 +58,7 @@
     <string name="title_advanced">高级</string>
     <string name="title_excludeFromRecents">在最近任务列表隐藏</string>
     <string name="summary_excludeFromRecents">退出应用后不在最近任务列表中显示</string>
+    <string name="title_batterySaver">省电模式</string>
     <string name="title_permanentNotification">常驻通知</string>
     <string name="title_others">其他</string>
     <string name="title_help">帮助</string>
@@ -79,4 +82,6 @@
     <string name="tip_success_getLocation">更新成功</string>
     <string name="title_second_confirm">切换前确认</string>
     <string name="message_second_confirm">您看到此对话框是因为您尚未在“用前须知”中确认“不再提示”\n\n请您再次确认：深色模式一定需要应用自己的适配,不然切换后应用不会有变化,也就是部分用户认为的“无效”</string>
+    <string name="tip_cannotBatterySaver">设备当前无法切换省电模式</string>
+
 </resources>

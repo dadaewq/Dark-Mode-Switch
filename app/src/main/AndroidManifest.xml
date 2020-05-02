@@ -62,6 +62,7 @@
         <activity
             android:name=".activity.AboutActivity"
             android:excludeFromRecents="true"
+            android:label="@string/title_about"
             android:theme="@style/AppTheme.About">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -98,7 +98,7 @@ public class OpUtil {
                     .build();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = new NotificationChannel(channelId, context.getString(R.string.title_permanentNotification), NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(channelId, context.getString(R.string.title_permanentNotification), NotificationManager.IMPORTANCE_DEFAULT);
                 notificationManager.createNotificationChannel(channel);
             }
             // 设置常驻 Flag
