@@ -31,6 +31,7 @@ import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.activity.MainActivity;
 import com.modosa.switchnightui.activity.SwitchDarkModeActivity;
 import com.modosa.switchnightui.receiver.TimingSwitchReceiver;
+import com.modosa.switchnightui.service.NotificationService;
 
 /**
  * @author dadaewq
@@ -82,12 +83,12 @@ public class OpUtil {
         }
     }
 
-    // 添加常驻通知
-    public static void addPermanentNotification(Context context) {
+    public static Notification getPermanentNotification(Context context) {
         String channelId = R.string.title_permanentNotification + "";
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification = null;
         if (notificationManager != null) {
-            Notification notification = new NotificationCompat.Builder(context, channelId)
+            notification = new NotificationCompat.Builder(context, channelId)
                     .setContentTitle(context.getString(R.string.app_name))
                     .setWhen(System.currentTimeMillis())
                     .setSmallIcon(R.drawable.ic_noti)
@@ -97,6 +98,7 @@ public class OpUtil {
                     .addAction(0, context.getString(R.string.off), getSwitchPendingIntent(context, UiModeManager.MODE_NIGHT_NO))
                     .build();
 
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel = new NotificationChannel(channelId, context.getString(R.string.title_permanentNotification), NotificationManager.IMPORTANCE_DEFAULT);
                 notificationManager.createNotificationChannel(channel);
@@ -104,16 +106,25 @@ public class OpUtil {
             // 设置常驻Flag
             notification.flags = Notification.FLAG_ONGOING_EVENT;
 
-            notificationManager.notify(R.string.app_name, notification);
+        }
+        return notification;
+    }
 
+
+    public static void addPermanentNotification(Context context) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(new Intent(context, NotificationService.class));
+            } else {
+                context.startService(new Intent(context, NotificationService.class));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static void cancelPermanentNotification(Context context) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null) {
-            notificationManager.cancel(R.string.app_name);
-        }
+        context.stopService(new Intent(context, NotificationService.class));
     }
 
     private static PendingIntent getSwitchPendingIntent(Context context, int darkMode) {

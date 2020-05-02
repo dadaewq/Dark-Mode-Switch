@@ -16,8 +16,6 @@ import android.util.Log;
 
 import androidx.annotation.RequiresPermission;
 
-import com.blankj.utilcode.util.Utils;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -35,14 +33,15 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
  */
 public final class LocationUtil {
 
-    private static final int TWO_MINUTES = 1000 * 60 * 2;
+    private final int TWO_MINUTES = 1000 * 60 * 2;
+    private Context context;
+    private OnLocationChangeListener mListener;
+    private MyLocationListener myLocationListener;
+    private LocationManager mLocationManager;
 
-    private static OnLocationChangeListener mListener;
-    private static MyLocationListener myLocationListener;
-    private static LocationManager mLocationManager;
-
-    private LocationUtil() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
+    public LocationUtil(Context context) {
+        this.context = context;
+//        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
 
@@ -57,7 +56,7 @@ public final class LocationUtil {
 //     */
 //
     @SuppressLint("MissingPermission")
-    public static Location getLocation(Context context, LocationListener listener) {
+    public Location getLocation(LocationListener listener) {
         Location location = null;
         long MIN_TIME_BETWEEN_UPDATES = 1000;
         float MIN_DISTANCE_CHANGE_FOR_UPDATES = 0.1f;
@@ -120,8 +119,8 @@ public final class LocationUtil {
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isGpsEnabled() {
-        LocationManager lm = (LocationManager) Utils.getApp().getSystemService(Context.LOCATION_SERVICE);
+    public boolean isGpsEnabled() {
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
@@ -130,8 +129,8 @@ public final class LocationUtil {
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isLocationEnabled() {
-        LocationManager lm = (LocationManager) Utils.getApp().getSystemService(Context.LOCATION_SERVICE);
+    public boolean isLocationEnabled() {
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
                 || lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
@@ -139,9 +138,9 @@ public final class LocationUtil {
     /**
      * 打开Gps设置界面
      */
-    public static void openGpsSettings() {
+    public void openGpsSettings() {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
@@ -160,11 +159,11 @@ public final class LocationUtil {
      * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
     @RequiresPermission(ACCESS_FINE_LOCATION)
-    public static boolean register(long minTime, long minDistance, OnLocationChangeListener listener) {
+    public boolean register(long minTime, long minDistance, OnLocationChangeListener listener) {
         if (listener == null) {
             return false;
         }
-        mLocationManager = (LocationManager) Utils.getApp().getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (!mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
                 && !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Log.d("LocationUtils", "无法定位，请打开定位服务");
@@ -187,7 +186,7 @@ public final class LocationUtil {
      * 注销
      */
     @RequiresPermission(ACCESS_COARSE_LOCATION)
-    public static void unregister() {
+    public void unregister() {
         if (mLocationManager != null) {
             if (myLocationListener != null) {
                 mLocationManager.removeUpdates(myLocationListener);
@@ -205,7 +204,7 @@ public final class LocationUtil {
      *
      * @return {@link Criteria}
      */
-    private static Criteria getCriteria() {
+    private Criteria getCriteria() {
         Criteria criteria = new Criteria();
         // 设置定位精确度 Criteria.ACCURACY_COARSE比较粗略，Criteria.ACCURACY_FINE则比较精细
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
@@ -229,8 +228,8 @@ public final class LocationUtil {
      * @param longitude 经度
      * @return {@link Address}
      */
-    public static Address getAddress(double latitude, double longitude) {
-        Geocoder geocoder = new Geocoder(Utils.getApp(), Locale.getDefault());
+    public Address getAddress(double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) {
@@ -249,7 +248,7 @@ public final class LocationUtil {
      * @param longitude 经度
      * @return 所在国家
      */
-    public static String getCountryName(double latitude, double longitude) {
+    public String getCountryName(double latitude, double longitude) {
         Address address = getAddress(latitude, longitude);
         return address == null ? "unknown" : address.getCountryName();
     }
@@ -261,7 +260,7 @@ public final class LocationUtil {
      * @param longitude 经度
      * @return 所在地
      */
-    public static String getLocality(double latitude, double longitude) {
+    public String getLocality(double latitude, double longitude) {
         Address address = getAddress(latitude, longitude);
         return address == null ? "unknown" : address.getLocality();
     }
@@ -273,7 +272,7 @@ public final class LocationUtil {
      * @param longitude 经度
      * @return 所在街道
      */
-    public static String getStreet(double latitude, double longitude) {
+    public String getStreet(double latitude, double longitude) {
         Address address = getAddress(latitude, longitude);
         return address == null ? "unknown" : address.getAddressLine(0);
     }
@@ -285,7 +284,7 @@ public final class LocationUtil {
      * @param currentBestLocation The current Location fix, to which you want to compare the new one
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isBetterLocation(Location newLocation, Location currentBestLocation) {
+    public boolean isBetterLocation(Location newLocation, Location currentBestLocation) {
         if (currentBestLocation == null) {
             // A new location is always better than no location
             return true;
@@ -332,7 +331,7 @@ public final class LocationUtil {
      * @param provider1 提供者2
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isSameProvider(String provider0, String provider1) {
+    public boolean isSameProvider(String provider0, String provider1) {
         if (provider0 == null) {
             return provider1 == null;
         }
@@ -365,7 +364,7 @@ public final class LocationUtil {
         void onStatusChanged(String provider, int status, Bundle extras);//位置状态发生改变
     }
 
-    private static class MyLocationListener
+    private class MyLocationListener
             implements LocationListener {
         /**
          * 当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发

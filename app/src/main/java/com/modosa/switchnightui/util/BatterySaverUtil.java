@@ -1,5 +1,6 @@
 package com.modosa.switchnightui.util;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -16,19 +17,22 @@ import com.modosa.switchnightui.R;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiresApi(api = Build.VERSION_CODES.M)
+/**
+ * @author dadaewq
+ */
 public class BatterySaverUtil {
     private static final String KEY_LOW_POWER_MODE = "low_power";
     private static final String KEY_LOW_POWER_MODE_STICKY = "low_power_sticky";
     private static final String CMD_SETTINGS_PUT_GLOBAL = "settings put global ";
-    private Context context;
-    private ContentResolver resolver;
+    private final Context context;
+    private final ContentResolver resolver;
 
     public BatterySaverUtil(Context context) {
         this.context = context;
         resolver = context.getContentResolver();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public String setBatterySaver(boolean isOpen) {
         if (isOpen) {
             return setBatterySaver(1);
@@ -38,6 +42,7 @@ public class BatterySaverUtil {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private String setBatterySaver(int newPowerMode) {
         String message = null;
         int oldPowerMode = Settings.Global.getInt(resolver, KEY_LOW_POWER_MODE, -1);
@@ -57,7 +62,7 @@ public class BatterySaverUtil {
             Log.e("Exception", e + "");
             if (message.contains("WRITE_SETTINGS")) {
                 message = context.getString(R.string.tip_needpermission_WRITE_SETTINGS);
-                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
+                @SuppressLint("InlinedApi") Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
                         Uri.parse("package:" + context.getPackageName()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 try {

@@ -27,7 +27,6 @@ import com.modosa.switchnightui.util.TimingSwitchUtil;
 
 import java.util.Calendar;
 
-import static com.modosa.switchnightui.util.LocationUtil.openGpsSettings;
 
 /**
  * @author dadaewq
@@ -46,6 +45,7 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
     private SwitchPreferenceCompat enableTimingSwitch2;
     private Preference timeon2;
     private Preference timeoff2;
+    private LocationUtil locationUtil;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,7 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
     private void init() {
         spUtil = new SpUtil(context);
         timingSwitchUtil = new TimingSwitchUtil(context);
+        locationUtil = new LocationUtil(context);
         initView();
 //        updateSunRiseAndSunSet();
     }
@@ -106,14 +107,14 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
             }
         };
 
-        if (!LocationUtil.isLocationEnabled()) {
+        if (!locationUtil.isLocationEnabled()) {
             //no Network and GPS providers is enabled
             OpUtil.showToast0(context, R.string.tip_need_access_Location_info);
-            openGpsSettings();
+            locationUtil.openGpsSettings();
             return;
         }
 
-        Location getLocation = LocationUtil.getLocation(context, locationListener);
+        Location getLocation = locationUtil.getLocation(locationListener);
         Log.e("getLocation", "" + getLocation);
 
         if (getLocation == null) {

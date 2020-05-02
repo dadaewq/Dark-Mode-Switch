@@ -24,7 +24,8 @@ public class TimingSwitchReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         SpUtil spUtil = new SpUtil(context);
 
-        if (new SpUtil(context).getFalseBoolean(SettingsFragment.SP_KEY_PERMANENT_NOTIFICATION)) {
+//        Log.e("TimingSwitchReceiver", ": " + intent);
+        if (spUtil.getFalseBoolean(SettingsFragment.SP_KEY_PERMANENT_NOTIFICATION)) {
             OpUtil.addPermanentNotification(context);
         }
 

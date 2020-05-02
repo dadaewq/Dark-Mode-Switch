@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.PowerManager;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
@@ -24,7 +23,7 @@ import com.modosa.switchnightui.util.OpUtil;
  * @author dadaewq
  */
 @SuppressWarnings("ConstantConditions")
-@RequiresApi(api = Build.VERSION_CODES.M)
+
 public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
     public static final String SP_KEY_PERMANENT_NOTIFICATION = "permanentNotification";
     private Context context;
@@ -100,12 +99,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                 batterySaver.setChecked(isPowerSaveMode);
                 if (message == null) {
                     if (isOpen != isPowerSaveMode) {
-                        OpUtil.showToast0(context, R.string.tip_cannotBatterySaver);
+                        OpUtil.showToast0(context, R.string.tip_cannotSwitchBatterySaver);
                     }
                 } else {
                     OpUtil.showToast1(context, message);
                 }
-
 
                 return true;
             });
@@ -124,13 +122,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             return true;
         });
 
-
         findPreference("timeup").setOnPreferenceClickListener(this);
-//        findPreference("switchcarmode").setOnPreferenceClickListener(this);
         findPreference("instructions_before_use").setOnPreferenceClickListener(this);
         findPreference("help").setOnPreferenceClickListener(this);
         findPreference("about").setOnPreferenceClickListener(this);
-
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             findPreference("excludeFromRecents").setVisible(false);
@@ -178,16 +173,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             case "timeup":
                 OpUtil.startMyClass(context, TimingSwitchActivity.class);
                 break;
-//            case "switchcarmode":
-//                if (uiModeManager != null) {
-//                    OpUtil.showToast0(context, R.string.switchcarmode);
-//                    if (Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType()) {
-//                        uiModeManager.disableCarMode(0);
-//                    } else {
-//                        uiModeManager.enableCarMode(2);
-//                    }
-//                }
-//                break;
             case "instructions_before_use":
                 alertDialog = OpUtil.createDialogConfirmPrompt(context);
                 OpUtil.showDialogConfirmPrompt(context, alertDialog);

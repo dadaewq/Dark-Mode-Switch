@@ -67,10 +67,7 @@ public class TimingSwitchActivity extends BaseAppCompatActivity {
                                            @NonNull int[] grantResults) {
         if (requestCode == 666) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                 getSupportFragmentManager().findFragmentByTag("TimingSwitch").onActivityResult(665, 666, null);
-//            } else {
-//                ToastUtils.showLong("未获得位置权限");
             }
         }
     }

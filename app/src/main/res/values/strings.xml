@@ -57,7 +57,7 @@
     <string name="title_advanced">Advanced</string>
     <string name="title_excludeFromRecents">Exclude from recents</string>
     <string name="summary_excludeFromRecents">Not displayed in the recent app list after exiting the app</string>
-    <string name="title_batterySaver">title_batterySaver</string>
+    <string name="title_batterySaver">Battery Saver</string>
     <string name="title_permanentNotification">Permanent Notification</string>
     <string name="title_others">Others</string>
     <string name="title_help">Help</string>
@@ -81,6 +81,6 @@
     <string name="tip_success_getLocation">update completed</string>
     <string name="title_second_confirm">Confirm before switching</string>
     <string name="message_second_confirm">The reason why you see this dialog is that you have not confirmed \"No longer prompt\" in the \"Instructions before use\".\n\nPlease confirm again: the dark mode must apply its own adaptation, otherwise the application will not change after switching which is considered \"invalid\" by some users</string>
-    <string name="tip_cannotBatterySaver">设备当前无法切换省电模式</string>
+    <string name="tip_cannotSwitchBatterySaver">Cannot switch Battery Saver at this time</string>
 
 </resources>
