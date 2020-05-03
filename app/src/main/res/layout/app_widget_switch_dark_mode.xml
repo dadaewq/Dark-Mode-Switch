@@ -4,19 +4,19 @@
     android:padding="@dimen/widget_margin">
 
     <ImageView
-        android:id="@+id/img_ui"
+        android:id="@+id/img_switch_dark_mode"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_brightness_2_black_24dp" />
+        android:src="@drawable/ic_qs_dark_mode" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/action_switch"
-        android:textColor="@color/rBackground"
+        android:textColor="@android:color/white"
         android:textSize="15sp"
         android:textStyle="bold" />
 

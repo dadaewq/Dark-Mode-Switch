@@ -64,9 +64,9 @@ public class SwitchDarkModeUtil {
                 msg = msg + "\n";
             }
             if (uiModeManager != null && uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES) {
-                msg += context.getString(R.string.DarkModeOn);
+                msg += context.getString(R.string.tip_on_dark_mode);
             } else {
-                msg += context.getString(R.string.DarkModeOff);
+                msg += context.getString(R.string.tip_off_dark_mode);
             }
         }
         if (!TextUtils.isEmpty(msg)) {

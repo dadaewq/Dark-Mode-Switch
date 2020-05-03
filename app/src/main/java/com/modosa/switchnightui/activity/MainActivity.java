@@ -74,7 +74,7 @@ public class MainActivity extends BaseAppCompatActivity {
 //        如果需要hook，不要注释下一行
         Log.i("hook2ReturnTrue", ": ");
 
-        return getString(R.string.DarkMode);
+        return getString(R.string.title_dark_mode);
     }
 
 
@@ -186,7 +186,7 @@ public class MainActivity extends BaseAppCompatActivity {
             window.setBackgroundDrawableResource(R.drawable.alertdialog_background);
         }
 
-        nameDarkmode = findViewById(R.id.name_darkmode);
+        nameDarkmode = findViewById(R.id.name_dark_mode);
         on = findViewById(R.id.on);
         off = findViewById(R.id.off);
 
@@ -276,13 +276,13 @@ public class MainActivity extends BaseAppCompatActivity {
         super.onPrepareOptionsMenu(menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 
-            MenuItem forceDark = menu.findItem(R.id.switchforcedark);
+            MenuItem forceDark = menu.findItem(R.id.switch_force_dark);
             forceDark.setVisible(true);
 
             if (switchForceDarkUtil.isForceDark()) {
-                forceDark.setTitle(R.string.ForceDarkOn);
+                forceDark.setTitle(R.string.tip_on_force_dark);
             } else {
-                forceDark.setTitle(R.string.ForceDarkOff);
+                forceDark.setTitle(R.string.tip_off_force_dark);
             }
         }
         return true;
@@ -295,7 +295,7 @@ public class MainActivity extends BaseAppCompatActivity {
         if (id == R.id.refresh) {
             recreate();
             return true;
-        } else if (id == R.id.switchforcedark) {
+        } else if (id == R.id.switch_force_dark) {
             switchForceDarkUtil.switchForceDark();
             return true;
         } else if (id == R.id.settings) {

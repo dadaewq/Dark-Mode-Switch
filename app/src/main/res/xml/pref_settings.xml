@@ -2,24 +2,30 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="@string/title_general">
-        <SwitchPreferenceCompat
-            app:key="stablemode"
-            app:title="@string/StableMode" />
-        <SwitchPreferenceCompat
-            app:key="batterySaver"
-            app:title="@string/title_batterySaver" />
         <Preference
+            android:icon="@drawable/ic_daynight_timeup"
             app:key="timeup"
             app:title="@string/title_timingswitch" />
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_daynight_battery_saver"
+            app:key="battery_saver"
+            app:title="@string/title_battery_saver" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/ic_daynight_carmode"
+            app:key="carmode"
+            app:title="@string/CarMode" />
     </PreferenceCategory>
     <PreferenceCategory app:title="@string/title_advanced">
         <SwitchPreferenceCompat
-            app:key="carmode"
-            app:title="@string/CarMode" />
+            android:icon="@drawable/ic_daynight_stablemode"
+            app:key="stablemode"
+            app:title="@string/StableMode" />
         <SwitchPreferenceCompat
-            app:key="permanentNotification"
-            app:title="@string/title_permanentNotification" />
+            android:icon="@drawable/ic_daynight_permanent_notification"
+            app:key="permanent_notification"
+            app:title="@string/title_permanent_notification" />
         <SwitchPreferenceCompat
+            android:icon="@drawable/ic_daynight_excludefromrecents"
             app:key="excludeFromRecents"
             app:summary="@string/summary_excludeFromRecents"
             app:title="@string/title_excludeFromRecents" />
@@ -27,12 +33,15 @@
 
     <PreferenceCategory app:title="@string/title_others">
         <Preference
+            android:icon="@drawable/ic_daynight_instructions_before_use"
             app:key="instructions_before_use"
             app:title="@string/title_instructions_before_use" />
         <Preference
+            android:icon="@drawable/ic_daynight_help"
             app:key="help"
             app:title="@string/title_help" />
         <Preference
+            android:icon="@drawable/ic_daynight_about"
             app:key="about"
             app:title="@string/title_about" />
     </PreferenceCategory>

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
@@ -16,8 +15,8 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.activity.AboutActivity;
 import com.modosa.switchnightui.activity.TimingSwitchActivity;
-import com.modosa.switchnightui.util.BatterySaverUtil;
 import com.modosa.switchnightui.util.OpUtil;
+import com.modosa.switchnightui.util.SwitchBatterySaverUtil;
 
 /**
  * @author dadaewq
@@ -29,12 +28,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     private Context context;
     private SwitchPreferenceCompat stableMode;
     private SwitchPreferenceCompat carMode;
-    private SwitchPreferenceCompat batterySaver;
-    private SwitchPreferenceCompat permanentNotification;
+    private SwitchPreferenceCompat battery_saver;
+    private SwitchPreferenceCompat permanent_notification;
     private UiModeManager uiModeManager;
     private AlertDialog alertDialog;
     private boolean enableStableMode = false;
-    private PowerManager powerManager;
+    private SwitchBatterySaverUtil switchBatterySaverUtil;
 
 
     @Override
@@ -64,15 +63,34 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
 
     private void initView() {
-        stableMode = findPreference("stablemode");
-        assert stableMode != null;
-        stableMode.setOnPreferenceClickListener(v -> {
-            if (stableMode.isChecked()) {
-                showDialogEnableStableMode();
-            }
-            return true;
-        });
+        //省电模式
+        battery_saver = findPreference("battery_saver");
+        assert battery_saver != null;
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            switchBatterySaverUtil = new SwitchBatterySaverUtil(context);
+            battery_saver.setOnPreferenceClickListener(v -> {
+                boolean shouldOpen = battery_saver.isChecked();
+                String message = switchBatterySaverUtil.setBatterySaver(shouldOpen);
+
+                boolean newPowerMode = switchBatterySaverUtil.isPowerSaveMode();
+                battery_saver.setChecked(newPowerMode);
+                if (message == null) {
+                    if (newPowerMode != shouldOpen) {
+                        OpUtil.showToast0(context, R.string.tip_cannotSwitchBatterySaver);
+                    }
+                } else {
+                    OpUtil.showToast1(context, message);
+                }
+
+                return true;
+            });
+        } else {
+            battery_saver.setVisible(false);
+        }
+
+        //驾驶模式
         carMode = findPreference("carmode");
         assert carMode != null;
         carMode.setOnPreferenceClickListener(v -> {
@@ -84,37 +102,21 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             return true;
         });
 
-        batterySaver = findPreference("batterySaver");
-        assert batterySaver != null;
+        //稳定切换深色模式
+        stableMode = findPreference("stablemode");
+        assert stableMode != null;
+        stableMode.setOnPreferenceClickListener(v -> {
+            if (stableMode.isChecked()) {
+                showDialogEnableStableMode();
+            }
+            return true;
+        });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-
-            BatterySaverUtil batterySaverUtil = new BatterySaverUtil(context);
-            batterySaver.setOnPreferenceClickListener(v -> {
-                boolean isOpen = batterySaver.isChecked();
-                String message = batterySaverUtil.setBatterySaver(isOpen);
-
-                boolean isPowerSaveMode = powerManager.isPowerSaveMode();
-                batterySaver.setChecked(isPowerSaveMode);
-                if (message == null) {
-                    if (isOpen != isPowerSaveMode) {
-                        OpUtil.showToast0(context, R.string.tip_cannotSwitchBatterySaver);
-                    }
-                } else {
-                    OpUtil.showToast1(context, message);
-                }
-
-                return true;
-            });
-        } else {
-            batterySaver.setVisible(false);
-        }
-
-        permanentNotification = findPreference("permanentNotification");
-        assert permanentNotification != null;
-        permanentNotification.setOnPreferenceClickListener(v -> {
-            if (permanentNotification.isChecked()) {
+        //常驻通知
+        permanent_notification = findPreference("permanent_notification");
+        assert permanent_notification != null;
+        permanent_notification.setOnPreferenceClickListener(v -> {
+            if (permanent_notification.isChecked()) {
                 OpUtil.addPermanentNotification(context);
             } else {
                 OpUtil.cancelPermanentNotification(context);
@@ -152,7 +154,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     public void onResume() {
         super.onResume();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            batterySaver.setChecked(powerManager.isPowerSaveMode());
+            battery_saver.setChecked(switchBatterySaverUtil.isPowerSaveMode());
         }
         carMode.setChecked(Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType());
     }

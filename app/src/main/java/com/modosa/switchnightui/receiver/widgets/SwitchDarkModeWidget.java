@@ -1,4 +1,4 @@
-package com.modosa.switchnightui.receiver;
+package com.modosa.switchnightui.receiver.widgets;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -17,16 +17,16 @@ import com.modosa.switchnightui.util.OpUtil;
  *
  * @author dadaewq
  */
-public class SwitchUiAppWidget extends AppWidgetProvider {
+public class SwitchDarkModeWidget extends AppWidgetProvider {
 
-    private static final String WIDGET_ACTION = "com.modosa.switchnightui.appwidget.switchui";
+    private static final String WIDGET_ACTION = "com.modosa.switchnightui.appwidget.switch_dark_mode";
 
     private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                         int appWidgetId) {
 
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget_switchui);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget_switch_dark_mode);
 
-        views.setOnClickPendingIntent(R.id.img_ui, getPendingIntent(context));
+        views.setOnClickPendingIntent(R.id.img_switch_dark_mode, getPendingIntent(context));
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -34,9 +34,9 @@ public class SwitchUiAppWidget extends AppWidgetProvider {
     private static PendingIntent getPendingIntent(Context context) {
 
         Intent intent = new Intent()
-                .setClass(context, SwitchUiAppWidget.class)
+                .setClass(context, SwitchDarkModeWidget.class)
                 .setAction(WIDGET_ACTION)
-                .setData(Uri.parse("id:" + R.id.img_ui));
+                .setData(Uri.parse("id:" + R.id.img_switch_dark_mode));
 
         return PendingIntent.getBroadcast(context, 0, intent, 0);
     }

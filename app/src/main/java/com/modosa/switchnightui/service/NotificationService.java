@@ -31,7 +31,7 @@ public class NotificationService extends Service {
 
     private void startForegroundService() {
         try {
-            startForeground(R.string.title_permanentNotification, OpUtil.getPermanentNotification(this));
+            startForeground(R.string.title_permanent_notification, OpUtil.getPermanentNotification(this));
         } catch (Exception e) {
             e.printStackTrace();
         }

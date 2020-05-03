@@ -1,8 +1,8 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_brightness_2_black_24dp"
-        android:shortcutId="SwitchUI"
+        android:icon="@drawable/ic_qs_dark_mode"
+        android:shortcutId="SwitchDarkMode"
         android:shortcutLongLabel="@string/app_name"
         android:shortcutShortLabel="@string/action_switch">
         <intent
@@ -12,13 +12,24 @@
     </shortcut>
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_brightness_3_black_24dp"
+        android:icon="@drawable/ic_qs_force_dark"
         android:shortcutId="SwitchForceDark"
-        android:shortcutLongLabel="@string/switchforcedark"
+        android:shortcutLongLabel="@string/name_switch_force_dark"
         android:shortcutShortLabel="@string/action_switch">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="com.modosa.switchnightui.activity.SwitchForceDarkActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_qs_battery_saver"
+        android:shortcutId="SwitchBatterySaver"
+        android:shortcutLongLabel="@string/name_switch_battery_saver"
+        android:shortcutShortLabel="@string/action_switch">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchBatterySaverActivity"
             android:targetPackage="com.modosa.switchnightui" />
     </shortcut>
 </shortcuts>

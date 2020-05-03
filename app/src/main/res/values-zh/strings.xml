@@ -11,7 +11,7 @@
         \n1.普通模式：可用性由系统决定
         \n2.兼容模式：需要ADB授权
         \n3.Root模式\n
-        \n部分设备开启深色模式后可能会被系统自动关闭，此时才需要开启稳定模式以切换。\n
+        \n部分设备开启深色模式时可能会被系统自动关闭，此时才需要开启稳定切换深色模式以切换。\n
         \nAndroid 10及以上可用Root尝试切换强制深色。
         \n本应用提供磁贴、微件、Shortcut、快捷方式和设置助手应用来快捷切换。\n
     </string>
@@ -21,19 +21,22 @@
     <string name="checkbox4_instructions_before_use">界面不黑或有异常是他们的适配问题</string>
     <string name="checkbox_last_instructions_before_use">不再提示</string>
     <string name="action_switch">切换</string>
-    <string name="DarkModeOn">深色模式：已开启</string>
-    <string name="DarkModeOff">深色模式：已关闭</string>
+    <string name="tip_on_dark_mode">深色模式：已开启</string>
+    <string name="tip_off_dark_mode">深色模式：已关闭</string>
     <string name="CarMode">驾驶模式</string>
-    <string name="switchforcedark">强制深色切换</string>
-    <string name="StableMode">稳定模式</string>
-    <string name="title_dialog_EnableStableMode">开启稳定模式</string>
-    <string name="message_dialog_EnableStableMode">稳定模式一般无需开启，只有当开启深色模式出现被系统自动关闭的情况时才需要开启。\n\n每次切换深色模式后点击菜单中的\"刷新\"可更新本App的主题。</string>
-    <string name="ForceDarkOn">强制深色：已开启</string>
-    <string name="ForceDarkOff">强制深色：已关闭</string>
+    <string name="name_switch_force_dark">强制深色切换</string>
+    <string name="name_switch_battery_saver">省电模式切换</string>
+    <string name="StableMode">稳定切换深色模式</string>
+    <string name="title_dialog_EnableStableMode">开启稳定切换深色模式</string>
+    <string name="message_dialog_EnableStableMode">稳定切换深色模式一般无需开启，只有当开启深色模式时出现被系统自动关闭的情况时才需要开启。\n\n每次切换深色模式后点击菜单中的\"刷新\"可更新本App的主题。</string>
+    <string name="tip_on_force_dark">强制深色：已开启</string>
+    <string name="tip_off_force_dark">强制深色：已关闭</string>
+    <string name="tip_on_battery_saver">省电模式：已开启</string>
+    <string name="tip_off_battery_saver">省电模式：已关闭</string>
     <string name="settings">设置</string>
     <string name="refresh">刷新</string>
-    <string name="DarkMode">深色模式</string>
-    <string name="ForceDark">强制深色</string>
+    <string name="title_dark_mode">深色模式</string>
+    <string name="title_force_dark">强制深色</string>
     <string name="WorkMode">工作模式</string>
     <string name="WorkMode1">普通</string>
     <string name="WorkMode2">兼容</string>
@@ -43,23 +46,23 @@
     <string name="yes2">%1$s 成功\n\n重启设备生效</string>
     <string name="yes2old">%1$s 成功\n\n重启设备并开启驾驶模式生效</string>
     <string name="tips_workmode2">重启设备生效</string>
-    <string name="failworkmode">%1$s模式不可用!请尝试其他模式</string>
+    <string name="failworkmode">当前系统无法使用%1$s模式!请尝试其他模式</string>
     <string name="error">切换出错 %1$s</string>
     <string name="no_root">无法获取Root权限</string>
     <string name="tip_needpermission_WRITE_SETTINGS">请先授予权限</string>
     <string name="tip_needpermission_WRITE_SECURE_SETTINGS">请授予Root权限或用\n%1$s\n授予权限,已复制到剪贴板</string>
     <string name="tip_needpermission">请用\n%1$s\n授予权限,已复制到剪贴板</string>
-    <string name="tip_need_sdk29">切换强制深色需要Android10及以上</string>
+    <string name="tip_switch_what1_need_android_what2">切换%1$s需要Android %2$s及以上</string>
     <string name="title_timingswitch">定时切换</string>
-    <string name="title_timeupon">开启时间</string>
-    <string name="title_timeupoff">关闭时间</string>
+    <string name="title_timeup_on">开启时间</string>
+    <string name="title_timeup_off">关闭时间</string>
     <string name="checkbox_enable_bugReport">允许通过网络收集错误以进行优化和改进</string>
     <string name="title_general">常规</string>
     <string name="title_advanced">高级</string>
     <string name="title_excludeFromRecents">在最近任务列表隐藏</string>
     <string name="summary_excludeFromRecents">退出应用后不在最近任务列表中显示</string>
-    <string name="title_batterySaver">省电模式</string>
-    <string name="title_permanentNotification">常驻通知</string>
+    <string name="title_battery_saver">省电模式</string>
+    <string name="title_permanent_notification">常驻通知</string>
     <string name="title_others">其他</string>
     <string name="title_help">帮助</string>
     <string name="title_about">关于</string>

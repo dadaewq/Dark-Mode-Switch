@@ -251,7 +251,7 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
             final EditText timeEditText = new EditText(context);
             timeEditText.setText(hour + ":" + minute);
             AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                    .setTitle(TimingSwitchUtil.SP_KEY_TIMEOFF.equals(key) ? R.string.title_timeupoff : R.string.title_timeupon)
+                    .setTitle(TimingSwitchUtil.SP_KEY_TIMEOFF.equals(key) ? R.string.title_timeup_off : R.string.title_timeup_on)
                     .setView(timeEditText)
                     .setNeutralButton(android.R.string.cancel, null)
 

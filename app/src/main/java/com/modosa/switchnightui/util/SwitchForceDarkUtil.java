@@ -63,9 +63,9 @@ public class SwitchForceDarkUtil {
         }
 
         if (isForceDark) {
-            OpUtil.showToast0(context, msg + context.getString(R.string.ForceDarkOn));
+            OpUtil.showToast0(context, msg + context.getString(R.string.tip_on_force_dark));
         } else {
-            OpUtil.showToast0(context, msg + context.getString(R.string.ForceDarkOff));
+            OpUtil.showToast0(context, msg + context.getString(R.string.tip_off_force_dark));
         }
 
     }

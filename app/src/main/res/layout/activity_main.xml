@@ -32,12 +32,12 @@
 
 
                     <TextView
-                        android:id="@+id/name_darkmode"
+                        android:id="@+id/name_dark_mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:gravity="center"
-                        android:text="@string/DarkMode"
+                        android:text="@string/title_dark_mode"
                         android:textColor="@color/rBackground"
                         android:textSize="16sp" />
 

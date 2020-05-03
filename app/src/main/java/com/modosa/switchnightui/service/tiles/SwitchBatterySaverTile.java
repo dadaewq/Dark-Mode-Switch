@@ -1,4 +1,4 @@
-package com.modosa.switchnightui.service;
+package com.modosa.switchnightui.service.tiles;
 
 import android.os.Build;
 import android.service.quicksettings.Tile;
@@ -8,16 +8,12 @@ import androidx.annotation.RequiresApi;
 
 import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.util.OpUtil;
-import com.modosa.switchnightui.util.SwitchForceDarkUtil;
+import com.modosa.switchnightui.util.SwitchBatterySaverUtil;
 
-
-/**
- * @author dadaewq
- */
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class SwitchForceDark extends TileService {
+public class SwitchBatterySaverTile extends TileService {
 
-    private SwitchForceDarkUtil switchForceDarkUtil;
+    private SwitchBatterySaverUtil switchBatterySaverUtil;
 
 
     @Override
@@ -29,24 +25,28 @@ public class SwitchForceDark extends TileService {
     @Override
     public void onClick() {
         super.onClick();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             switchForceDark();
             refreshState();
         } else {
-            OpUtil.showToast1(this, R.string.tip_need_sdk29);
+            OpUtil.showToast1(this, String.format(
+                    getString(R.string.tip_switch_what1_need_android_what2),
+                    getString(R.string.title_battery_saver),
+                    "5.0"
+            ));
         }
     }
 
     private void switchForceDark() {
         refreshUtil();
-        switchForceDarkUtil.switchForceDark();
+        switchBatterySaverUtil.switchBatterySaver();
     }
 
     private void refreshState() {
         refreshUtil();
         Tile qsTile = getQsTile();
         try {
-            if (switchForceDarkUtil.isForceDark()) {
+            if (switchBatterySaverUtil.isPowerSaveMode()) {
                 qsTile.setState(Tile.STATE_ACTIVE);
             } else {
                 qsTile.setState(Tile.STATE_INACTIVE);
@@ -60,8 +60,8 @@ public class SwitchForceDark extends TileService {
     }
 
     private void refreshUtil() {
-        if (switchForceDarkUtil == null) {
-            switchForceDarkUtil = new SwitchForceDarkUtil(this);
+        if (switchBatterySaverUtil == null) {
+            switchBatterySaverUtil = new SwitchBatterySaverUtil(this);
         }
     }
 }

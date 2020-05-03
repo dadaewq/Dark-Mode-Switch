@@ -73,8 +73,9 @@
         <activity
             android:name=".activity.SwitchDarkModeActivity"
             android:configChanges="uiMode"
-            android:exported="true"
+            android:icon="@drawable/ic_qs_dark_mode"
             android:launchMode="singleInstance"
+            android:roundIcon="@drawable/ic_qs_dark_mode"
             android:theme="@style/Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -87,8 +88,25 @@
         <activity
             android:name=".activity.SwitchForceDarkActivity"
             android:configChanges="uiMode"
-            android:label="@string/switchforcedark"
+            android:icon="@drawable/ic_qs_force_dark"
+            android:label="@string/name_switch_force_dark"
             android:launchMode="singleInstance"
+            android:roundIcon="@drawable/ic_qs_force_dark"
+            android:theme="@style/Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SwitchBatterySaverActivity"
+            android:configChanges="uiMode"
+            android:icon="@drawable/ic_qs_battery_saver"
+            android:label="@string/name_switch_battery_saver"
+            android:launchMode="singleInstance"
+            android:roundIcon="@drawable/ic_qs_battery_saver"
             android:theme="@style/Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -109,46 +127,70 @@
         </activity>
 
         <service
-            android:name=".service.SwitchUi"
-            android:icon="@drawable/ic_brightness_2_black_24dp"
-            android:label="@string/DarkMode"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:name=".service.tiles.SwitchDarkModeTile"
+            android:icon="@drawable/ic_qs_dark_mode"
+            android:label="@string/title_dark_mode"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:roundIcon="@drawable/ic_qs_dark_mode">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
         <service
-            android:name=".service.SwitchForceDark"
-            android:icon="@drawable/ic_brightness_3_black_24dp"
-            android:label="@string/ForceDark"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:name=".service.tiles.SwitchForceDarkTile"
+            android:icon="@drawable/ic_qs_force_dark"
+            android:label="@string/title_force_dark"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:roundIcon="@drawable/ic_qs_force_dark">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.tiles.SwitchBatterySaverTile"
+            android:icon="@drawable/ic_qs_battery_saver"
+            android:label="@string/title_battery_saver"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:roundIcon="@drawable/ic_qs_battery_saver">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
         <service android:name=".service.NotificationService" />
 
-        <receiver android:name=".receiver.SwitchUiAppWidget">
+        <receiver android:name=".receiver.widgets.SwitchDarkModeWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.modosa.switchnightui.appwidget.switchui" />
+                <action android:name="com.modosa.switchnightui.appwidget.switch_dark_mode" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_info_switchui" />
+                android:resource="@xml/app_widget_info_switch_dark_mode" />
         </receiver>
         <receiver
-            android:name=".receiver.SwitchForceDarkWidget"
-            android:label="@string/switchforcedark">
+            android:name=".receiver.widgets.SwitchForceDarkWidget"
+            android:label="@string/name_switch_force_dark">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.modosa.switchnightui.appwidget.switchforcedark" />
+                <action android:name="com.modosa.switchnightui.appwidget.switch_force_dark" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_info_switchforcedark" />
+                android:resource="@xml/app_widget_info_switch_force_dark" />
+        </receiver>
+        <receiver
+            android:name=".receiver.widgets.SwitchBatterySaverWidget"
+            android:label="@string/name_switch_battery_saver">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.modosa.switchnightui.appwidget.switch_battery_saver" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info_switch_battery_saver" />
         </receiver>
         <receiver
             android:name=".receiver.TimingSwitchReceiver"

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -20,26 +21,59 @@ import java.util.List;
 /**
  * @author dadaewq
  */
-public class BatterySaverUtil {
+public class SwitchBatterySaverUtil {
     private static final String KEY_LOW_POWER_MODE = "low_power";
     private static final String KEY_LOW_POWER_MODE_STICKY = "low_power_sticky";
     private static final String CMD_SETTINGS_PUT_GLOBAL = "settings put global ";
     private final Context context;
     private final ContentResolver resolver;
+    private final PowerManager powerManager;
 
-    public BatterySaverUtil(Context context) {
+    public SwitchBatterySaverUtil(Context context) {
         this.context = context;
         resolver = context.getContentResolver();
+        powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+    }
+
+    public boolean isPowerSaveMode() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return powerManager.isPowerSaveMode();
+        } else {
+            return false;
+        }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public String setBatterySaver(boolean isOpen) {
-        if (isOpen) {
+    public void switchBatterySaver() {
+        boolean shouldOpen = !isPowerSaveMode();
+
+        String message = setBatterySaver(shouldOpen);
+
+        boolean newPowerMode = isPowerSaveMode();
+
+        if (message != null) {
+            OpUtil.showToast1(context, message);
+        } else {
+            int msgId = newPowerMode ?
+                    R.string.tip_on_battery_saver :
+                    R.string.tip_off_battery_saver;
+            if (newPowerMode != shouldOpen) {
+                OpUtil.showToast0(context, context.getString(R.string.tip_cannotSwitchBatterySaver) + "\n" + context.getString(msgId));
+            } else {
+                OpUtil.showToast1(context, context.getString(msgId));
+            }
+        }
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public String setBatterySaver(boolean shouldOpen) {
+        if (shouldOpen) {
             return setBatterySaver(1);
         } else {
             return setBatterySaver(0);
         }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -82,7 +116,7 @@ public class BatterySaverUtil {
         return message;
     }
 
-    private boolean setBatterySaverWithRoot(int newPowerMode, int nowPowerMode) {
+    private boolean setBatterySaverWithRoot(int newPowerMode, int oldPowerMode) {
         boolean isSu = false;
         String[] checkRoot = ShellUtil.execWithRoot("exit");
         if ("0".equals(checkRoot[3])) {
@@ -90,7 +124,7 @@ public class BatterySaverUtil {
 
             List<String> cmds;
 
-            if (nowPowerMode == newPowerMode) {
+            if (oldPowerMode == newPowerMode) {
                 if (newPowerMode == 1) {
                     cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE + " " + 0;
                     ShellUtil.exec(cmd, true);

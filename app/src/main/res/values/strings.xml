@@ -10,7 +10,7 @@
         \n1.Normal mode：The availability of it is determined by the system
         \n2.Compatible mode：requires ADB authorization
         \n3.Root mode\n
-        \nSome devices may be automatically turned off dark mode by the system after turning on dark mode.Only then need to turn on stable mode to switch\n
+        \nSome devices may be automatically turned off dark mode by the system when turning on dark mode.Only then need to turn on Steady switch dark mode\n
         \nAndroid 10 and above can attempts to switch force dark with Root.
         \nThis App provides tiles, widgets, static shortcuts,pinned shortcuts and setting assistant applications to quickly switch.\n
     </string>
@@ -20,19 +20,22 @@
     <string name="checkbox4_instructions_before_use">It is their adaptation problem that their interface is not darken or abnormal</string>
     <string name="checkbox_last_instructions_before_use">No longer prompt</string>
     <string name="action_switch">Switch</string>
-    <string name="DarkModeOn">Dark Mode : ON</string>
-    <string name="DarkModeOff">Dark Mode : OFF</string>
+    <string name="tip_on_dark_mode">Dark Mode : ON</string>
+    <string name="tip_off_dark_mode">Dark Mode : OFF</string>
     <string name="CarMode">Car Mode</string>
-    <string name="switchforcedark">Force Dark Switch</string>
-    <string name="StableMode">Stable Mode</string>
-    <string name="title_dialog_EnableStableMode">Turn on stable mode</string>
-    <string name="message_dialog_EnableStableMode">In general, the stable mode does not need to be turned on. It only needs to be turned on when the dark mode is turned on and automatically turned off by the system.\n\nEach time you switch dark mode, click \" Refresh\" in the menu to update the theme of this App.</string>
-    <string name="ForceDarkOn">Force Dark: ON</string>
-    <string name="ForceDarkOff">Force Dark : OFF</string>
+    <string name="name_switch_force_dark">Force Dark Switch</string>
+    <string name="name_switch_battery_saver">Battery Saver Switch</string>
+    <string name="StableMode">Steady switch dark mode</string>
+    <string name="title_dialog_EnableStableMode">Turn on Steady switch dark mode</string>
+    <string name="message_dialog_EnableStableMode">In general, Steady switch dark mode does not need to be turned on. It only needs to be turned on when the dark mode is turned on and automatically turned off by the system.\n\nEach time you switch dark mode, click \" Refresh\" in the menu to update the theme of this App.</string>
+    <string name="tip_on_force_dark">Force Dark: ON</string>
+    <string name="tip_off_force_dark">Force Dark : OFF</string>
+    <string name="tip_on_battery_saver">Battery Saver: ON</string>
+    <string name="tip_off_battery_saver">Battery Saver: OFF</string>
     <string name="settings">Settings</string>
     <string name="refresh">Refresh</string>
-    <string name="DarkMode">Dark Mode</string>
-    <string name="ForceDark">Force Dark</string>
+    <string name="title_dark_mode">Dark Mode</string>
+    <string name="title_force_dark">Force Dark</string>
     <string name="WorkMode">Work Mode</string>
     <string name="WorkMode1">Normal</string>
     <string name="WorkMode2">Compatible</string>
@@ -42,23 +45,23 @@
     <string name="yes2">%1$s Success\n\nReboot the device to take effect</string>
     <string name="yes2old">%1$s Success\n\nReboot the device and enable car mode to take effect</string>
     <string name="tips_workmode2">Reboot the device to take effect</string>
-    <string name="failworkmode">%1$s mode is unavailable!Please try other mode</string>
+    <string name="failworkmode">The current system cannot use %1$s mode is unavailable!Please try other mode</string>
     <string name="error">Error %1$s</string>
     <string name="no_root">Unable to acquire root access</string>
     <string name="tip_needpermission_WRITE_SETTINGS">Please grant permission</string>
     <string name="tip_needpermission_WRITE_SECURE_SETTINGS">Please grant Root permission or grant permissions using\n%1$s\nIt has been copied to the clipboard</string>
     <string name="tip_needpermission">Please grant permissions using\n%1$s\nIt has been copied to the clipboard</string>
-    <string name="tip_need_sdk29">Switching force dark requires Android 10 and above</string>
+    <string name="tip_switch_what1_need_android_what2">Switching %1$s requires Android %2$sand above</string>
     <string name="title_timingswitch">Timing Switch</string>
-    <string name="title_timeupon">Start time</string>
-    <string name="title_timeupoff">End time</string>
+    <string name="title_timeup_on">Start time</string>
+    <string name="title_timeup_off">End time</string>
     <string name="checkbox_enable_bugReport">Allow tracking bugs through network for optimization and improvement</string>
     <string name="title_general">General</string>
     <string name="title_advanced">Advanced</string>
     <string name="title_excludeFromRecents">Exclude from recents</string>
     <string name="summary_excludeFromRecents">Not displayed in the recent app list after exiting the app</string>
-    <string name="title_batterySaver">Battery Saver</string>
-    <string name="title_permanentNotification">Permanent Notification</string>
+    <string name="title_battery_saver">Battery Saver</string>
+    <string name="title_permanent_notification">Permanent Notification</string>
     <string name="title_others">Others</string>
     <string name="title_help">Help</string>
     <string name="title_about">About</string>

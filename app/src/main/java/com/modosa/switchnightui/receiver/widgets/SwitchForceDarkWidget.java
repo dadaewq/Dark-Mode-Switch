@@ -1,4 +1,4 @@
-package com.modosa.switchnightui.receiver;
+package com.modosa.switchnightui.receiver.widgets;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -19,14 +19,14 @@ import com.modosa.switchnightui.util.OpUtil;
  */
 public class SwitchForceDarkWidget extends AppWidgetProvider {
 
-    private static final String WIDGET_ACTION = "com.modosa.switchnightui.appwidget.switchforcedark";
+    private static final String WIDGET_ACTION = "com.modosa.switchnightui.appwidget.switch_force_dark";
 
     private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                         int appWidgetId) {
 
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget_switchforcedark);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget_switch_force_dark);
 
-        views.setOnClickPendingIntent(R.id.img_forcedark, getPendingIntent(context));
+        views.setOnClickPendingIntent(R.id.img_switch_force_dark, getPendingIntent(context));
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -36,7 +36,7 @@ public class SwitchForceDarkWidget extends AppWidgetProvider {
         Intent intent = new Intent()
                 .setClass(context, SwitchForceDarkWidget.class)
                 .setAction(WIDGET_ACTION)
-                .setData(Uri.parse("id:" + R.id.img_forcedark));
+                .setData(Uri.parse("id:" + R.id.img_switch_force_dark));
 //        //设置data域的时候，把控件id一起设置进去，
 //        // 因为在绑定的时候，是将同一个id绑定在一起的，所以哪个控件点击，发送的intent中data中的id就是哪个控件的id
 //

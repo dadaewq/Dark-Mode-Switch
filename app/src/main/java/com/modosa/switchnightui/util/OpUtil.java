@@ -84,14 +84,14 @@ public class OpUtil {
     }
 
     public static Notification getPermanentNotification(Context context) {
-        String channelId = R.string.title_permanentNotification + "";
+        String channelId = R.string.title_permanent_notification + "";
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = null;
         if (notificationManager != null) {
             notification = new NotificationCompat.Builder(context, channelId)
                     .setContentTitle(context.getString(R.string.app_name))
                     .setWhen(System.currentTimeMillis())
-                    .setSmallIcon(R.drawable.ic_noti)
+                    .setSmallIcon(R.drawable.ic_qs_dark_mode)
                     .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0))
                     .setNotificationSilent()
                     .addAction(0, context.getString(R.string.on), getSwitchPendingIntent(context, UiModeManager.MODE_NIGHT_YES))
@@ -100,7 +100,7 @@ public class OpUtil {
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = new NotificationChannel(channelId, context.getString(R.string.title_permanentNotification), NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationChannel channel = new NotificationChannel(channelId, context.getString(R.string.title_permanent_notification), NotificationManager.IMPORTANCE_DEFAULT);
                 notificationManager.createNotificationChannel(channel);
             }
             // 设置常驻Flag

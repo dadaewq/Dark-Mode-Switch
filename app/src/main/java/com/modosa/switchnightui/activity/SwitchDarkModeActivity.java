@@ -21,7 +21,13 @@ import java.util.Objects;
 /**
  * @author dadaewq
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class SwitchDarkModeActivity extends BaseActivity {
+
+    private final String shortcutId = "SwitchDarkMode";
+    private final int shortcutLongLabelId = R.string.app_name;
+    private final int shortcutShortLabelId = R.string.action_switch;
+    private final int iconId = R.drawable.ic_qs_dark_mode;
 
     private SpUtil spUtil;
     private SwitchDarkModeUtil switchDarkModeUtil;
@@ -61,10 +67,10 @@ public class SwitchDarkModeActivity extends BaseActivity {
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     .setClass(this, getClass());
 
-            ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(this, "SwitchUi")
-                    .setLongLabel(getString(R.string.app_name))
-                    .setShortLabel(getString(R.string.action_switch))
-                    .setIcon(IconCompat.createWithResource(this, R.drawable.ic_brightness_2_black_24dp))
+            ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(this, shortcutId)
+                    .setLongLabel(getString(shortcutLongLabelId))
+                    .setShortLabel(getString(shortcutShortLabelId))
+                    .setIcon(IconCompat.createWithResource(this, iconId))
                     .setIntent(intent)
                     .build();
 

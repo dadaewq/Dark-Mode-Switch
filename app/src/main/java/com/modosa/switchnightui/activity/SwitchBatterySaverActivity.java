@@ -12,35 +12,38 @@ import androidx.core.graphics.drawable.IconCompat;
 import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.base.BaseActivity;
 import com.modosa.switchnightui.util.OpUtil;
-import com.modosa.switchnightui.util.SwitchForceDarkUtil;
+import com.modosa.switchnightui.util.SwitchBatterySaverUtil;
 
 /**
  * @author dadaewq
  */
 @SuppressWarnings("FieldCanBeLocal")
-public class SwitchForceDarkActivity extends BaseActivity {
+public class SwitchBatterySaverActivity extends BaseActivity {
 
-    private final String shortcutId = "SwitchForceDark";
-    private final int shortcutLongLabelId = R.string.name_switch_force_dark;
+    private final String shortcutId = "SwitchBatterySaver";
+    private final int shortcutLongLabelId = R.string.name_switch_battery_saver;
     private final int shortcutShortLabelId = R.string.action_switch;
-    private final int iconId = R.drawable.ic_qs_force_dark;
+    private final int iconId = R.drawable.ic_qs_battery_saver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SwitchBatterySaverUtil switchBatterySaverUtil = new SwitchBatterySaverUtil(this);
+
         if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             createShortCut();
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                new SwitchForceDarkUtil(this).switchForceDark();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                switchBatterySaverUtil.switchBatterySaver();
             } else {
                 OpUtil.showToast1(this, String.format(
                         getString(R.string.tip_switch_what1_need_android_what2),
-                        getString(R.string.title_force_dark),
-                        "10"
+                        getString(R.string.title_battery_saver),
+                        "5.0"
                 ));
             }
+
             finish();
         }
     }
@@ -64,4 +67,5 @@ public class SwitchForceDarkActivity extends BaseActivity {
             finish();
         }
     }
+
 }

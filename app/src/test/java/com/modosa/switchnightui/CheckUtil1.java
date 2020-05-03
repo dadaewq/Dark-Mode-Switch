@@ -8,7 +8,7 @@ import android.content.pm.PackageManager;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class CheckUtil1 {
+class CheckUtil1 {
     private final Context context;
     private final UiModeManager uiModeManager;
 

@@ -4,12 +4,12 @@
     android:padding="@dimen/widget_margin">
 
     <ImageView
-        android:id="@+id/img_forcedark"
+        android:id="@+id/img_switch_battery_saver"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:contentDescription="@string/switchforcedark"
-        android:src="@drawable/ic_brightness_3_black_24dp" />
+        android:contentDescription="@string/name_switch_battery_saver"
+        android:src="@drawable/ic_qs_battery_saver" />
 
     <TextView
         android:layout_width="match_parent"

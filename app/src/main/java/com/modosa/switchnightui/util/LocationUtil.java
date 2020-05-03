@@ -34,7 +34,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public final class LocationUtil {
 
     private final int TWO_MINUTES = 1000 * 60 * 2;
-    private Context context;
+    private final Context context;
     private OnLocationChangeListener mListener;
     private MyLocationListener myLocationListener;
     private LocationManager mLocationManager;
@@ -62,13 +62,6 @@ public final class LocationUtil {
         float MIN_DISTANCE_CHANGE_FOR_UPDATES = 0.1f;
         try {
             mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-//            if (!isLocationEnabled()) {
-//                //no Network and GPS providers is enabled
-//                Toast.makeText(context
-//                        , " you have to open GPS or INTERNET"
-//                        , Toast.LENGTH_LONG)
-//                        .show();
-//            }
 
             if (isLocationEnabled()) {
                 mLocationManager.requestLocationUpdates(
@@ -119,7 +112,7 @@ public final class LocationUtil {
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public boolean isGpsEnabled() {
+    private boolean isGpsEnabled() {
         LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
@@ -186,7 +179,7 @@ public final class LocationUtil {
      * 注销
      */
     @RequiresPermission(ACCESS_COARSE_LOCATION)
-    public void unregister() {
+    private void unregister() {
         if (mLocationManager != null) {
             if (myLocationListener != null) {
                 mLocationManager.removeUpdates(myLocationListener);
@@ -228,7 +221,7 @@ public final class LocationUtil {
      * @param longitude 经度
      * @return {@link Address}
      */
-    public Address getAddress(double latitude, double longitude) {
+    private Address getAddress(double latitude, double longitude) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
@@ -331,14 +324,14 @@ public final class LocationUtil {
      * @param provider1 提供者2
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public boolean isSameProvider(String provider0, String provider1) {
+    private boolean isSameProvider(String provider0, String provider1) {
         if (provider0 == null) {
             return provider1 == null;
         }
         return provider0.equals(provider1);
     }
 
-    public interface OnLocationChangeListener {
+    interface OnLocationChangeListener {
 
         /**
          * 获取最后一次保留的坐标

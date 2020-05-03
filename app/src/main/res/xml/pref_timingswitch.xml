@@ -3,26 +3,26 @@
     <PreferenceCategory>
         <SwitchPreferenceCompat
             app:key="enableTimingSwitch"
-            app:title="@string/DarkMode" />
+            app:title="@string/title_dark_mode" />
         <Preference
             app:key="timeOn"
-            app:title="@string/title_timeupon" />
+            app:title="@string/title_timeup_on" />
         <Preference
             app:key="timeOff"
-            app:title="@string/title_timeupoff" />
+            app:title="@string/title_timeup_off" />
     </PreferenceCategory>
     <PreferenceCategory
         app:isPreferenceVisible="false"
         app:key="TimingSwitch2">
         <SwitchPreferenceCompat
             app:key="enableTimingSwitch2"
-            app:title="@string/ForceDark" />
+            app:title="@string/title_force_dark" />
         <Preference
             app:key="timeOn2"
-            app:title="@string/title_timeupon" />
+            app:title="@string/title_timeup_on" />
         <Preference
             app:key="timeOff2"
-            app:title="@string/title_timeupoff" />
+            app:title="@string/title_timeup_off" />
     </PreferenceCategory>
 
 </PreferenceScreen>
