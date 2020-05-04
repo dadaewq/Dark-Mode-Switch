@@ -8,6 +8,8 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.modosa.switchnightui.R;
+import com.modosa.switchnightui.util.oneplus.OpSwitchDarkModeUtil;
+import com.modosa.switchnightui.util.oneplus.OpSwitchForceDarkUtil;
 
 import java.util.Objects;
 
@@ -121,6 +123,10 @@ public class SwitchDarkModeUtil {
         }
 
         result.setMsg(msg);
+
+        if (OpSwitchForceDarkUtil.isOnePlus(context)) {
+            OpSwitchDarkModeUtil.setDarkMode(enable);
+        }
 
         return result;
 

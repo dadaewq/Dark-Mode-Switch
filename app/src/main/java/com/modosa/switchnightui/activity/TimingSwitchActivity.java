@@ -24,6 +24,8 @@ import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.base.BaseAppCompatActivity;
 import com.modosa.switchnightui.fragment.TimingSwitchFragment;
 
+import java.util.Objects;
+
 /**
  * @author dadaewq
  */
@@ -53,7 +55,7 @@ public class TimingSwitchActivity extends BaseAppCompatActivity {
             if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 666);
             } else {
-                getSupportFragmentManager().findFragmentByTag("TimingSwitch").onActivityResult(665, 666, null);
+                Objects.requireNonNull(getSupportFragmentManager().findFragmentByTag("TimingSwitch")).onActivityResult(665, 666, null);
             }
         });
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -67,7 +69,7 @@ public class TimingSwitchActivity extends BaseAppCompatActivity {
                                            @NonNull int[] grantResults) {
         if (requestCode == 666) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getSupportFragmentManager().findFragmentByTag("TimingSwitch").onActivityResult(665, 666, null);
+                Objects.requireNonNull(getSupportFragmentManager().findFragmentByTag("TimingSwitch")).onActivityResult(665, 666, null);
             }
         }
     }

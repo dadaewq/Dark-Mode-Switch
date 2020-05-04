@@ -37,6 +37,7 @@ import com.modosa.switchnightui.service.NotificationService;
  * @author dadaewq
  */
 public class OpUtil {
+    public static final String BLANK = " ";
     public static final String SP_KEY_ENABLE_BUG_REPORT = "enableBugReport";
     public final static String CONFIRM_PROMPT = "ConfirmPrompt01";
     private static final String SP_KEY_EXCLUDE_FROM_RECENTS = "excludeFromRecents";

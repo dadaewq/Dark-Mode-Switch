@@ -30,7 +30,23 @@
             app:summary="@string/summary_excludeFromRecents"
             app:title="@string/title_excludeFromRecents" />
     </PreferenceCategory>
-
+    <PreferenceCategory
+        app:key="system_display"
+        app:title="@string/title_system_display">
+        <SwitchPreferenceCompat
+            android:icon="@drawable/ic_daynight_invert_colors"
+            app:key="accessibility_display_inversion_enabled"
+            app:title="@string/title_invert_colors" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/ic_daynight_gray_scale"
+            app:key="grayscale"
+            app:title="@string/title_gray_scale" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/ic_daynight_night_display"
+            app:key="night_display_activated"
+            app:summary="@string/summary_night_display"
+            app:title="@string/title_night_display" />
+    </PreferenceCategory>
     <PreferenceCategory app:title="@string/title_others">
         <Preference
             android:icon="@drawable/ic_daynight_instructions_before_use"

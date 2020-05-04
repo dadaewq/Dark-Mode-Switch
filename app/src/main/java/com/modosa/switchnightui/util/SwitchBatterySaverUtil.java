@@ -18,6 +18,8 @@ import com.modosa.switchnightui.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.modosa.switchnightui.util.OpUtil.BLANK;
+
 /**
  * @author dadaewq
  */
@@ -126,17 +128,17 @@ public class SwitchBatterySaverUtil {
 
             if (oldPowerMode == newPowerMode) {
                 if (newPowerMode == 1) {
-                    cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE + " " + 0;
+                    cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE + BLANK + 0;
                     ShellUtil.exec(cmd, true);
                 } else {
-                    cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE + " " + 1;
+                    cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE + BLANK + 1;
                     ShellUtil.exec(cmd, true);
                 }
             }
             cmds = new ArrayList<>();
-            cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE + " " + newPowerMode;
+            cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE + BLANK + newPowerMode;
             cmds.add(cmd);
-            cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE_STICKY + " " + newPowerMode;
+            cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE_STICKY + BLANK + newPowerMode;
             cmds.add(cmd);
             ShellUtil.execWithRoot(cmds);
             isSu = true;
