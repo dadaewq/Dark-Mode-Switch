@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:isPreferenceVisible="false"
+        app:key="oneplus_settings"
+        app:title="@string/title_oneplus_settings">
+        <SwitchPreferenceCompat
+            android:icon="@drawable/ic_daynight_oneplus"
+            app:key="oneplus_synchronize_theme"
+            app:summary="@string/summary_oneplus_synchronize_theme"
+            app:title="@string/title_oneplus_synchronize_theme" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/title_general">
         <Preference
             android:icon="@drawable/ic_daynight_timeup"
@@ -34,13 +44,13 @@
         app:key="system_display"
         app:title="@string/title_system_display">
         <SwitchPreferenceCompat
-            android:icon="@drawable/ic_daynight_invert_colors"
-            app:key="accessibility_display_inversion_enabled"
-            app:title="@string/title_invert_colors" />
-        <SwitchPreferenceCompat
             android:icon="@drawable/ic_daynight_gray_scale"
             app:key="grayscale"
             app:title="@string/title_gray_scale" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/ic_daynight_invert_colors"
+            app:key="accessibility_display_inversion_enabled"
+            app:title="@string/title_invert_colors" />
         <SwitchPreferenceCompat
             android:icon="@drawable/ic_daynight_night_display"
             app:key="night_display_activated"

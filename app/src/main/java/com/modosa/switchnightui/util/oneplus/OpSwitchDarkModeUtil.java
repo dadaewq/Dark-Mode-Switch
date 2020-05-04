@@ -1,9 +1,9 @@
 package com.modosa.switchnightui.util.oneplus;
 
-import com.modosa.switchnightui.util.ShellUtil;
+import android.content.Context;
+import android.provider.Settings;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.modosa.switchnightui.util.ShellUtil;
 
 import static com.modosa.switchnightui.util.OpUtil.BLANK;
 
@@ -12,23 +12,32 @@ import static com.modosa.switchnightui.util.OpUtil.BLANK;
  */
 public class OpSwitchDarkModeUtil {
 
-    public static void setDarkMode(boolean enable) {
+    public static void setDarkMode(Context context, boolean enable) {
         String cmd;
-        List<String> cmds = new ArrayList<>();
         if (enable) {
-            cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION + BLANK + 1;
-            cmds.add(cmd);
-
-            cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_DARK_MODE_ACTION + BLANK + 1;
-            cmds.add(cmd);
+            OPThemeUtils.enableDarkThemes(context);
+            cmd = OpSwitchForceDarkUtil.CMD_SETPROP_THEME + 2;
         } else {
-            cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION + BLANK + 0;
-            cmds.add(cmd);
+            int getOemBlackMode = Settings.System.getInt(context.getContentResolver(), OPThemeUtils.KEY_DARK_MODE_ACTION, 0);
 
-            cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_DARK_MODE_ACTION + BLANK + 0;
-            cmds.add(cmd);
+            if (getOemBlackMode == 1) {
+                getOemBlackMode = 2;
+            }
+
+            cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION + BLANK + getOemBlackMode;
+            ShellUtil.execWithRoot(cmd);
+
+            int oneplusTheme = Settings.System.getInt(context.getContentResolver(), OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION, 0);
+
+            if (oneplusTheme == 2) {
+                OPThemeUtils.enableColorfulThemes(context);
+            } else {
+                OPThemeUtils.enableLightThemes(context);
+            }
+
+            cmd = OpSwitchForceDarkUtil.CMD_SETPROP_THEME + 1;
         }
-        ShellUtil.execWithRoot(cmds);
+        ShellUtil.execWithRoot(cmd);
     }
 
 }

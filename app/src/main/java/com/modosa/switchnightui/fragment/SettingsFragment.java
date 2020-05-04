@@ -18,6 +18,7 @@ import com.modosa.switchnightui.activity.TimingSwitchActivity;
 import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SwitchBatterySaverUtil;
 import com.modosa.switchnightui.util.SwitchDisplayUtil;
+import com.modosa.switchnightui.util.oneplus.OpSwitchForceDarkUtil;
 
 /**
  * @author dadaewq
@@ -154,6 +155,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             findPreference("excludeFromRecents").setVisible(false);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && OpSwitchForceDarkUtil.isOnePlus(context)) {
+            findPreference("oneplus_settings").setVisible(true);
         }
 
     }

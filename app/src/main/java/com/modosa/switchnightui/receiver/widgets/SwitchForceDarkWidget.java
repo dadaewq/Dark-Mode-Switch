@@ -13,7 +13,7 @@ import com.modosa.switchnightui.activity.SwitchForceDarkActivity;
 import com.modosa.switchnightui.util.OpUtil;
 
 /**
- * Implementation of App Widget functionality.
+ * Implementation of SwitchForceDarkWidget functionality.
  *
  * @author dadaewq
  */

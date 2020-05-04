@@ -12,7 +12,11 @@ import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.activity.SwitchBatterySaverActivity;
 import com.modosa.switchnightui.util.OpUtil;
 
-
+/**
+ * Implementation of SwitchBatterySaverWidget functionality.
+ *
+ * @author dadaewq
+ */
 public class SwitchBatterySaverWidget extends AppWidgetProvider {
 
     private static final String WIDGET_ACTION = "com.modosa.switchnightui.appwidget.switch_battery_saver";

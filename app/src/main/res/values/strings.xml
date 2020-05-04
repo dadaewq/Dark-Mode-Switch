@@ -90,5 +90,8 @@
     <string name="title_gray_scale">Grayscale</string>
     <string name="title_night_display">Night Light</string>
     <string name="summary_night_display">Tinting screen amber</string>
+    <string name="title_oneplus_settings">Oneplus settings</string>
+    <string name="title_oneplus_synchronize_theme">Switch system theme synchronously</string>
+    <string name="summary_oneplus_synchronize_theme">Switch system theme synchronously when switching the dark mode</string>
 
 </resources>

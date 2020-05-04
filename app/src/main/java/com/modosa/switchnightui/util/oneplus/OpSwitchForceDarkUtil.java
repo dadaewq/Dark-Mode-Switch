@@ -16,12 +16,11 @@ import static com.modosa.switchnightui.util.OpUtil.BLANK;
  * @author dadaewq
  */
 public class OpSwitchForceDarkUtil {
+    static final String CMD_SETPROP_THEME = "setprop persist.sys.theme ";
     private static final String KEY_OP_FORCE_DARK_ENTIRE_WORLD = "op_force_dark_entire_world";
     private static final String KEY_AOSP_FORCE_DARK_MODE = "aosp_force_dark_mode";
     private static final String KEY_OP_FORCE_DARK_MODE = "op_force_dark_mode";
     private static final String CMD_SETTINGS_PUT_SECURE = "settings put secure ";
-    private static final String CMD_SETPROP_THEME = "setprop persist.sys.theme ";
-
     private final Context context;
 
     public OpSwitchForceDarkUtil(Context context) {
