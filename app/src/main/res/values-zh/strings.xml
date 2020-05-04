@@ -86,5 +86,10 @@
     <string name="title_second_confirm">切换前确认</string>
     <string name="message_second_confirm">您看到此对话框是因为您尚未在“用前须知”中确认“不再提示”\n\n请您再次确认：深色模式一定需要应用自己的适配,不然切换后应用不会有变化,也就是部分用户认为的“无效”</string>
     <string name="tip_cannotSwitchBatterySaver">设备当前无法切换省电模式</string>
+    <string name="title_system_display">系统显示</string>
+    <string name="title_invert_colors">颜色反转</string>
+    <string name="title_gray_scale">灰度</string>
+    <string name="title_night_display">夜间模式</string>
+    <string name="summary_night_display">调整屏幕为琥珀色</string>
 
 </resources>

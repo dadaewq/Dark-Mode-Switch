@@ -10,6 +10,8 @@ import com.modosa.switchnightui.util.SwitchDarkModeUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.modosa.switchnightui.util.OpUtil.BLANK;
+
 /**
  * @author dadaewq
  */
@@ -51,19 +53,19 @@ public class OpSwitchForceDarkUtil {
             String cmd;
             if (enable) {
                 List<String> cmds = new ArrayList<>();
-                cmd = CMD_SETTINGS_PUT_SECURE + KEY_AOSP_FORCE_DARK_MODE + OPThemeUtils.BLANK + 1;
+                cmd = CMD_SETTINGS_PUT_SECURE + KEY_AOSP_FORCE_DARK_MODE + BLANK + 1;
                 cmds.add(cmd);
 
                 int getOemBlackMode = Settings.System.getInt(context.getContentResolver(), OPThemeUtils.KEY_DARK_MODE_ACTION, 0);
 
-                cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION + OPThemeUtils.BLANK + getOemBlackMode;
+                cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION + BLANK + getOemBlackMode;
                 cmds.add(cmd);
                 ShellUtil.execWithRoot(cmds);
 
                 OPThemeUtils.setCurrentBasicColorMode(1);
 
             } else {
-                cmd = CMD_SETTINGS_PUT_SECURE + KEY_AOSP_FORCE_DARK_MODE + OPThemeUtils.BLANK + 0;
+                cmd = CMD_SETTINGS_PUT_SECURE + KEY_AOSP_FORCE_DARK_MODE + BLANK + 0;
                 ShellUtil.execWithRoot(cmd);
 
                 int oneplusTheme = Settings.System.getInt(context.getContentResolver(), OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION, 0);
@@ -104,10 +106,10 @@ public class OpSwitchForceDarkUtil {
             cmd = CMD_SETPROP_THEME + 2;
             cmds.add(cmd);
 
-            cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_MODE + OPThemeUtils.BLANK + 1;
+            cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_MODE + BLANK + 1;
             cmds.add(cmd);
 
-            cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_ENTIRE_WORLD + OPThemeUtils.BLANK + 1;
+            cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_ENTIRE_WORLD + BLANK + 1;
             cmds.add(cmd);
 
         } else {
@@ -126,10 +128,10 @@ public class OpSwitchForceDarkUtil {
                 cmds.add(cmd);
 
             }
-            cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_MODE + OPThemeUtils.BLANK + 0;
+            cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_MODE + BLANK + 0;
             cmds.add(cmd);
 
-            cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_ENTIRE_WORLD + OPThemeUtils.BLANK + 0;
+            cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_ENTIRE_WORLD + BLANK + 0;
             cmds.add(cmd);
 
         }

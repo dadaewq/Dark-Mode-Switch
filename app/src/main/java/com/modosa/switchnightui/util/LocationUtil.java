@@ -393,6 +393,7 @@ public final class LocationUtil {
                 case LocationProvider.TEMPORARILY_UNAVAILABLE:
                     Log.d("LocationUtils", "当前GPS状态为暂停服务状态");
                     break;
+                default:
             }
         }
 

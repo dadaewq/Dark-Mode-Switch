@@ -17,6 +17,7 @@ import com.modosa.switchnightui.activity.AboutActivity;
 import com.modosa.switchnightui.activity.TimingSwitchActivity;
 import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SwitchBatterySaverUtil;
+import com.modosa.switchnightui.util.SwitchDisplayUtil;
 
 /**
  * @author dadaewq
@@ -24,16 +25,19 @@ import com.modosa.switchnightui.util.SwitchBatterySaverUtil;
 @SuppressWarnings("ConstantConditions")
 
 public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
-    public static final String SP_KEY_PERMANENT_NOTIFICATION = "permanentNotification";
+    public static final String SP_KEY_PERMANENT_NOTIFICATION = "permanent_notification";
+    private final String[] displayKeys = new String[]{SwitchDisplayUtil.ACCESSIBILITY_DISPLAY_INVERSION_ENABLED, SwitchDisplayUtil.GRAYSCALE, SwitchDisplayUtil.NIGHT_DISPLAY_ACTIVATED};
     private Context context;
     private SwitchPreferenceCompat stableMode;
     private SwitchPreferenceCompat carMode;
-    private SwitchPreferenceCompat battery_saver;
-    private SwitchPreferenceCompat permanent_notification;
+    private SwitchPreferenceCompat batterySaver;
+    private SwitchPreferenceCompat permanentNotification;
+    private SwitchPreferenceCompat[] switchPreferenceCompats;
     private UiModeManager uiModeManager;
     private AlertDialog alertDialog;
     private boolean enableStableMode = false;
     private SwitchBatterySaverUtil switchBatterySaverUtil;
+    private SwitchDisplayUtil switchDisplayUtil;
 
 
     @Override
@@ -64,18 +68,18 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
     private void initView() {
         //省电模式
-        battery_saver = findPreference("battery_saver");
-        assert battery_saver != null;
+        batterySaver = findPreference("battery_saver");
+        assert batterySaver != null;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             switchBatterySaverUtil = new SwitchBatterySaverUtil(context);
-            battery_saver.setOnPreferenceClickListener(v -> {
-                boolean shouldOpen = battery_saver.isChecked();
+            batterySaver.setOnPreferenceClickListener(v -> {
+                boolean shouldOpen = batterySaver.isChecked();
                 String message = switchBatterySaverUtil.setBatterySaver(shouldOpen);
 
                 boolean newPowerMode = switchBatterySaverUtil.isPowerSaveMode();
-                battery_saver.setChecked(newPowerMode);
+                batterySaver.setChecked(newPowerMode);
                 if (message == null) {
                     if (newPowerMode != shouldOpen) {
                         OpUtil.showToast0(context, R.string.tip_cannotSwitchBatterySaver);
@@ -87,7 +91,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                 return true;
             });
         } else {
-            battery_saver.setVisible(false);
+            batterySaver.setVisible(false);
         }
 
         //驾驶模式
@@ -113,16 +117,35 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         });
 
         //常驻通知
-        permanent_notification = findPreference("permanent_notification");
-        assert permanent_notification != null;
-        permanent_notification.setOnPreferenceClickListener(v -> {
-            if (permanent_notification.isChecked()) {
+        permanentNotification = findPreference(SP_KEY_PERMANENT_NOTIFICATION);
+        assert permanentNotification != null;
+        permanentNotification.setOnPreferenceClickListener(v -> {
+            if (permanentNotification.isChecked()) {
                 OpUtil.addPermanentNotification(context);
             } else {
                 OpUtil.cancelPermanentNotification(context);
             }
             return true;
         });
+
+        switchDisplayUtil = new SwitchDisplayUtil(context);
+
+//        0颜色反转,
+//        1灰度,
+//        2夜间模式, SDK25
+        switchPreferenceCompats = new SwitchPreferenceCompat[displayKeys.length];
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            initDisplay(0);
+            initDisplay(1);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                initDisplay(2);
+            } else {
+                findPreference(displayKeys[2]).setVisible(false);
+            }
+        } else {
+            findPreference("system_display").setVisible(false);
+        }
 
         findPreference("timeup").setOnPreferenceClickListener(this);
         findPreference("instructions_before_use").setOnPreferenceClickListener(this);
@@ -150,11 +173,32 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         OpUtil.showAlertDialog(context, alertDialog);
     }
 
+    private void initDisplay(int keyIndes) {
+        switchPreferenceCompats[keyIndes] = findPreference(displayKeys[keyIndes]);
+
+        switchPreferenceCompats[keyIndes].setOnPreferenceClickListener(v -> {
+            boolean shouldOpen = switchPreferenceCompats[keyIndes].isChecked();
+            String message = switchDisplayUtil.putSettingsSecureInt(displayKeys[keyIndes], shouldOpen);
+
+            switchPreferenceCompats[keyIndes].setChecked(switchDisplayUtil.isDisplayKeyEnabled(displayKeys[keyIndes]));
+
+            if (message != null) {
+                OpUtil.showToast1(context, message);
+            }
+            return true;
+        });
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            battery_saver.setChecked(switchBatterySaverUtil.isPowerSaveMode());
+            batterySaver.setChecked(switchBatterySaverUtil.isPowerSaveMode());
+            switchPreferenceCompats[0].setChecked(switchDisplayUtil.isDisplayKeyEnabled(displayKeys[0]));
+            switchPreferenceCompats[1].setChecked(switchDisplayUtil.isDisplayKeyEnabled(displayKeys[1]));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                switchPreferenceCompats[2].setChecked(switchDisplayUtil.isDisplayKeyEnabled(displayKeys[2]));
+            }
         }
         carMode.setChecked(Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType());
     }

@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.modosa.switchnightui.util.OpUtil.BLANK;
+
 final class OPThemeUtils {
 
     static final String CMD_SETTINGS_PUT_SYSTEM = "settings put system ";
     static final String KEY_ORIGIN_DARK_MODE_ACTION = "origin_oem_black_mode";
     static final String KEY_DARK_MODE_ACTION = "oem_black_mode";
-    static final String BLANK = " ";
     private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR = "oneplus_basiccolor";
     private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT = "oneplus_dynamicfont";
     private static final String OEM_BLACK_MODE_ACCENT_COLOR = "oem_black_mode_accent_color";
