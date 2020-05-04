@@ -169,7 +169,7 @@ public class MainActivity extends BaseAppCompatActivity {
         super.onPrepareOptionsMenu(menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 
-            MenuItem forceDark = menu.findItem(R.id.switch_force_dark);
+            MenuItem forceDark = menu.findItem(R.id.menu_switch_force_dark);
             forceDark.setVisible(true);
 
             if (switchForceDarkUtil.isForceDark()) {
@@ -188,7 +188,7 @@ public class MainActivity extends BaseAppCompatActivity {
         if (id == R.id.refresh) {
             recreate();
             return true;
-        } else if (id == R.id.switch_force_dark) {
+        } else if (id == R.id.menu_switch_force_dark) {
             switchForceDarkUtil.switchForceDark();
             return true;
         } else if (id == R.id.settings) {

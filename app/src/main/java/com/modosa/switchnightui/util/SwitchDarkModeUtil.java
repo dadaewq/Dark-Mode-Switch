@@ -65,9 +65,9 @@ public class SwitchDarkModeUtil {
                 msg = msg + "\n";
             }
             if (uiModeManager != null && uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES) {
-                msg += context.getString(R.string.tip_on_dark_mode);
+                msg += OpUtil.getTipStr1IsStr2(context, context.getString(R.string.title_dark_mode), context.getString(R.string.tip_on));
             } else {
-                msg += context.getString(R.string.tip_off_dark_mode);
+                msg += OpUtil.getTipStr1IsStr2(context, context.getString(R.string.title_dark_mode), context.getString(R.string.tip_off));
             }
         }
         if (!TextUtils.isEmpty(msg)) {
@@ -124,7 +124,7 @@ public class SwitchDarkModeUtil {
         result.setMsg(msg);
 
         if (spUtil.getFalseBoolean("oneplus_synchronize_theme")) {
-            OpSwitchDarkModeUtil.setDarkMode(context, enable);
+            new OpSwitchDarkModeUtil(context).setDarkMode(enable);
         }
 
         return result;

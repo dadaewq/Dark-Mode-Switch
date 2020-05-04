@@ -6,19 +6,17 @@ import android.service.quicksettings.TileService;
 
 import androidx.annotation.RequiresApi;
 
-import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.util.OpUtil;
-import com.modosa.switchnightui.util.SwitchForceDarkUtil;
-
+import com.modosa.switchnightui.util.SwitchDisplayUtil;
 
 /**
  * @author dadaewq
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class SwitchForceDarkTile extends TileService {
-
-    private SwitchForceDarkUtil switchForceDarkUtil;
-
+abstract class AbstractSwitchDisplayTile extends TileService {
+    String key;
+    int shortcutLongLabelId;
+    private SwitchDisplayUtil switchDisplayUtil;
 
     @Override
     public void onStartListening() {
@@ -29,24 +27,20 @@ public class SwitchForceDarkTile extends TileService {
     @Override
     public void onClick() {
         super.onClick();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            switchForceDark();
-            refreshState();
-        } else {
-            OpUtil.showTipNeedSdk(this, R.string.title_force_dark, "10");
-        }
+        switchMethod();
+        refreshState();
     }
 
-    private void switchForceDark() {
+    private void switchMethod() {
         refreshUtil();
-        switchForceDarkUtil.switchForceDark();
+        switchDisplayUtil.switchDisplayKeyWithResult(key, getString(shortcutLongLabelId));
     }
 
     private void refreshState() {
         refreshUtil();
         Tile qsTile = getQsTile();
         try {
-            if (switchForceDarkUtil.isForceDark()) {
+            if (isShouldActive()) {
                 qsTile.setState(Tile.STATE_ACTIVE);
             } else {
                 qsTile.setState(Tile.STATE_INACTIVE);
@@ -60,8 +54,12 @@ public class SwitchForceDarkTile extends TileService {
     }
 
     private void refreshUtil() {
-        if (switchForceDarkUtil == null) {
-            switchForceDarkUtil = new SwitchForceDarkUtil(this);
+        if (switchDisplayUtil == null) {
+            switchDisplayUtil = new SwitchDisplayUtil(this);
         }
+    }
+
+    private boolean isShouldActive() {
+        return switchDisplayUtil.isDisplayKeyEnabled(key);
     }
 }

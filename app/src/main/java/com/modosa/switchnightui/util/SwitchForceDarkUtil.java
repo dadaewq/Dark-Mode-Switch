@@ -12,14 +12,16 @@ public class SwitchForceDarkUtil {
     private static final String CMD_GET_FORCE_DARK = "getprop debug.hwui.force_dark";
     private static final String CMD_SET_FORCE_DARK = "setprop debug.hwui.force_dark ";
     private final Context context;
+    private final boolean isOneplus;
 
 
     public SwitchForceDarkUtil(Context context) {
         this.context = context;
+        isOneplus = OpSwitchForceDarkUtil.isOnePlus(context);
     }
 
     public boolean isForceDark() {
-        if (OpSwitchForceDarkUtil.isOnePlus(context)) {
+        if (isOneplus) {
             return OpSwitchForceDarkUtil.isOnePlusForceDark(context);
         } else {
             String[] result = ShellUtil.exec(CMD_GET_FORCE_DARK, false);
@@ -42,24 +44,22 @@ public class SwitchForceDarkUtil {
      * @param enable is enable force dark
      */
     private void setForceDark(boolean enable) {
-
         String msg = "";
         boolean isSu, isForceDark;
-        if (OpSwitchForceDarkUtil.isOnePlus(context)) {
+        if (isOneplus) {
             OpSwitchForceDarkUtil opSwitchForceDarkUtil = new OpSwitchForceDarkUtil(context);
             isSu = opSwitchForceDarkUtil.setForceDark(enable);
             //也加入普通的切换，增加覆盖
             setNormalForceDark(enable);
-            if (!isSu) {
-                OpUtil.showToast0(context, R.string.no_root);
-            }
+
             isForceDark = opSwitchForceDarkUtil.isForceDark();
         } else {
             isSu = setNormalForceDark(enable);
-            if (!isSu) {
-                msg = context.getString(R.string.no_root) + "\n";
-            }
+
             isForceDark = isForceDark();
+        }
+        if (!isSu) {
+            msg = context.getString(R.string.no_root) + "\n";
         }
 
         if (isForceDark) {

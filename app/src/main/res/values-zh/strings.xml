@@ -21,8 +21,6 @@
     <string name="checkbox4_instructions_before_use">界面不黑或有异常是他们的适配问题</string>
     <string name="checkbox_last_instructions_before_use">不再提示</string>
     <string name="action_switch">切换</string>
-    <string name="tip_on_dark_mode">深色模式：已开启</string>
-    <string name="tip_off_dark_mode">深色模式：已关闭</string>
     <string name="CarMode">驾驶模式</string>
     <string name="name_switch_force_dark">强制深色切换</string>
     <string name="name_switch_battery_saver">省电模式切换</string>
@@ -31,8 +29,9 @@
     <string name="message_dialog_EnableStableMode">稳定切换深色模式一般无需开启，只有当开启深色模式时出现被系统自动关闭的情况时才需要开启。\n\n每次切换深色模式后点击菜单中的\"刷新\"可更新本App的主题。</string>
     <string name="tip_on_force_dark">强制深色：已开启</string>
     <string name="tip_off_force_dark">强制深色：已关闭</string>
-    <string name="tip_on_battery_saver">省电模式：已开启</string>
-    <string name="tip_off_battery_saver">省电模式：已关闭</string>
+    <string name="tip_str1_is_str2">%1$s：%2$s</string>
+    <string name="tip_on">已开启</string>
+    <string name="tip_off">已关闭</string>
     <string name="settings">设置</string>
     <string name="refresh">刷新</string>
     <string name="title_dark_mode">深色模式</string>
@@ -88,12 +87,18 @@
     <string name="tip_cannotSwitchBatterySaver">设备当前无法切换省电模式</string>
     <string name="title_system_display">系统显示</string>
     <string name="title_invert_colors">颜色反转</string>
+    <string name="title_invertcolors">反色</string>
     <string name="title_gray_scale">灰度</string>
     <string name="title_night_display">夜间模式</string>
+    <string name="name_switch_invert_colors">颜色反转切换</string>
+    <string name="name_switch_gray_scale">灰度切换</string>
+    <string name="name_switch_night_display">夜间模式切换</string>
     <string name="summary_night_display">调整屏幕为琥珀色</string>
     <string name="title_oneplus_settings">一加设置</string>
     <string name="title_oneplus_synchronize_theme">同步切换系统主题</string>
     <string name="summary_oneplus_synchronize_theme">切换深色模式时同步切换系统的主题</string>
+    <string name="title_oneplus_use_colorful_theme">使用多彩主题</string>
+    <string name="summary_oneplus_use_colorful_theme">关闭深色模式时使用多彩主题</string>
 
 
 </resources>

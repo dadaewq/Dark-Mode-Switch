@@ -32,4 +32,26 @@
             android:targetClass="com.modosa.switchnightui.activity.SwitchBatterySaverActivity"
             android:targetPackage="com.modosa.switchnightui" />
     </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_qs_gray_scale"
+        android:shortcutId="SwitchGrayScale"
+        android:shortcutLongLabel="@string/name_switch_gray_scale"
+        android:shortcutShortLabel="@string/action_switch">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchGrayScaleActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_qs_invert_colors"
+        android:shortcutId="SwitchInvertColors"
+        android:shortcutLongLabel="@string/name_switch_invert_colors"
+        android:shortcutShortLabel="@string/action_switch">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchInvertColorsActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
 </shortcuts>

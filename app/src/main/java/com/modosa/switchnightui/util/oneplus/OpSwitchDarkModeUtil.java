@@ -1,9 +1,13 @@
 package com.modosa.switchnightui.util.oneplus;
 
 import android.content.Context;
-import android.provider.Settings;
 
 import com.modosa.switchnightui.util.ShellUtil;
+import com.modosa.switchnightui.util.SpUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import static com.modosa.switchnightui.util.OpUtil.BLANK;
 
@@ -11,35 +15,78 @@ import static com.modosa.switchnightui.util.OpUtil.BLANK;
  * @author dadaewq
  */
 public class OpSwitchDarkModeUtil {
+    private final Context context;
 
-    public static void setDarkMode(Context context, boolean enable) {
+    public OpSwitchDarkModeUtil(Context context) {
+        this.context = context;
+    }
 
-        if ("0".equals(ShellUtil.execWithRoot("exit")[3])) {
-            String cmd;
-            if (enable) {
-                OPThemeUtils.enableDarkThemes(context);
-                cmd = OpSwitchForceDarkUtil.CMD_SETPROP_THEME + 2;
-            } else {
-                int getOemBlackMode = Settings.System.getInt(context.getContentResolver(), OPThemeUtils.KEY_DARK_MODE_ACTION, 0);
+    public void setDarkMode(boolean enable) {
+        List<String> cmds;
+        int theme = 0;
+        if (enable) {
+            theme = 1;
+        } else if (new SpUtil(context).getFalseBoolean("oneplus_use_colorful_theme")) {
+            theme = 2;
+        }
+        cmds = getOneplusCommands(theme);
+        ShellUtil.execWithRoot(cmds);
+        enableThemes(theme);
+    }
 
-                if (getOemBlackMode == 1) {
-                    getOemBlackMode = 2;
-                }
+    private List<String> getOneplusCommands(int theme) {
+        switch (theme) {
+            case 1:
+                return getOneplusCommands(1, 1, 2, 1);
+            case 2:
+                return getOneplusCommands(2, 2, 1, 2);
+            default:
+                return getOneplusCommands(0, 0, 1, 0);
+        }
+    }
 
-                cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION + BLANK + getOemBlackMode;
-                ShellUtil.execWithRoot(cmd);
+    private List<String> getOneplusCommands(int parm1, int parm2, int parm3, int parm4) {
+        String cmd;
+        List<String> cmds = new ArrayList<>();
+        cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_DARK_MODE_ACTION + BLANK + parm1;
+        cmds.add(cmd);
 
-                int oneplusTheme = Settings.System.getInt(context.getContentResolver(), OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION, 0);
+        cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION + BLANK + parm2;
+        cmds.add(cmd);
 
-                if (oneplusTheme == 2) {
-                    OPThemeUtils.enableColorfulThemes(context);
-                } else {
-                    OPThemeUtils.enableLightThemes(context);
-                }
+        cmd = OpSwitchForceDarkUtil.CMD_SETPROP_THEME + parm3;
+        cmds.add(cmd);
 
-                cmd = OpSwitchForceDarkUtil.CMD_SETPROP_THEME + 1;
-            }
-            ShellUtil.execWithRoot(cmd);
+        cmd = OPThemeUtils.CMD_SETPROP_THEME_STATUS + parm4;
+        cmds.add(cmd);
+
+        return cmds;
+    }
+
+    private void enableThemes(int theme) {
+        OpTheme opTheme = new OpTheme(context);
+        HashMap<String, String> map = new HashMap<>();
+        switch (theme) {
+            case 1:
+                map.clear();
+                map.put(OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR, OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_WHITE);
+                opTheme.disableTheme(map);
+                map.put(OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR, OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_BLCAK);
+                opTheme.enableTheme(map);
+                break;
+            case 2:
+                map.clear();
+                map.put(OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR, OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_WHITE);
+                opTheme.disableTheme(map);
+                map.put(OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR, OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_BLCAK);
+                opTheme.disableTheme(map);
+                break;
+            default:
+                map.put(OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR, OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_BLCAK);
+                opTheme.disableTheme(map);
+                map.clear();
+                map.put(OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR, OPThemeUtils.OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_WHITE);
+                opTheme.enableTheme(map);
         }
     }
 

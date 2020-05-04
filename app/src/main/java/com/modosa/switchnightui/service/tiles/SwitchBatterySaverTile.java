@@ -10,11 +10,13 @@ import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SwitchBatterySaverUtil;
 
+/**
+ * @author dadaewq
+ */
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class SwitchBatterySaverTile extends TileService {
 
     private SwitchBatterySaverUtil switchBatterySaverUtil;
-
 
     @Override
     public void onStartListening() {
@@ -29,17 +31,13 @@ public class SwitchBatterySaverTile extends TileService {
             switchForceDark();
             refreshState();
         } else {
-            OpUtil.showToast1(this, String.format(
-                    getString(R.string.tip_switch_what1_need_android_what2),
-                    getString(R.string.title_battery_saver),
-                    "5.0"
-            ));
+            OpUtil.showTipNeedSdk(this, R.string.title_battery_saver, "5.0");
         }
     }
 
     private void switchForceDark() {
         refreshUtil();
-        switchBatterySaverUtil.switchBatterySaver();
+        switchBatterySaverUtil.switchBatterySaverWithResult();
     }
 
     private void refreshState() {

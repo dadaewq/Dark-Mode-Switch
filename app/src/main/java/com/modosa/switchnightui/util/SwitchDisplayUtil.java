@@ -30,6 +30,20 @@ public class SwitchDisplayUtil {
         resolver = context.getContentResolver();
     }
 
+
+    public void switchDisplayKeyWithResult(String key, String lablel) {
+        String message = putSettingsSecureInt(key, !isDisplayKeyEnabled(key));
+
+        if (message != null) {
+            OpUtil.showToast1(context, message);
+        } else {
+            OpUtil.showToast1(context, String.format(context.getString(R.string.tip_str1_is_str2),
+                    lablel,
+                    context.getString(isDisplayKeyEnabled(key) ? R.string.tip_on : R.string.tip_off)
+            ));
+        }
+    }
+
     public boolean isDisplayKeyEnabled(String key) {
         switch (key) {
             case ACCESSIBILITY_DISPLAY_INVERSION_ENABLED:

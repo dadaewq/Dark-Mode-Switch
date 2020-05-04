@@ -8,7 +8,7 @@
         android:title="@string/settings"
         app:showAsAction="never" />
     <item
-        android:id="@+id/switch_force_dark"
+        android:id="@+id/menu_switch_force_dark"
         android:orderInCategory="20"
         android:title="@string/tip_off_force_dark"
         android:visible="false"

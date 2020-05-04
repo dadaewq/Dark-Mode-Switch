@@ -116,6 +116,51 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.SwitchGrayScaleActivity"
+            android:configChanges="uiMode"
+            android:icon="@drawable/ic_qs_gray_scale"
+            android:label="@string/title_gray_scale"
+            android:launchMode="singleInstance"
+            android:roundIcon="@drawable/ic_qs_gray_scale"
+            android:theme="@style/Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SwitchInvertColorsActivity"
+            android:configChanges="uiMode"
+            android:icon="@drawable/ic_qs_invert_colors"
+            android:label="@string/title_invert_colors"
+            android:launchMode="singleInstance"
+            android:roundIcon="@drawable/ic_qs_invert_colors"
+            android:theme="@style/Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SwitchNightDisplayActivity"
+            android:configChanges="uiMode"
+            android:icon="@drawable/ic_qs_night_display"
+            android:label="@string/title_night_display"
+            android:launchMode="singleInstance"
+            android:roundIcon="@drawable/ic_qs_night_display"
+            android:theme="@style/Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.TimingSwitchActivity"
             android:excludeFromRecents="true"
             android:label="@string/title_timingswitch">
@@ -156,12 +201,41 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
+        <service
+            android:name=".service.tiles.SwitchGrayScaleTile"
+            android:icon="@drawable/ic_qs_gray_scale"
+            android:label="@string/title_gray_scale"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:roundIcon="@drawable/ic_qs_gray_scale">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.tiles.SwitchInvertColorsTile"
+            android:icon="@drawable/ic_qs_invert_colors"
+            android:label="@string/title_invertcolors"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:roundIcon="@drawable/ic_qs_invert_colors">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.tiles.SwitchNightDisplayTile"
+            android:icon="@drawable/ic_qs_night_display"
+            android:label="@string/title_night_display"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:roundIcon="@drawable/ic_qs_night_display">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
         <service android:name=".service.NotificationService" />
 
         <receiver android:name=".receiver.widgets.SwitchDarkModeWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.modosa.switchnightui.appwidget.switch_dark_mode" />
             </intent-filter>
 
             <meta-data
@@ -173,7 +247,6 @@
             android:label="@string/name_switch_force_dark">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.modosa.switchnightui.appwidget.switch_force_dark" />
             </intent-filter>
 
             <meta-data
@@ -185,12 +258,44 @@
             android:label="@string/name_switch_battery_saver">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.modosa.switchnightui.appwidget.switch_battery_saver" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_info_switch_battery_saver" />
+        </receiver>
+        <receiver
+            android:name=".receiver.widgets.SwitchGrayScaleWidget"
+            android:label="@string/name_switch_gray_scale">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info_switch_gray_scale" />
+        </receiver>
+        <receiver
+            android:name=".receiver.widgets.SwitchInvertColorsWidget"
+            android:label="@string/name_switch_invert_colors">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info_switch_invert_colors" />
+        </receiver>
+        <receiver
+            android:name=".receiver.widgets.SwitchNightDisplayWidget"
+            android:label="@string/name_switch_night_display">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info_switch_night_display" />
         </receiver>
         <receiver
             android:name=".receiver.TimingSwitchReceiver"

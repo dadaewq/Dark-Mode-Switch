@@ -2,14 +2,19 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
+        android:icon="@drawable/ic_daynight_oneplus"
         app:isPreferenceVisible="false"
         app:key="oneplus_settings"
         app:title="@string/title_oneplus_settings">
         <SwitchPreferenceCompat
-            android:icon="@drawable/ic_daynight_oneplus"
+
             app:key="oneplus_synchronize_theme"
             app:summary="@string/summary_oneplus_synchronize_theme"
             app:title="@string/title_oneplus_synchronize_theme" />
+        <SwitchPreferenceCompat
+            app:key="oneplus_use_colorful_theme"
+            app:summary="@string/summary_oneplus_use_colorful_theme"
+            app:title="@string/title_oneplus_use_colorful_theme" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/title_general">
         <Preference

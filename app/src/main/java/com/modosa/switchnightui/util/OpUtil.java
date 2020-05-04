@@ -84,6 +84,22 @@ public class OpUtil {
         }
     }
 
+    public static void showTipNeedSdk(Context context, int what1, String what2) {
+        showToast1(context, String.format(
+                context.getString(R.string.tip_switch_what1_need_android_what2),
+                context.getString(what1),
+                what2
+        ));
+    }
+
+    static String getTipStr1IsStr2(Context context, String what1, String what2) {
+        return String.format(
+                context.getString(R.string.tip_str1_is_str2),
+                what1,
+                what2
+        );
+    }
+
     public static Notification getPermanentNotification(Context context) {
         String channelId = R.string.title_permanent_notification + "";
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

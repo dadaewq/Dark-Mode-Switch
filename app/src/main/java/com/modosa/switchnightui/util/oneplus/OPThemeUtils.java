@@ -17,7 +17,10 @@ final class OPThemeUtils {
     static final String CMD_SETTINGS_PUT_SYSTEM = "settings put system ";
     static final String KEY_ORIGIN_DARK_MODE_ACTION = "origin_oem_black_mode";
     static final String KEY_DARK_MODE_ACTION = "oem_black_mode";
-    private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR = "oneplus_basiccolor";
+    static final String OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR = "oneplus_basiccolor";
+    static final String OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_BLCAK = "black";
+    static final String OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_WHITE = "white";
+    static final String CMD_SETPROP_THEME_STATUS = "setprop persist.sys.theme.status ";
     private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT = "oneplus_dynamicfont";
     private static final String OEM_BLACK_MODE_ACCENT_COLOR = "oem_black_mode_accent_color";
     private static final String OEM_WHITE_MODE_ACCENT_COLOR = "oem_white_mode_accent_color";
@@ -25,8 +28,6 @@ final class OPThemeUtils {
     private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_GOLD = "gold";
     private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_PURPLE = "purple";
     private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_RED = "red";
-    private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_BLCAK = "black";
-    private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_WHITE = "white";
     private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_NOTOSANS = "1";
     private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_SLATE_OF_ONEPLUS_STYLE = "2";
     private static final String OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE = "oneplus_shape";
@@ -46,7 +47,6 @@ final class OPThemeUtils {
     private static final String OP_CONSTANTS_ONEPLUS_ACCENT_COLOR = "oneplus_accent_color";
     private static final String OP_CONSTANTS_OP_CUSTOM_HORIZON_LIGHT_ANIMATION_STYLE_KEY = "op_custom_horizon_light_animation_style";
     private static final String OP_CONSTANTS_OP_CUSTOM_UNLOCK_ANIMATION_STYLE_KEY = "op_custom_unlock_animation_style";
-    private static final String CMD_SETPROP_THEME_STATUS = "setprop persist.sys.theme.status ";
     private static final String CMD_SETPROP_THEME_ACCENTCOLOR = "setprop persist.sys.theme.accentcolor ";
 
     static void setCurrentBasicColorMode(int colorMode) {

@@ -47,9 +47,8 @@ public class SwitchBatterySaverUtil {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void switchBatterySaver() {
+    public void switchBatterySaverWithResult() {
         boolean shouldOpen = !isPowerSaveMode();
-
         String message = setBatterySaver(shouldOpen);
 
         boolean newPowerMode = isPowerSaveMode();
@@ -57,13 +56,17 @@ public class SwitchBatterySaverUtil {
         if (message != null) {
             OpUtil.showToast1(context, message);
         } else {
-            int msgId = newPowerMode ?
-                    R.string.tip_on_battery_saver :
-                    R.string.tip_off_battery_saver;
+            String msg = OpUtil.getTipStr1IsStr2(context,
+                    context.getString(R.string.title_battery_saver),
+                    context.getString(newPowerMode ?
+                            R.string.tip_on :
+                            R.string.tip_off
+                    )
+            );
             if (newPowerMode != shouldOpen) {
-                OpUtil.showToast0(context, context.getString(R.string.tip_cannotSwitchBatterySaver) + "\n" + context.getString(msgId));
+                OpUtil.showToast0(context, context.getString(R.string.tip_cannotSwitchBatterySaver) + "\n" + msg);
             } else {
-                OpUtil.showToast1(context, context.getString(msgId));
+                OpUtil.showToast1(context, msg);
             }
         }
     }
