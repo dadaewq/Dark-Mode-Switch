@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:contentDescription="@string/name_switch_gray_scale"
-        android:src="@drawable/ic_qs_gray_scale" />
+        android:src="@drawable/ic_qs_gray_scale_48dp" />
 
     <TextView
         android:layout_width="match_parent"

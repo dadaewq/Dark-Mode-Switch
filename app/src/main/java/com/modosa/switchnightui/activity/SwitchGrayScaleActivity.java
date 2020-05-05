@@ -18,6 +18,6 @@ public class SwitchGrayScaleActivity extends AbstractSwitchDisplayActivity {
         nameLowestSdk = "5.0";
         shortcutId = "SwitchGrayScale";
         shortcutLongLabelId = R.string.title_gray_scale;
-        iconId = R.drawable.ic_qs_gray_scale;
+        iconId = R.drawable.ic_qs_gray_scale_48dp;
     }
 }

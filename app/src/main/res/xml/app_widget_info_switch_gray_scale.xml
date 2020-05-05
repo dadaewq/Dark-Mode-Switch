@@ -3,6 +3,6 @@
     android:initialLayout="@layout/app_widget_switch_gray_scale"
     android:minWidth="10dp"
     android:minHeight="10dp"
-    android:previewImage="@drawable/ic_qs_gray_scale"
+    android:previewImage="@drawable/ic_qs_gray_scale_48dp"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="86400000" />

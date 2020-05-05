@@ -15,7 +15,7 @@ public class SwitchBatterySaverActivity extends AbstractSwitchActivity {
     public SwitchBatterySaverActivity() {
         shortcutId = "SwitchBatterySaver";
         shortcutLongLabelId = R.string.name_switch_battery_saver;
-        iconId = R.drawable.ic_qs_battery_saver;
+        iconId = R.drawable.ic_qs_battery_saver_48dp;
     }
 
 

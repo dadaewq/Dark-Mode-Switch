@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:contentDescription="@string/name_switch_force_dark"
-        android:src="@drawable/ic_qs_force_dark" />
+        android:src="@drawable/ic_qs_force_dark_48dp" />
 
     <TextView
         android:layout_width="match_parent"

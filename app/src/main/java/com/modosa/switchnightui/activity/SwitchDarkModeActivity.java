@@ -26,7 +26,7 @@ public class SwitchDarkModeActivity extends AbstractSwitchActivity {
     public SwitchDarkModeActivity() {
         shortcutId = "SwitchDarkMode";
         shortcutLongLabelId = R.string.app_name;
-        iconId = R.drawable.ic_qs_dark_mode;
+        iconId = R.drawable.ic_qs_dark_mode_48dp;
     }
 
     @Override

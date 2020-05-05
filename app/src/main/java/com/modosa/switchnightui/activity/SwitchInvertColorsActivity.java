@@ -17,6 +17,6 @@ public class SwitchInvertColorsActivity extends AbstractSwitchDisplayActivity {
         nameLowestSdk = "5.0";
         shortcutId = "SwitchInvertColors";
         shortcutLongLabelId = R.string.title_invert_colors;
-        iconId = R.drawable.ic_qs_invert_colors;
+        iconId = R.drawable.ic_qs_invert_colors_48dp;
     }
 }

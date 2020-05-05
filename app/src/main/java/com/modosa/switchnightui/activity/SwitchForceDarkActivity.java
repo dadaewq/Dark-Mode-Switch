@@ -14,7 +14,7 @@ public class SwitchForceDarkActivity extends AbstractSwitchActivity {
     public SwitchForceDarkActivity() {
         shortcutId = "SwitchForceDark";
         shortcutLongLabelId = R.string.name_switch_force_dark;
-        iconId = R.drawable.ic_qs_force_dark;
+        iconId = R.drawable.ic_qs_force_dark_48dp;
     }
 
 

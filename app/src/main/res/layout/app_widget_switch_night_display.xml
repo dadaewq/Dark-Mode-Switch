@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:contentDescription="@string/title_night_display"
-        android:src="@drawable/ic_qs_night_display" />
+        android:src="@drawable/ic_qs_night_display_48dp" />
 
     <TextView
         android:layout_width="match_parent"

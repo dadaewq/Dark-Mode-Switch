@@ -3,6 +3,6 @@
     android:initialLayout="@layout/app_widget_switch_night_display"
     android:minWidth="10dp"
     android:minHeight="10dp"
-    android:previewImage="@drawable/ic_qs_night_display"
+    android:previewImage="@drawable/ic_qs_night_display_48dp"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="86400000" />

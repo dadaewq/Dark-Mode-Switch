@@ -17,6 +17,6 @@ public class SwitchNightDisplayActivity extends AbstractSwitchDisplayActivity {
         nameLowestSdk = "5.0";
         shortcutId = "SwitchNightDisplay";
         shortcutLongLabelId = R.string.title_night_display;
-        iconId = R.drawable.ic_qs_night_display;
+        iconId = R.drawable.ic_qs_night_display_48dp;
     }
 }
