@@ -92,7 +92,7 @@ public class OpUtil {
         ));
     }
 
-    static String getTipStr1IsStr2(Context context, String what1, String what2) {
+    public static String getTipStr1IsStr2(Context context, String what1, String what2) {
         return String.format(
                 context.getString(R.string.tip_str1_is_str2),
                 what1,

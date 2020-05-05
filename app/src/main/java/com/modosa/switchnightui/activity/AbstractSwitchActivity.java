@@ -32,7 +32,7 @@ abstract public class AbstractSwitchActivity extends BaseActivity {
         finish();
     }
 
-    void showTipNeedSdk(int what1, String what2) {
+    void showSwitchTipNeedSdk(int what1, String what2) {
         OpUtil.showToast1(this, String.format(
                 getString(R.string.tip_switch_what1_need_android_what2),
                 getString(what1),
@@ -51,17 +51,16 @@ abstract public class AbstractSwitchActivity extends BaseActivity {
             Intent intent = new Intent(new Intent(Intent.ACTION_VIEW))
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     .setClass(this, getClass());
-
+            String label = getString(shortcutLongLabelId);
             ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(this, shortcutId)
-                    .setLongLabel(getString(shortcutLongLabelId))
-                    .setShortLabel(getString(R.string.action_switch))
+                    .setLongLabel(label)
+                    .setShortLabel(label)
                     .setIcon(IconCompat.createWithResource(this, iconId))
                     .setIntent(intent)
                     .build();
 
             Intent pinnedShortcutCallbackIntent = ShortcutManagerCompat.createShortcutResultIntent(this, shortcut);
             setResult(RESULT_OK, pinnedShortcutCallbackIntent);
-//            finish();
         }
     }
 

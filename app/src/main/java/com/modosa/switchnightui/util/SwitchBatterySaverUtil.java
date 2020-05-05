@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
@@ -51,23 +52,27 @@ public class SwitchBatterySaverUtil {
         boolean shouldOpen = !isPowerSaveMode();
         String message = setBatterySaver(shouldOpen);
 
-        boolean newPowerMode = isPowerSaveMode();
 
         if (message != null) {
             OpUtil.showToast1(context, message);
         } else {
-            String msg = OpUtil.getTipStr1IsStr2(context,
-                    context.getString(R.string.title_battery_saver),
-                    context.getString(newPowerMode ?
-                            R.string.tip_on :
-                            R.string.tip_off
-                    )
-            );
-            if (newPowerMode != shouldOpen) {
-                OpUtil.showToast0(context, context.getString(R.string.tip_cannotSwitchBatterySaver) + "\n" + msg);
-            } else {
-                OpUtil.showToast1(context, msg);
-            }
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                boolean newPowerMode = isPowerSaveMode();
+                String msg = OpUtil.getTipStr1IsStr2(context,
+                        context.getString(R.string.title_battery_saver),
+                        context.getString(newPowerMode ?
+                                R.string.tip_on :
+                                R.string.tip_off
+                        )
+                );
+                if (newPowerMode != shouldOpen) {
+                    OpUtil.showToast0(context, context.getString(R.string.tip_cannotSwitchBatterySaver) + "\n" + msg);
+                } else {
+                    OpUtil.showToast1(context, msg);
+                }
+                handler.removeCallbacksAndMessages(null);
+            }, 300);
         }
     }
 

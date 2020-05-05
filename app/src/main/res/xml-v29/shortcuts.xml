@@ -1,0 +1,74 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher_dark_mode"
+        android:roundIcon="@mipmap/ic_launcher_dark_mode_round"
+        android:shortcutId="SwitchDarkMode"
+        android:shortcutLongLabel="@string/title_dark_mode"
+        android:shortcutShortLabel="@string/title_dark_mode">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchDarkModeActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher_force_dark"
+        android:roundIcon="@mipmap/ic_launcher_force_dark_round"
+        android:shortcutId="SwitchForceDark"
+        android:shortcutLongLabel="@string/title_force_dark"
+        android:shortcutShortLabel="@string/title_force_dark">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchForceDarkActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher_battery_saver"
+        android:roundIcon="@mipmap/ic_launcher_battery_saver_round"
+        android:shortcutId="SwitchBatterySaver"
+        android:shortcutLongLabel="@string/title_battery_saver"
+        android:shortcutShortLabel="@string/title_battery_saver">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchBatterySaverActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher_gray_scale"
+        android:roundIcon="@mipmap/ic_launcher_gray_scale_round"
+        android:shortcutId="SwitchGrayScale"
+        android:shortcutLongLabel="@string/title_gray_scale"
+        android:shortcutShortLabel="@string/title_gray_scale">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchGrayScaleActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher_invert_colors"
+        android:roundIcon="@mipmap/ic_launcher_invert_colors_round"
+        android:shortcutId="SwitchInvertColors"
+        android:shortcutLongLabel="@string/title_invert_colors"
+        android:shortcutShortLabel="@string/title_invert_colors">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.modosa.switchnightui.activity.SwitchInvertColorsActivity"
+            android:targetPackage="com.modosa.switchnightui" />
+    </shortcut>
+    <!--    <shortcut-->
+    <!--        android:enabled="true"-->
+    <!--        android:icon="@mipmap/ic_launcher_night_display"-->
+    <!--        android:roundIcon="@mipmap/ic_launcher_night_display_round"-->
+    <!--        android:shortcutId="SwitchNightDisplay"-->
+    <!--        android:shortcutLongLabel="@string/title_night_display"-->
+    <!--        android:shortcutShortLabel="@string/title_night_display">-->
+    <!--        <intent-->
+    <!--            android:action="android.intent.action.VIEW"-->
+    <!--            android:targetClass="com.modosa.switchnightui.activity.SwitchNightDisplayActivity"-->
+    <!--            android:targetPackage="com.modosa.switchnightui" />-->
+    <!--    </shortcut>-->
+</shortcuts>

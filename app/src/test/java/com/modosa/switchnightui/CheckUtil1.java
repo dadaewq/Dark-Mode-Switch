@@ -70,7 +70,7 @@ class CheckUtil1 {
 
             Field field = uiModeManager.getClass().getField("mService");
 
-            Method misNightModeLocked = field.getClass().getDeclaredMethod("isNightModeLocked");
+            @SuppressWarnings("JavaReflectionMemberAccess") Method misNightModeLocked = field.getClass().getDeclaredMethod("isNightModeLocked");
             misNightModeLocked.setAccessible(true);
             return "" + !(boolean) misNightModeLocked.invoke(field);
 

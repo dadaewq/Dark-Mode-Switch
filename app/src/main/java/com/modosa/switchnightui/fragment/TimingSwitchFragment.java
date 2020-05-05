@@ -131,10 +131,6 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
         Log.e("Sunrise", ": " + Sunrise);
         Log.e("Sunset-", ": " + Sunset);
 
-//        Log.e("Sunrise_", ": " + LocalTime.parse(Sunrise));
-//        Log.e("Sunset_", ": " + LocalTime.parse(Sunset));
-
-
         TimingSwitchUtil timingSwitchUtil = new TimingSwitchUtil(context);
         SpUtil spUtil = new SpUtil(context);
 

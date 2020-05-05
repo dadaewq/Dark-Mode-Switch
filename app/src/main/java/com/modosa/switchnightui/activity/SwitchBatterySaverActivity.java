@@ -14,8 +14,8 @@ public class SwitchBatterySaverActivity extends AbstractSwitchActivity {
 
     public SwitchBatterySaverActivity() {
         shortcutId = "SwitchBatterySaver";
-        shortcutLongLabelId = R.string.name_switch_battery_saver;
-        iconId = R.drawable.ic_qs_battery_saver_48dp;
+        shortcutLongLabelId = R.string.title_battery_saver;
+        iconId = R.mipmap.ic_launcher_battery_saver;
     }
 
 
@@ -24,7 +24,7 @@ public class SwitchBatterySaverActivity extends AbstractSwitchActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             new SwitchBatterySaverUtil(this).switchBatterySaverWithResult();
         } else {
-            showTipNeedSdk(R.string.title_battery_saver, "5.0");
+            showSwitchTipNeedSdk(R.string.title_battery_saver, "5.0");
         }
     }
 

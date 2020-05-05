@@ -18,7 +18,7 @@ abstract public class AbstractSwitchDisplayActivity extends AbstractSwitchActivi
         if (Build.VERSION.SDK_INT >= lowestSdk) {
             new SwitchDisplayUtil(this).switchDisplayKeyWithResult(key, getString(shortcutLongLabelId));
         } else {
-            showTipNeedSdk(iconId, nameLowestSdk);
+            showSwitchTipNeedSdk(shortcutLongLabelId, nameLowestSdk);
         }
     }
 }

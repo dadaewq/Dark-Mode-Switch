@@ -13,8 +13,8 @@ public class SwitchForceDarkActivity extends AbstractSwitchActivity {
 
     public SwitchForceDarkActivity() {
         shortcutId = "SwitchForceDark";
-        shortcutLongLabelId = R.string.name_switch_force_dark;
-        iconId = R.drawable.ic_qs_force_dark_48dp;
+        shortcutLongLabelId = R.string.title_force_dark;
+        iconId = R.mipmap.ic_launcher_force_dark;
     }
 
 
@@ -23,7 +23,7 @@ public class SwitchForceDarkActivity extends AbstractSwitchActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             new SwitchForceDarkUtil(this).switchForceDark();
         } else {
-            showTipNeedSdk(R.string.title_force_dark, "10");
+            showSwitchTipNeedSdk(R.string.title_force_dark, "10");
         }
     }
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
@@ -39,6 +40,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     private boolean enableStableMode = false;
     private SwitchBatterySaverUtil switchBatterySaverUtil;
     private SwitchDisplayUtil switchDisplayUtil;
+    private Handler handler;
 
 
     @Override
@@ -79,14 +81,20 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                 boolean shouldOpen = batterySaver.isChecked();
                 String message = switchBatterySaverUtil.setBatterySaver(shouldOpen);
 
-                boolean newPowerMode = switchBatterySaverUtil.isPowerSaveMode();
-                batterySaver.setChecked(newPowerMode);
-                if (message == null) {
-                    if (newPowerMode != shouldOpen) {
-                        OpUtil.showToast0(context, R.string.tip_cannotSwitchBatterySaver);
-                    }
-                } else {
+                if (message != null) {
                     OpUtil.showToast1(context, message);
+                } else {
+                    handler = new Handler();
+                    handler.postDelayed(() -> {
+                        boolean newPowerMode = switchBatterySaverUtil.isPowerSaveMode();
+                        batterySaver.setChecked(newPowerMode);
+
+                        if (newPowerMode != shouldOpen) {
+                            OpUtil.showToast0(context, R.string.tip_cannotSwitchBatterySaver);
+                        }
+
+                    }, 300);
+
                 }
 
                 return true;
@@ -223,6 +231,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         super.onDestroyView();
         if (alertDialog != null) {
             alertDialog.dismiss();
+        }
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
         }
     }
 

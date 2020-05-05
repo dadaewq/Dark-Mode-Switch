@@ -8,8 +8,8 @@ android {
         applicationId "com.modosa.switchnightui"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 40
-        versionName "2.4.5+"
+        versionCode 41
+        versionName "2.4.6"
     }
     buildTypes {
         release {

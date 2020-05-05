@@ -85,11 +85,11 @@
     <string name="message_second_confirm">The reason why you see this dialog is that you have not confirmed \"No longer prompt\" in the \"Instructions before use\".\n\nPlease confirm again: the dark mode must apply its own adaptation, otherwise the application will not change after switching which is considered \"invalid\" by some users</string>
     <string name="tip_cannotSwitchBatterySaver">Cannot switch Battery Saver at this time</string>
     <string name="title_system_display">System display</string>
-    <string name="title_invert_colors">Invert colors</string>
-    <string name="title_invertcolors">Invert colors</string>
+    <string name="title_invert_colors">Invert Colors</string>
+    <string name="title_invertcolors">Invert Colors</string>
     <string name="title_gray_scale">Grayscale</string>
     <string name="title_night_display">Night Light</string>
-    <string name="name_switch_invert_colors">Invert colors Switch</string>
+    <string name="name_switch_invert_colors">Invert Colors Switch</string>
     <string name="name_switch_gray_scale">Grayscale Switch</string>
     <string name="name_switch_night_display">Night Light Switch</string>
 

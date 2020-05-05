@@ -13,7 +13,7 @@ import com.modosa.switchnightui.util.SwitchDisplayUtil;
  * @author dadaewq
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
-abstract class AbstractSwitchDisplayTile extends TileService {
+public abstract class AbstractSwitchDisplayTile extends TileService {
     String key;
     int shortcutLongLabelId;
     private SwitchDisplayUtil switchDisplayUtil;
