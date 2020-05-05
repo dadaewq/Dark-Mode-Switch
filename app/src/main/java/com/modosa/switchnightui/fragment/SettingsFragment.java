@@ -156,8 +156,19 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             findPreference("excludeFromRecents").setVisible(false);
         }
+        //一加设置
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && OpSwitchForceDarkUtil.isOnePlus(context)) {
             findPreference("oneplus_settings").setVisible(true);
+            SwitchPreferenceCompat oneplusSynchronizeTheme = findPreference("oneplus_synchronize_theme");
+            SwitchPreferenceCompat oneplusUseColorfulTheme = findPreference("oneplus_use_colorful_theme");
+            if (!oneplusSynchronizeTheme.isChecked()) {
+                oneplusUseColorfulTheme.setEnabled(false);
+            }
+            oneplusSynchronizeTheme.setOnPreferenceChangeListener((preference, newValue) -> {
+                oneplusUseColorfulTheme.setEnabled((boolean) newValue);
+                return true;
+            });
+
         }
 
     }
@@ -217,7 +228,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-
 
         switch (preference.getKey()) {
             case "timeup":

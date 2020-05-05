@@ -96,7 +96,7 @@
     <string name="summary_night_display">调整屏幕为琥珀色</string>
     <string name="title_oneplus_settings">一加设置</string>
     <string name="title_oneplus_synchronize_theme">同步切换系统主题</string>
-    <string name="summary_oneplus_synchronize_theme">切换深色模式时同步切换系统的主题</string>
+    <string name="summary_oneplus_synchronize_theme">切换深色模式时同步切换系统的主题（需要Root）</string>
     <string name="title_oneplus_use_colorful_theme">使用多彩主题</string>
     <string name="summary_oneplus_use_colorful_theme">关闭深色模式时使用多彩主题</string>
 
