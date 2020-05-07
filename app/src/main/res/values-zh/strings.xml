@@ -11,7 +11,7 @@
         \n1.普通模式：可用性由系统决定
         \n2.兼容模式：需要ADB授权
         \n3.Root模式\n
-        \n部分设备开启深色模式时可能会被系统自动关闭，此时才需要开启稳定切换深色模式以切换。\n
+        \n部分设备开启深色模式时可能会被系统自动关闭，此时才需要开启“稳定切换深色模式”以切换。\n
         \nAndroid 10及以上可用Root尝试切换强制深色。
         \n本应用提供磁贴、微件、Shortcut、快捷方式和设置助手应用来快捷切换。\n
     </string>
@@ -20,7 +20,6 @@
     <string name="checkbox3_instructions_before_use">部分应用会针对不同设备对跟随系统深色模式功能设置限制</string>
     <string name="checkbox4_instructions_before_use">界面不黑或有异常是他们的适配问题</string>
     <string name="checkbox_last_instructions_before_use">不再提示</string>
-    <string name="action_switch">切换</string>
     <string name="CarMode">驾驶模式</string>
     <string name="name_switch_force_dark">强制深色切换</string>
     <string name="name_switch_battery_saver">省电模式切换</string>
@@ -99,6 +98,5 @@
     <string name="summary_oneplus_synchronize_theme">切换深色模式时同步切换系统的主题（需要Root）</string>
     <string name="title_oneplus_use_colorful_theme">使用多彩主题</string>
     <string name="summary_oneplus_use_colorful_theme">关闭深色模式时使用多彩主题</string>
-
 
 </resources>

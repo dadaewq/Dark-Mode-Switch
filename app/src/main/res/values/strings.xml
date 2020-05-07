@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Dark Mode Switch</string>
     <string name="title_instructions_before_use">Instructions before use</string>
     <string name="tv_instructions_before_use">
@@ -19,7 +19,6 @@
     <string name="checkbox3_instructions_before_use">Some applications set restrictions on the dark mode of the following system for different devices</string>
     <string name="checkbox4_instructions_before_use">It is their adaptation problem that their interface is not darken or abnormal</string>
     <string name="checkbox_last_instructions_before_use">No longer prompt</string>
-    <string name="action_switch">Switch</string>
     <string name="CarMode">Car Mode</string>
     <string name="name_switch_force_dark">Force Dark Switch</string>
     <string name="name_switch_battery_saver">Battery Saver Switch</string>
@@ -92,8 +91,8 @@
     <string name="name_switch_invert_colors">Invert Colors Switch</string>
     <string name="name_switch_gray_scale">Grayscale Switch</string>
     <string name="name_switch_night_display">Night Light Switch</string>
-
     <string name="summary_night_display">Tinting screen amber</string>
+    <string name="hello" translatable="false" tools:ignore="UnusedResources">Hello, stranger.This sentence was written on 2020.5.7. You found me, haha. Please enjoy your life and live well!</string>
     <string name="title_oneplus_settings">Oneplus settings</string>
     <string name="title_oneplus_synchronize_theme">Switch system theme synchronously</string>
     <string name="summary_oneplus_synchronize_theme">Switch system theme synchronously when switching the dark mode（need Root）</string>
