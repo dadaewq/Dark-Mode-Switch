@@ -6,6 +6,8 @@ import androidx.annotation.Keep;
 import com.modosa.switchnightui.BuildConfig;
 import com.modosa.switchnightui.activity.MainActivity;
 
+import java.lang.reflect.Method;
+
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
@@ -48,6 +50,13 @@ public class XModule implements IXposedHookLoadPackage {
             }
         }
 
+        if ("com.tencent.mobileqq".equals(loadPackageParam.packageName)) {
+            //play 8.2.9_1353
+            hookQQDarkMode(loadPackageParam.classLoader, "ayhx", "a");
+
+            //non-play 8.3.6_1406
+            hookQQDarkMode(loadPackageParam.classLoader, "bbom", "a");
+        }
 
         if (BuildConfig.APPLICATION_ID.equals(loadPackageParam.packageName)) {
             try {
@@ -60,5 +69,21 @@ public class XModule implements IXposedHookLoadPackage {
             }
         }
 
+    }
+
+    private void hookQQDarkMode(ClassLoader classLoader, String className, String methodName) {
+        try {
+            Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass(className, classLoader), boolean.class);
+            for (Method method : methods) {
+                if (methodName.equals(method.getName())) {
+                    XposedBridge.hookMethod(
+                            method,
+                            XC_MethodReplacement.returnConstant(true)
+                    );
+                }
+            }
+        } catch (Exception e) {
+            XposedBridge.log("" + e);
+        }
     }
 }
