@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 42
-        versionName "2.4.7"
+        versionName "2.4.8-alpha"
     }
     buildTypes {
         release {
@@ -54,4 +54,5 @@ dependencies {
 //    implementation 'com.blankj:utilcodex:1.28.1'
     implementation 'com.luckycatlabs:SunriseSunsetCalculator:1.2'
 
+    implementation 'com.crossbowffs.remotepreferences:remotepreferences:0.7'
 }

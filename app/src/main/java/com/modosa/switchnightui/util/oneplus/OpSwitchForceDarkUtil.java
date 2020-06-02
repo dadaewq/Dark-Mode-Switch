@@ -112,7 +112,6 @@ public class OpSwitchForceDarkUtil {
             cmds.add(cmd);
 
             cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_ENTIRE_WORLD + BLANK + 1;
-            cmds.add(cmd);
 
         } else {
             if (oneplusTheme == 1) {
@@ -120,23 +119,22 @@ public class OpSwitchForceDarkUtil {
                 cmds.add(cmd);
 
                 cmd = CMD_SETPROP_THEME + 2;
-                cmds.add(cmd);
 
             } else {
                 cmd = SwitchDarkModeUtil.SERVICE_CALL_UIMODE + 1;
                 cmds.add(cmd);
 
                 cmd = CMD_SETPROP_THEME + 1;
-                cmds.add(cmd);
 
             }
+            cmds.add(cmd);
             cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_MODE + BLANK + 0;
             cmds.add(cmd);
 
             cmd = CMD_SETTINGS_PUT_SECURE + KEY_OP_FORCE_DARK_ENTIRE_WORLD + BLANK + 0;
-            cmds.add(cmd);
 
         }
+        cmds.add(cmd);
         ShellUtil.execWithRoot(cmds);
 
     }

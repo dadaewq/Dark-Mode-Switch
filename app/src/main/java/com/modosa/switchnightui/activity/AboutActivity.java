@@ -91,5 +91,6 @@ public class AboutActivity extends AbsAboutActivity {
         items.add(new License("material-components-android", "Google", License.APACHE_2, "https://github.com/material-components/material-components-android"));
         items.add(new License("AndroidUtilCode", "Blankj", License.APACHE_2, "https://github.com/Blankj/AndroidUtilCode"));
         items.add(new License("sunrisesunsetlib-java", "mikereedell", License.APACHE_2, "https://github.com/mikereedell/sunrisesunsetlib-java"));
+        items.add(new License("RemotePreferences", "apsun", License.MIT, "https://github.com/apsun/RemotePreferences"));
     }
 }

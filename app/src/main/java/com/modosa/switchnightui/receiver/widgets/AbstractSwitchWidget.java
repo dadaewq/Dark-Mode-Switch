@@ -16,7 +16,7 @@ abstract public class AbstractSwitchWidget extends AppWidgetProvider {
 
     static int imgId;
     static int layoutId;
-    static Class myClass;
+    static Class<?> myClass;
 
     private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                         int appWidgetId) {

@@ -137,11 +137,10 @@ public class SwitchBatterySaverUtil {
             if (oldPowerMode == newPowerMode) {
                 if (newPowerMode == 1) {
                     cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE + BLANK + 0;
-                    ShellUtil.exec(cmd, true);
                 } else {
                     cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE + BLANK + 1;
-                    ShellUtil.exec(cmd, true);
                 }
+                ShellUtil.exec(cmd, true);
             }
             cmds = new ArrayList<>();
             cmd = CMD_SETTINGS_PUT_GLOBAL + KEY_LOW_POWER_MODE + BLANK + newPowerMode;

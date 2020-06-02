@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:title="解除应用对深色模式的限制">
+
+        <Preference
+            app:summary="设置-界面显示-夜间模式跟随系统"
+            app:title="酷安" />
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="x_mobileqq"
+            app:summary="设置-通用-跟随系统深色模式"
+            app:title="QQ" />
+        <Preference
+            app:key="x_mobileqq_config"
+            app:title="自定义QQ" />
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="x_wechat"
+            app:summary="强制跟随系统深色模式\n(部分设备可不跟随)"
+            app:title="微信" />
+        <Preference
+            app:key="x_wechat_config"
+            app:title="自定义微信" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

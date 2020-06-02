@@ -77,6 +77,14 @@ public class MainActivity extends BaseAppCompatActivity {
         return getString(R.string.title_dark_mode);
     }
 
+    @Keep
+    private boolean hook2ReturnTrue() {
+//        如果需要hook，不要注释下一行
+        Log.i("hook2ReturnTrue", ": ");
+
+        return false;
+    }
+
     @SuppressLint("SetTextI18n")
     private void setView() {
         setContentView(R.layout.activity_main);
@@ -178,6 +186,9 @@ public class MainActivity extends BaseAppCompatActivity {
                 forceDark.setTitle(R.string.tip_off_force_dark);
             }
         }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        menu.findItem(R.id.menu_xfeature).setVisible(hook2ReturnTrue());
+//        }
         return true;
     }
 
@@ -190,6 +201,9 @@ public class MainActivity extends BaseAppCompatActivity {
             return true;
         } else if (id == R.id.menu_switch_force_dark) {
             switchForceDarkUtil.switchForceDark();
+            return true;
+        } else if (id == R.id.menu_xfeature) {
+            OpUtil.startMyClass(this, XFeatureActivity.class);
             return true;
         } else if (id == R.id.settings) {
             OpUtil.startMyClass(this, SettingsActivity.class);

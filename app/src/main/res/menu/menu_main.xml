@@ -14,6 +14,12 @@
         android:visible="false"
         app:showAsAction="never" />
     <item
+        android:id="@+id/menu_xfeature"
+        android:orderInCategory="30"
+        android:title="@string/title_xfeature"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/refresh"
         android:orderInCategory="100"
         android:title="@string/refresh"

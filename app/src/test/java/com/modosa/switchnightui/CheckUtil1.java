@@ -20,7 +20,7 @@ class CheckUtil1 {
         this.context = context;
     }
 
-    public static void setNightMode(Context context) {
+    public static void setNightMode() {
         try {
             @SuppressLint({"DiscouragedPrivateApi", "PrivateApi"})
             Class clazz = ClassLoader.getSystemClassLoader().loadClass(

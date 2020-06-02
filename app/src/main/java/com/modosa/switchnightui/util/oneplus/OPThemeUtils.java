@@ -63,22 +63,34 @@ final class OPThemeUtils {
 
 
     private static void setCurrentShape(int shapeMode) {
+        if (true) {
+            return;
+        }
         String cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE + BLANK + shapeMode;
         ShellUtil.execWithRoot(cmd);
     }
 
     private static void setCurrentFont(int font) {
+        if (true) {
+            return;
+        }
         String cmd = CMD_SETTINGS_PUT_SYSTEM + OP_OEM_FONT_MODE + BLANK + font;
         ShellUtil.execWithRoot(cmd);
     }
 
 
     private static void setCurrentHorizonLight(int horizoLight) {
+        if (true) {
+            return;
+        }
         String cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CONSTANTS_OP_CUSTOM_HORIZON_LIGHT_ANIMATION_STYLE_KEY + BLANK + horizoLight;
         ShellUtil.execWithRoot(cmd);
     }
 
     private static void disableAllThemes(Context context) {
+        if (true) {
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         OpTheme opTheme = new OpTheme(context);
         setCurrentBasicColorMode(2);
@@ -151,11 +163,11 @@ final class OPThemeUtils {
         cmd = CMD_SETTINGS_PUT_SYSTEM + OEM_WHITE_MODE_ACCENT_COLOR_INDEX + BLANK + 0;
         cmds.add(cmd);
 
-        cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CONSTANTS_OP_CUSTOM_UNLOCK_ANIMATION_STYLE_KEY + BLANK + 0;
-        cmds.add(cmd);
+//        cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CONSTANTS_OP_CUSTOM_UNLOCK_ANIMATION_STYLE_KEY + BLANK + 0;
+//        cmds.add(cmd);
 
-        cmd = CMD_SETTINGS_PUT_SYSTEM + KEY_AOD_CLOCK_STYLE + BLANK + CLOCK_TYPE_DEFAULT;
-        cmds.add(cmd);
+//        cmd = CMD_SETTINGS_PUT_SYSTEM + KEY_AOD_CLOCK_STYLE + BLANK + CLOCK_TYPE_DEFAULT;
+//        cmds.add(cmd);
 
         ShellUtil.execWithRoot(cmds);
     }
@@ -199,11 +211,11 @@ final class OPThemeUtils {
         cmd = CMD_SETTINGS_PUT_SYSTEM + OEM_WHITE_MODE_ACCENT_COLOR_INDEX + BLANK + 0;
         cmds.add(cmd);
 
-        cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CONSTANTS_OP_CUSTOM_UNLOCK_ANIMATION_STYLE_KEY + BLANK + 1;
-        cmds.add(cmd);
+//        cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CONSTANTS_OP_CUSTOM_UNLOCK_ANIMATION_STYLE_KEY + BLANK + 1;
+//        cmds.add(cmd);
 
-        cmd = CMD_SETTINGS_PUT_SYSTEM + KEY_AOD_CLOCK_STYLE + BLANK + CLOCK_TYPE_ANALOG;
-        cmds.add(cmd);
+//        cmd = CMD_SETTINGS_PUT_SYSTEM + KEY_AOD_CLOCK_STYLE + BLANK + CLOCK_TYPE_ANALOG;
+//        cmds.add(cmd);
 
         ShellUtil.execWithRoot(cmds);
     }
@@ -254,11 +266,11 @@ final class OPThemeUtils {
         cmd = CMD_SETTINGS_PUT_SYSTEM + OEM_WHITE_MODE_ACCENT_COLOR_INDEX + BLANK + 0;
         cmds.add(cmd);
 
-        cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CONSTANTS_OP_CUSTOM_UNLOCK_ANIMATION_STYLE_KEY + BLANK + 2;
-        cmds.add(cmd);
+//        cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CONSTANTS_OP_CUSTOM_UNLOCK_ANIMATION_STYLE_KEY + BLANK + 2;
+//        cmds.add(cmd);
 
-        cmd = CMD_SETTINGS_PUT_SYSTEM + KEY_AOD_CLOCK_STYLE + BLANK + CLOCK_TYPE_MINIMALISM;
-        cmds.add(cmd);
+//        cmd = CMD_SETTINGS_PUT_SYSTEM + KEY_AOD_CLOCK_STYLE + BLANK + CLOCK_TYPE_MINIMALISM;
+//        cmds.add(cmd);
 
         ShellUtil.execWithRoot(cmds);
     }

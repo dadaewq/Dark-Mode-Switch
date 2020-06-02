@@ -173,6 +173,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.XFeatureActivity"
+            android:label="@string/title_xfeature"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS" />
+            </intent-filter>
+        </activity>
+
+
         <!--        end快捷切换活动-->
 
 
@@ -312,6 +323,11 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:name=".provider.MyPreferenceProvider"
+            android:authorities="${applicationId}.preferences"
+            android:exported="true" />
 
         <meta-data
             android:name="xposedmodule"

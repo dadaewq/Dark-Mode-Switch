@@ -33,7 +33,6 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
  */
 public final class LocationUtil {
 
-    private final int TWO_MINUTES = 1000 * 60 * 2;
     private final Context context;
     private OnLocationChangeListener mListener;
     private MyLocationListener myLocationListener;
@@ -285,6 +284,7 @@ public final class LocationUtil {
 
         // Check whether the new location fix is newer or older
         long timeDelta = newLocation.getTime() - currentBestLocation.getTime();
+        int TWO_MINUTES = 1000 * 60 * 2;
         boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
         boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
         boolean isNewer = timeDelta > 0;
