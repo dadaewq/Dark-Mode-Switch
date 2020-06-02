@@ -46,17 +46,19 @@ public class XModule implements IXposedHookLoadPackage {
             case Constants.PACKAGE_NAME_MOBILEQQ:
                 initPreferencesWithCallHook(() -> hookCustom("x_mobileqq", () -> {
                     //non-play 8.3.6_1406
-                    hookQQDarkMode(loadPackageParam.classLoader, "bbom", "a", true);
+                    hookReturnBooleanWithmethodName(loadPackageParam.classLoader, "bbom", "a", true);
 
                     //play 8.2.9_1353
-                    hookQQDarkMode(loadPackageParam.classLoader, "ayhx", "a", true);
+                    hookReturnBooleanWithmethodName(loadPackageParam.classLoader, "ayhx", "a", true);
                 }));
                 break;
             case Constants.PACKAGE_NAME_WECHAT:
                 initPreferencesWithCallHook(() -> hookCustom("x_wechat", () -> {
                     //non-play 7.0.15_1680
+                    hookReturnBooleanWithmethodNames(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", new String[]{"eRY", "eRZ", "eSb"}, true);
 
-//            if (!eRV() || eRX() || ((!eSb() && !eRW()) || !eRY())) {return false}
+
+//                if (!eRV() || eRX() || ((!eSb() && !eRW()) || !eRY())) {return false}
 //            hookWeChatDarkMode(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", "eRU",true);
 
 //            clicfg_dark_mode_on
@@ -69,16 +71,22 @@ public class XModule implements IXposedHookLoadPackage {
 //            hookWeChatDarkMode(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", "eRX",false);
 
 //            clicfg_dark_mode_brand_api
-                    hookWeChatDarkMode(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", "eRY", true);
-
+//                    hookWeChatDarkMode(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", "eRY", true);
+//
 //            dark_mode_follow_system
-                    hookWeChatDarkMode(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", "eRZ", true);
-
+//                    hookWeChatDarkMode(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", "eRZ", true);
+//
 //            dark_mode_follow_system
 //            hookWeChatDarkMode(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", "eSa",true);
-
+//
 //            dark_mode_used
-                    hookWeChatDarkMode(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", "eSb", true);
+//                    hookWeChatDarkMode(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", "eSb", true);
+
+                    //play 7.0.13_1621
+
+//edxposed 使用以下hook会导致微信卡死
+//                    hookReturnBooleanWithmethodNames(loadPackageParam.classLoader,"com.tencent.mm.ui.ag",new String[]{"eJp","eJq","eJr"},true);
+
 
                 }));
                 break;
@@ -91,20 +99,6 @@ public class XModule implements IXposedHookLoadPackage {
 
 
     private void initPreferencesWithCallHook(CallHook callHook) {
-
-
-//        XposedHelpers.findAndHookMethod(Activity.class, "onResume", new XC_MethodHook() {
-//
-//            @Override
-//            protected void afterHookedMethod(MethodHookParam param) {
-//
-//                final Activity activity = (Activity) param.thisObject;
-//                context = activity;
-//                sharedPreferences = MyPreferenceProvider.getRemoteSharedPreference(context);
-//
-//                callHook.call();
-//            }
-//        });
 
         try {
 
@@ -123,6 +117,19 @@ public class XModule implements IXposedHookLoadPackage {
             Log.e("Exception", "initPreferencesWithCallHook : ");
             XposedBridge.log("" + e);
         }
+
+//        XposedHelpers.findAndHookMethod(Activity.class, "onResume", new XC_MethodHook() {
+//            //
+//            @Override
+//            protected void afterHookedMethod(MethodHookParam param) {
+//
+//                final Activity activity = (Activity) param.thisObject;
+//                context = activity;
+//                sharedPreferences = MyPreferenceProvider.getRemoteSharedPreference(context);
+//
+//                callHook.call();
+//            }
+//        });
     }
 
 
@@ -239,25 +246,12 @@ public class XModule implements IXposedHookLoadPackage {
         }
     }
 
-
-    private void hookQQDarkMode(ClassLoader classLoader, String className, String methodName, boolean booleanVlaue) {
-        try {
-            Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass(className, classLoader), boolean.class);
-            for (Method method : methods) {
-                if (methodName.equals(method.getName())) {
-                    XposedBridge.hookMethod(
-                            method,
-                            XC_MethodReplacement.returnConstant(booleanVlaue)
-                    );
-                }
-            }
-        } catch (Exception e) {
-            XposedBridge.log("" + e);
-        }
+    private void hookReturnBooleanWithmethodName(ClassLoader classLoader, String className, String methodName, boolean booleanVlaue) {
+        hookReturnBooleanWithmethodNames(classLoader, className, new String[]{methodName}, booleanVlaue);
     }
 
 
-    private void hookWeChatDarkMode(ClassLoader classLoader, String className, String methodName, boolean booleanVlaue) {
+    private void findAndHookMethodReturnBoolean(ClassLoader classLoader, String className, String methodName, boolean booleanVlaue) {
         try {
             XposedHelpers.findAndHookMethod(className, classLoader,
                     methodName,
