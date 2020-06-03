@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory>
+        <Preference
+            app:key="view_hook_config"
+            app:title="查看自定义配置集合" />
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="解除应用对深色模式的限制">
 
         <Preference
@@ -21,6 +27,7 @@
         <Preference
             app:key="x_wechat_config"
             app:title="自定义微信" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

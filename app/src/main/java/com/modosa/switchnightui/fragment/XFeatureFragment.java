@@ -49,25 +49,14 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
 
     private void init() {
         spUtil = new SpUtil(context);
-
-        initView();
-    }
-
-
-    private void updateView(Preference preference, String time) {
-        spUtil.putString(preference.getKey(), time);
-        preference.setSummary(time);
-    }
-
-    private void initView() {
         x_mobileqq_config = findPreference("x_mobileqq_config");
         x_wechat_config = findPreference("x_wechat_config");
 
         x_mobileqq_config.setOnPreferenceClickListener(this);
         x_wechat_config.setOnPreferenceClickListener(this);
+        findPreference("view_hook_config").setOnPreferenceClickListener(this);
 
         refresh();
-
     }
 
 
@@ -100,6 +89,9 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
             case "x_mobileqq_config":
             case "x_wechat_config":
                 showDialogCustomHook(preferenceKey);
+                break;
+            case "view_hook_config":
+                OpUtil.launchCustomTabsUrl(context, "https://dadaewq.gitee.io/tutorials/config/hook_config.html");
                 break;
             default:
         }
