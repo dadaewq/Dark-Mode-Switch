@@ -115,7 +115,7 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
         OpUtil.showAlertDialog(context, alertDialog);
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            String value = valueOfpreferenceKey.getText().toString().replaceAll(" ", "").replaceAll("：", ":").replaceAll("，", ",");
+            String value = valueOfpreferenceKey.getText().toString().replaceAll("\\s*", "").replace("：", ":").replace("，", ",");
             valueOfpreferenceKey.setText(value);
             opPreferenceValueFromDialog(preferenceKey, value, AlertDialog.BUTTON_POSITIVE);
         });

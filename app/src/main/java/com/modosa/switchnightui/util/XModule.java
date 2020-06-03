@@ -176,7 +176,7 @@ public class XModule implements IXposedHookLoadPackage {
 
                 try {
                     if (!"".equals(rules)) {
-                        rules = rules.replaceAll(" ", "").replaceAll("：", ":").replaceAll("，", ",");
+                        rules = rules.replaceAll("\\s*", "").replace("：", ":").replace("，", ",");
                         int length = rules.length();
 
                         if (rules.endsWith(",")) {
@@ -184,13 +184,9 @@ public class XModule implements IXposedHookLoadPackage {
                         }
                         if (length > 2) {
                             String[] splits = rules.split(":");
-                            Log.e("hookCustom_", "splits[" + splits.length);
                             if (splits.length >= 2) {
                                 String className = splits[0];
                                 String[] methodNames = splits[1].split(",");
-                                Log.e("hookCustom_", "methodNames[" + methodNames.length);
-                                Log.e("hookCustom_", "className[" + className);
-                                Log.e("hookCustom_", "methodNames[" + methodNames[0]);
                                 useDefault = false;
                                 hookReturnBooleanWithmethodNames(loadPackageParam.classLoader, className, methodNames, true);
                             }
