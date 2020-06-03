@@ -15,9 +15,6 @@ class OpTheme {
     }
 
     void enableTheme(HashMap<String, String> categoryMap) {
-        if (true) {
-            return;
-        }
         try {
             Intent intent = new Intent("android.settings.oneplus_theme_enable");
             intent.putExtra("category_map", categoryMap);
@@ -29,9 +26,6 @@ class OpTheme {
     }
 
     void disableTheme(HashMap<String, String> categoryMap) {
-        if (true) {
-            return;
-        }
         try {
             Intent intent = new Intent("android.settings.oneplus_theme_disable");
             intent.putExtra("category_map", categoryMap);

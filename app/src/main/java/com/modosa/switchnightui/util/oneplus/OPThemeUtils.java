@@ -62,62 +62,50 @@ final class OPThemeUtils {
     }
 
 
-    private static void setCurrentShape(int shapeMode) {
-        if (true) {
-            return;
-        }
-        String cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE + BLANK + shapeMode;
-        ShellUtil.execWithRoot(cmd);
-    }
+//    private static void  setCurrentShape(int shapeMode) {
+//        String cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE + BLANK + shapeMode;
+//        ShellUtil.execWithRoot(cmd);
+//    }
 
-    private static void setCurrentFont(int font) {
-        if (true) {
-            return;
-        }
-        String cmd = CMD_SETTINGS_PUT_SYSTEM + OP_OEM_FONT_MODE + BLANK + font;
-        ShellUtil.execWithRoot(cmd);
-    }
+//    private static void  setCurrentFont(int font) {
+//        String cmd = CMD_SETTINGS_PUT_SYSTEM + OP_OEM_FONT_MODE + BLANK + font;
+//        ShellUtil.execWithRoot(cmd);
+//    }
 
 
-    private static void setCurrentHorizonLight(int horizoLight) {
-        if (true) {
-            return;
-        }
-        String cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CONSTANTS_OP_CUSTOM_HORIZON_LIGHT_ANIMATION_STYLE_KEY + BLANK + horizoLight;
-        ShellUtil.execWithRoot(cmd);
-    }
+//    private static void setCurrentHorizonLight(int horizoLight) {
+//        String cmd = CMD_SETTINGS_PUT_SYSTEM + OP_CONSTANTS_OP_CUSTOM_HORIZON_LIGHT_ANIMATION_STYLE_KEY + BLANK + horizoLight;
+//        ShellUtil.execWithRoot(cmd);
+//    }
 
     private static void disableAllThemes(Context context) {
-        if (true) {
-            return;
-        }
-        HashMap<String, String> map = new HashMap<>();
-        OpTheme opTheme = new OpTheme(context);
+//        HashMap<String, String> map = new HashMap<>();
+//        OpTheme opTheme = new OpTheme(context);
         setCurrentBasicColorMode(2);
-        map.clear();
-        setCurrentFont(1);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT, OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_SLATE_OF_ONEPLUS_STYLE);
-        opTheme.disableTheme(map);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT, OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_NOTOSANS);
-        opTheme.disableTheme(map);
-        map.clear();
-        setCurrentShape(1);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_SQUIRCLE);
-        opTheme.disableTheme(map);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_CIRCLE);
-        opTheme.disableTheme(map);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_TEARDROP);
-        opTheme.disableTheme(map);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_ROUNDEDRECT);
-        opTheme.disableTheme(map);
-        map.clear();
-        setCurrentHorizonLight(0);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION, OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_GOLD);
-        opTheme.disableTheme(map);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION, OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_RED);
-        opTheme.disableTheme(map);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION, OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_PURPLE);
-        opTheme.disableTheme(map);
+//        map.clear();
+//        // setCurrentFont((1);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT, OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_SLATE_OF_ONEPLUS_STYLE);
+//        opTheme.disableTheme(map);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT, OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_NOTOSANS);
+//        opTheme.disableTheme(map);
+//        map.clear();
+//        // setCurrentShape(1);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_SQUIRCLE);
+//        opTheme.disableTheme(map);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_CIRCLE);
+//        opTheme.disableTheme(map);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_TEARDROP);
+//        opTheme.disableTheme(map);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_ROUNDEDRECT);
+//        opTheme.disableTheme(map);
+//        map.clear();
+//        // setCurrentHorizonLight(0);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION, OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_GOLD);
+//        opTheme.disableTheme(map);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION, OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_RED);
+//        opTheme.disableTheme(map);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION, OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_PURPLE);
+//        opTheme.disableTheme(map);
     }
 
     static void enableLightThemes(Context context) {
@@ -136,12 +124,12 @@ final class OPThemeUtils {
         opTheme.enableTheme(map);
         enableAospDarkTheme(false);
         setCurrentBasicColorMode(0);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT, OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_NOTOSANS);
-        setCurrentFont(1);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_CIRCLE);
-        setCurrentShape(1);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT, OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_NOTOSANS);
+        // setCurrentFont((1);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_CIRCLE);
+        // setCurrentShape(1);
         opTheme.enableTheme(map);
-        setCurrentHorizonLight(0);
+        // setCurrentHorizonLight(0);
 
         List<String> cmds = new ArrayList<>();
 
@@ -179,17 +167,17 @@ final class OPThemeUtils {
             ShellUtil.exec(cmd, true);
         }
         disableAllThemes(context);
-        HashMap<String, String> map = new HashMap<>();
-        OpTheme opTheme = new OpTheme(context);
+//        HashMap<String, String> map = new HashMap<>();
+//        OpTheme opTheme = new OpTheme(context);
         enableAospDarkTheme(true);
         setCurrentBasicColorMode(1);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT, OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_NOTOSANS);
-        setCurrentFont(1);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_ROUNDEDRECT);
-        setCurrentShape(2);
-        map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION, OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_PURPLE);
-        setCurrentHorizonLight(3);
-        opTheme.enableTheme(map);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT, OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_NOTOSANS);
+        // setCurrentFont((1);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_ROUNDEDRECT);
+        // setCurrentShape(2);
+        // map.put(OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION, OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_PURPLE);
+        // setCurrentHorizonLight(3);
+//        opTheme.enableTheme(map);
 
         List<String> cmds = new ArrayList<>();
 
@@ -236,15 +224,15 @@ final class OPThemeUtils {
         disableMap.put(OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR, OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_BLCAK);
         opTheme.disableTheme(disableMap);
         setCurrentBasicColorMode(2);
-        HashMap<String, String> mapEnable = new HashMap<>();
-        OpTheme opThemeEnable = new OpTheme(context);
-        mapEnable.put(OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT, OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_SLATE_OF_ONEPLUS_STYLE);
-        setCurrentFont(2);
-        mapEnable.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_SQUIRCLE);
-        setCurrentShape(4);
-        mapEnable.put(OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION, OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_GOLD);
-        setCurrentHorizonLight(2);
-        opThemeEnable.enableTheme(mapEnable);
+//        HashMap<String, String> mapEnable = new HashMap<>();
+//        OpTheme opThemeEnable = new OpTheme(context);
+        // mapEnable.put(OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT, OP_CUSTOMIZATION_THEME_ONEPLUS_DYNAMICFONT_SLATE_OF_ONEPLUS_STYLE);
+        // setCurrentFont((2);
+        // mapEnable.put(OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE, OP_CUSTOMIZATION_THEME_ONEPLUS_SHAPE_SQUIRCLE);
+        // setCurrentShape(4);
+        // mapEnable.put(OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION, OP_CUSTOMIZATION_THEME_ONEPLUS_AODNOTIFICATION_GOLD);
+        // setCurrentHorizonLight(2);
+//        opThemeEnable.enableTheme(mapEnable);
 
         List<String> cmds = new ArrayList<>();
 
