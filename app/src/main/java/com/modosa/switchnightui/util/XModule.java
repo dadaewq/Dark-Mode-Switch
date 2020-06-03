@@ -160,30 +160,28 @@ public class XModule implements IXposedHookLoadPackage {
 
 
     private void hookCustom(String key, CallHook callHook) {
-        Log.e("rules", ": " + "rules");
-
         boolean useDefault = true;
 
-        String rules;
+        String x_configs;
         if (sharedPreferences != null) {
             //不解除限制
             if (!sharedPreferences.getBoolean(key, true)) {
                 return;
             } else {
                 //获取自定义
-                rules = sharedPreferences.getString(key + "_config", "");
-                Log.e("rules", ": " + rules);
+                x_configs = sharedPreferences.getString(key + "_config", "");
+                Log.e("x_configs", key + "_config——" + x_configs);
 
                 try {
-                    if (!"".equals(rules)) {
-                        rules = rules.replaceAll("\\s*", "").replace("：", ":").replace("，", ",");
-                        int length = rules.length();
+                    if (!"".equals(x_configs)) {
+                        x_configs = x_configs.replaceAll("\\s*", "").replace("：", ":").replace("，", ",");
+                        int length = x_configs.length();
 
-                        if (rules.endsWith(",")) {
-                            rules = rules.substring(0, length - 1);
+                        if (x_configs.endsWith(",")) {
+                            x_configs = x_configs.substring(0, length - 1);
                         }
                         if (length > 2) {
-                            String[] splits = rules.split(":");
+                            String[] splits = x_configs.split(":");
                             if (splits.length >= 2) {
                                 String className = splits[0];
                                 String[] methodNames = splits[1].split(",");
