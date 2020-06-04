@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory>
         <Preference
             app:key="view_hook_config"
+            app:summary="(请按需设置自定义配置)"
             app:title="查看自定义配置集合" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="解除应用对深色模式的限制">
-
-        <Preference
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="x_coolapk"
             app:summary="设置-界面显示-夜间模式跟随系统"
             app:title="酷安" />
         <SwitchPreferenceCompat
@@ -18,7 +21,7 @@
             app:title="QQ" />
         <Preference
             app:key="x_mobileqq_config"
-            app:title="自定义QQ" />
+            app:title="自定义配置QQ" />
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:key="x_wechat"
@@ -26,8 +29,34 @@
             app:title="微信" />
         <Preference
             app:key="x_wechat_config"
-            app:title="自定义微信" />
+            app:title="自定义配置微信" />
 
     </PreferenceCategory>
+    <PreferenceCategory>
+        <SwitchPreferenceCompat
+            android:summary="请谨慎使用"
+            app:key="x_enable_experimental"
+            app:title="实验性功能" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:isPreferenceVisible="true"
+        app:key="x_experimental"
+        app:title="自定义HOOK">
+        <SwitchPreferenceCompat
+            app:key="x_custom_return1"
+            app:summary="使得无参数的方法返回TRUE"
+            app:title="返回TRUE" />
+        <Preference
+            app:key="x_custom_return1_config"
+            app:title="自定义" />
+        <SwitchPreferenceCompat
+            app:key="x_custom_return0"
+            app:summary="使得无参数的方法返回FALSE"
+            app:title="返回FALSE" />
+        <Preference
+            app:key="x_custom_return0_config"
+            app:title="自定义" />
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

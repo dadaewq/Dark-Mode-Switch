@@ -41,10 +41,10 @@ public class XModule implements IXposedHookLoadPackage {
 
         switch (loadPackageName) {
             case Constants.PACKAGE_NAME_COOLAPK:
-                hookCoolapk();
+                initPreferencesWithCallHook(this::hookCoolapk);
                 break;
             case Constants.PACKAGE_NAME_MOBILEQQ:
-                initPreferencesWithCallHook(() -> hookCustom("x_mobileqq", () -> {
+                initPreferencesWithCallHook(() -> hookCustomTencent("x_mobileqq", () -> {
                     //non-play 8.3.6_1406
                     hookReturnBooleanWithmethodName(loadPackageParam.classLoader, "bbom", "a", true);
 
@@ -53,7 +53,7 @@ public class XModule implements IXposedHookLoadPackage {
                 }));
                 break;
             case Constants.PACKAGE_NAME_WECHAT:
-                initPreferencesWithCallHook(() -> hookCustom("x_wechat", () -> {
+                initPreferencesWithCallHook(() -> hookCustomTencent("x_wechat", () -> {
                     //non-play 7.0.15_1680
                     hookReturnBooleanWithmethodNames(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", new String[]{"eRY", "eRZ", "eSb"}, true);
 
@@ -95,6 +95,10 @@ public class XModule implements IXposedHookLoadPackage {
                 break;
             default:
         }
+        initPreferencesWithCallHook(() -> {
+            hookCustom("x_custom_return1", true);
+            hookCustom("x_custom_return0", false);
+        });
     }
 
 
@@ -134,57 +138,105 @@ public class XModule implements IXposedHookLoadPackage {
 
 
     private void hookCoolapk() {
-        try {
-            XposedHelpers.findAndHookMethod("com.coolapk.market.AppSetting", loadPackageParam.classLoader,
-                    "shouldDisableXposed",
-                    XC_MethodReplacement.returnConstant(false)
-            );
 
-            XposedHelpers.findAndHookMethod("com.coolapk.market.util.XposedUtils", loadPackageParam.classLoader,
-                    "disableXposed",
-                    XC_MethodReplacement.returnConstant(true)
-            );
-        } catch (Exception e) {
-            XposedBridge.log("" + e);
+        boolean useHook = true;
+
+        if (sharedPreferences != null && !sharedPreferences.getBoolean("x_coolapk", true)) {
+            useHook = false;
         }
 
-        try {
-            XposedHelpers.findAndHookMethod("com.coolapk.market.util.NightModeHelper", loadPackageParam.classLoader,
-                    "isThisRomSupportSystemTheme",
-                    XC_MethodReplacement.returnConstant(true)
-            );
-        } catch (Exception e) {
-            XposedBridge.log("" + e);
+        if (useHook) {
+            try {
+                XposedHelpers.findAndHookMethod("com.coolapk.market.AppSetting", loadPackageParam.classLoader,
+                        "shouldDisableXposed",
+                        XC_MethodReplacement.returnConstant(false)
+                );
+
+                XposedHelpers.findAndHookMethod("com.coolapk.market.util.XposedUtils", loadPackageParam.classLoader,
+                        "disableXposed",
+                        XC_MethodReplacement.returnConstant(true)
+                );
+            } catch (Exception e) {
+                XposedBridge.log("" + e);
+            }
+
+            try {
+                XposedHelpers.findAndHookMethod("com.coolapk.market.util.NightModeHelper", loadPackageParam.classLoader,
+                        "isThisRomSupportSystemTheme",
+                        XC_MethodReplacement.returnConstant(true)
+                );
+            } catch (Exception e) {
+                XposedBridge.log("" + e);
+            }
         }
     }
 
 
-    private void hookCustom(String key, CallHook callHook) {
+    private void hookCustom(String key, boolean defaultValue) {
+
+        String x_custom_configs;
+        String packageName;
+        String className;
+        String[] methodNames;
+
+        if (sharedPreferences != null && sharedPreferences.getBoolean("x_enable_experimental", false) && sharedPreferences.getBoolean(key, false)) {
+            //获取自定义
+            x_custom_configs = sharedPreferences.getString(key + "_config", "");
+            Log.e("x_custom_configs", key + "_config——" + x_custom_configs);
+            if (!"".equals(x_custom_configs)) {
+                x_custom_configs = x_custom_configs.replaceAll("\\s*", "").replace("；", ";").replace("：", ":").replace("，", ",");
+                for (String x_config : x_custom_configs.split(";")) {
+                    if (x_config.length() >= 7) {
+                        try {
+                            String[] x_config1 = x_config.split(":");
+                            if (x_config1.length >= 3) {
+                                packageName = x_config1[0];
+                                if (packageName.equals(loadPackageParam.packageName)) {
+                                    className = x_config1[1];
+                                    methodNames = x_config1[2].split(",");
+                                    hookReturnBooleanWithmethodNames(loadPackageParam.classLoader, className, methodNames, defaultValue);
+                                }
+
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    private void hookCustomTencent(String key, CallHook callHook) {
         boolean useDefault = true;
 
-        String x_configs;
+        String x_tencent_config;
         if (sharedPreferences != null) {
             //不解除限制
             if (!sharedPreferences.getBoolean(key, true)) {
                 return;
             } else {
                 //获取自定义
-                x_configs = sharedPreferences.getString(key + "_config", "");
-                Log.e("x_configs", key + "_config——" + x_configs);
+                x_tencent_config = sharedPreferences.getString(key + "_config", "");
+                Log.e("x_tencent_config", key + "_config——" + x_tencent_config);
 
                 try {
-                    if (!"".equals(x_configs)) {
-                        x_configs = x_configs.replaceAll("\\s*", "").replace("：", ":").replace("，", ",");
-                        int length = x_configs.length();
+                    if (!"".equals(x_tencent_config)) {
+                        x_tencent_config = x_tencent_config.replaceAll("\\s*", "").replace("：", ":").replace("，", ",");
+                        int length = x_tencent_config.length();
 
-                        if (x_configs.endsWith(",")) {
-                            x_configs = x_configs.substring(0, length - 1);
+                        if (x_tencent_config.endsWith(",")) {
+                            x_tencent_config = x_tencent_config.substring(0, length - 1);
                         }
                         if (length > 2) {
-                            String[] splits = x_configs.split(":");
+                            String[] splits = x_tencent_config.split(":");
                             if (splits.length >= 2) {
                                 String className = splits[0];
                                 String[] methodNames = splits[1].split(",");
+                                //只有当自定义的配置没有明显错误的时候才不不适用默认的Hook
                                 useDefault = false;
                                 hookReturnBooleanWithmethodNames(loadPackageParam.classLoader, className, methodNames, true);
                             }

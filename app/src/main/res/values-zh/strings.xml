@@ -76,7 +76,7 @@
     <string name="desc_install_lion">提供多个安装器，免Root或使用Root来静默安装APK与卸载应用</string>
     <string name="title_licenses">开源相关</string>
     <string name="License_MulanPSL_2">木兰宽松许可证 2.0</string>
-    <string name="xposeddescription">解除部分应用对跟随系统深色模式的限制，目前默认支持酷安、Play QQ(8.2.9)、QQ(8.3.6)、微信(7.0.15)</string>
+    <string name="xposeddescription">解除部分应用对跟随系统深色模式的限制，目前默认支持酷安、Play QQ(8.2.9)、QQ(8.3.6)、微信(7.0.15)。(支持自定义配置)</string>
     <string name="uptateSun">点击获取日出日落以更新时间</string>
     <string name="tip_need_access_Location_info">需要允许访问位置信息</string>
     <string name="tip_fail_getLocation">获取位置失败</string>
