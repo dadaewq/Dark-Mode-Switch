@@ -99,5 +99,6 @@
     <string name="title_oneplus_use_colorful_theme">Use colorful theme when turning off dark mode</string>
     <string name="summary_oneplus_use_colorful_theme">Use colorful theme</string>
     <string name="title_xfeature">Xposed settings</string>
+    <string name="check_xfeature_ok">Xposed is in effect</string>
 
 </resources>

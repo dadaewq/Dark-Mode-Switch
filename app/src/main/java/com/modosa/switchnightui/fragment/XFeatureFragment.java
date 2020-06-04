@@ -3,14 +3,17 @@ package com.modosa.switchnightui.fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.modosa.switchnightui.BuildConfig;
 import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SpUtil;
@@ -54,6 +57,14 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
 
     private void init() {
         spUtil = new SpUtil(context);
+
+        Preference check_xfeature = findPreference("check_xfeature");
+        if (check_xfeature != null) {
+            check_xfeature.setSummary("v" + BuildConfig.VERSION_NAME + "（" + BuildConfig.VERSION_CODE + "）");
+            if (hook2ReturnTrue()) {
+                check_xfeature.setTitle(R.string.check_xfeature_ok);
+            }
+        }
         x_mobileqq_config = findPreference("x_mobileqq_config");
         x_wechat_config = findPreference("x_wechat_config");
         SwitchPreferenceCompat x_enable_experimental = findPreference("x_enable_experimental");
@@ -82,6 +93,14 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
         x_wechat_config.setSummary(spUtil.getString("x_wechat_config"));
         x_custom_return1_config.setSummary(spUtil.getString("x_custom_return1_config"));
         x_custom_return0_config.setSummary(spUtil.getString("x_custom_return0_config"));
+    }
+
+    @Keep
+    private boolean hook2ReturnTrue() {
+//        如果需要hook，不要注释下一行
+        Log.i("hook2ReturnTrue", ": ");
+
+        return false;
     }
 
     @Override

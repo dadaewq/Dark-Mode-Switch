@@ -10,6 +10,7 @@ import androidx.annotation.Keep;
 
 import com.modosa.switchnightui.BuildConfig;
 import com.modosa.switchnightui.activity.MainActivity;
+import com.modosa.switchnightui.fragment.XFeatureFragment;
 import com.modosa.switchnightui.provider.MyPreferenceProvider;
 
 import java.lang.reflect.Method;
@@ -263,6 +264,10 @@ public class XModule implements IXposedHookLoadPackage {
 //                    XC_MethodReplacement.returnConstant("Xposed")
 //            );
             XposedHelpers.findAndHookMethod(MainActivity.class.getName(), loadPackageParam.classLoader,
+                    "hook2ReturnTrue",
+                    XC_MethodReplacement.returnConstant(true)
+            );
+            XposedHelpers.findAndHookMethod(XFeatureFragment.class.getName(), loadPackageParam.classLoader,
                     "hook2ReturnTrue",
                     XC_MethodReplacement.returnConstant(true)
             );

@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory>
         <Preference
+            app:key="check_xfeature"
+            app:title="Xposed 当前未生效" />
+        <Preference
             app:key="view_hook_config"
             app:summary="(请按需设置自定义配置)"
             app:title="查看自定义配置集合" />
