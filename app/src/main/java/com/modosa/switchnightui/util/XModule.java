@@ -4,6 +4,7 @@ package com.modosa.switchnightui.util;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.Keep;
@@ -21,6 +22,9 @@ import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+
+import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
+import static de.robv.android.xposed.XposedHelpers.setStaticObjectField;
 
 /**
  * @author dadaewq
@@ -56,6 +60,11 @@ public class XModule implements IXposedHookLoadPackage {
             case Constants.PACKAGE_NAME_WECHAT:
                 initPreferencesWithCallHook(() -> hookCustomTencent("x_wechat", () -> {
                     //non-play 7.0.15_1680
+
+//                    new config
+//                    hookTencentBrandApi("com.tencent.mm.ui.ai", "FSW");
+//
+//                    old config
                     hookReturnBooleanWithmethodNames(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", new String[]{"eRY", "eRZ", "eSb"}, true);
 
 
@@ -107,7 +116,7 @@ public class XModule implements IXposedHookLoadPackage {
 
         try {
 
-            XposedHelpers.findAndHookMethod(Application.class, "attach",
+            findAndHookMethod(Application.class, "attach",
                     Context.class,
                     new XC_MethodHook() {
                         @Override
@@ -123,7 +132,7 @@ public class XModule implements IXposedHookLoadPackage {
             XposedBridge.log("" + e);
         }
 
-//        XposedHelpers.findAndHookMethod(Activity.class, "onResume", new XC_MethodHook() {
+//        findAndHookMethod(Activity.class, "onResume", new XC_MethodHook() {
 //            //
 //            @Override
 //            protected void afterHookedMethod(MethodHookParam param) {
@@ -148,12 +157,12 @@ public class XModule implements IXposedHookLoadPackage {
 
         if (useHook) {
             try {
-                XposedHelpers.findAndHookMethod("com.coolapk.market.AppSetting", loadPackageParam.classLoader,
+                findAndHookMethod("com.coolapk.market.AppSetting", loadPackageParam.classLoader,
                         "shouldDisableXposed",
                         XC_MethodReplacement.returnConstant(false)
                 );
 
-                XposedHelpers.findAndHookMethod("com.coolapk.market.util.XposedUtils", loadPackageParam.classLoader,
+                findAndHookMethod("com.coolapk.market.util.XposedUtils", loadPackageParam.classLoader,
                         "disableXposed",
                         XC_MethodReplacement.returnConstant(true)
                 );
@@ -162,7 +171,7 @@ public class XModule implements IXposedHookLoadPackage {
             }
 
             try {
-                XposedHelpers.findAndHookMethod("com.coolapk.market.util.NightModeHelper", loadPackageParam.classLoader,
+                findAndHookMethod("com.coolapk.market.util.NightModeHelper", loadPackageParam.classLoader,
                         "isThisRomSupportSystemTheme",
                         XC_MethodReplacement.returnConstant(true)
                 );
@@ -211,6 +220,7 @@ public class XModule implements IXposedHookLoadPackage {
         }
     }
 
+
     private void hookCustomTencent(String key, CallHook callHook) {
         boolean useDefault = true;
 
@@ -228,6 +238,20 @@ public class XModule implements IXposedHookLoadPackage {
                     if (!"".equals(x_tencent_config)) {
                         x_tencent_config = x_tencent_config.replaceAll("\\s*", "").replace("：", ":").replace("，", ",");
                         int length = x_tencent_config.length();
+                        if ("x_wechat".equals(key)) {
+                            x_tencent_config = x_tencent_config.replace("；", ";");
+                            if (x_tencent_config.endsWith(";")) {
+                                x_tencent_config = x_tencent_config.substring(0, length - 1);
+                            }
+                            if (x_tencent_config.contains(";")) {
+                                String[] brandConfig = x_tencent_config.split(";");
+                                if (brandConfig.length >= 2) {
+                                    hookTencentBrandApi(brandConfig[0], brandConfig[1]);
+                                }
+                                return;
+                            }
+                        }
+
 
                         if (x_tencent_config.endsWith(",")) {
                             x_tencent_config = x_tencent_config.substring(0, length - 1);
@@ -256,18 +280,31 @@ public class XModule implements IXposedHookLoadPackage {
         }
     }
 
+    private void hookTencentBrandApi(String clazzName, String brandVariable) {
+        try {
+            String brands = Build.BRAND.toLowerCase() + "&8, other&8";
+            Log.e("brand_api", brands);
+            setStaticObjectField(
+                    XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                    brandVariable,
+                    brands
+            );
+        } catch (Exception e) {
+            Log.e("Exception", "hook brand_api : ");
+        }
+    }
 
     private void hookMyself() {
         try {
-//            XposedHelpers.findAndHookMethod(MainActivity.class.getName(), loadPackageParam.classLoader,
+//            findAndHookMethod(MainActivity.class.getName(), loadPackageParam.classLoader,
 //                    "hookTitleReturnString",
 //                    XC_MethodReplacement.returnConstant("Xposed")
 //            );
-            XposedHelpers.findAndHookMethod(MainActivity.class.getName(), loadPackageParam.classLoader,
+            findAndHookMethod(MainActivity.class.getName(), loadPackageParam.classLoader,
                     "hook2ReturnTrue",
                     XC_MethodReplacement.returnConstant(true)
             );
-            XposedHelpers.findAndHookMethod(XFeatureFragment.class.getName(), loadPackageParam.classLoader,
+            findAndHookMethod(XFeatureFragment.class.getName(), loadPackageParam.classLoader,
                     "hook2ReturnTrue",
                     XC_MethodReplacement.returnConstant(true)
             );
@@ -304,7 +341,7 @@ public class XModule implements IXposedHookLoadPackage {
 
     private void findAndHookMethodReturnBoolean(ClassLoader classLoader, String className, String methodName, boolean booleanVlaue) {
         try {
-            XposedHelpers.findAndHookMethod(className, classLoader,
+            findAndHookMethod(className, classLoader,
                     methodName,
                     XC_MethodReplacement.returnConstant(booleanVlaue)
             );

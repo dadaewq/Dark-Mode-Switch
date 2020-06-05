@@ -145,7 +145,11 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
     private void showDialogTencentHook(String preferenceKey) {
 
         final EditText valueOfpreferenceKey = new EditText(context);
-        valueOfpreferenceKey.setHint("类名:方法名,方法名,...");
+        if ("x_wechat_config".equals(preferenceKey)) {
+            valueOfpreferenceKey.setHint("类名:方法名,方法名,...或类名;变量名");
+        } else {
+            valueOfpreferenceKey.setHint("类名:方法名,方法名,...");
+        }
         valueOfpreferenceKey.setText(spUtil.getString(preferenceKey));
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setTitle("自定义HOOK")
@@ -153,12 +157,19 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
                 .setNeutralButton("关闭", null)
                 .setNegativeButton("清空", null)
                 .setPositiveButton("保存", null);
-
+        if ("x_wechat_config".equals(preferenceKey)) {
+            builder.setTitle("自定义HOOK-微信");
+        } else {
+            builder.setTitle("自定义HOOK-QQ");
+        }
         alertDialog = builder.create();
         OpUtil.showAlertDialog(context, alertDialog);
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             String value = valueOfpreferenceKey.getText().toString().replaceAll("\\s*", "").replace("：", ":").replace("，", ",");
+            if ("x_wechat_config".equals(preferenceKey)) {
+                value = value.replace("；", ";");
+            }
             valueOfpreferenceKey.setText(value);
             opPreferenceValueFromDialog(preferenceKey, value, AlertDialog.BUTTON_POSITIVE);
         });
