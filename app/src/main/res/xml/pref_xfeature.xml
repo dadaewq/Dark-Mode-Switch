@@ -7,7 +7,7 @@
             app:title="Xposed 当前未生效" />
         <Preference
             app:key="view_hook_config"
-            app:summary="(当前仅默认支持QQ_8.3.6、Play QQ_8.2.9和微信_7.0.15，更多版本请按需设置自定义配置)"
+            app:summary="(当前默认支持解除限制的有QQ_8.3.6、Play QQ_8.2.9和微信_7.0.15，更多版本请按需设置自定义配置)"
             app:title="查看自定义配置集合" />
     </PreferenceCategory>
 
