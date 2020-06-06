@@ -65,7 +65,7 @@
     <string name="title_about">About</string>
     <string name="rate">Rate</string>
     <string name="title_Introduction">What\'s this</string>
-    <string name="desc_Introduction">Switch the dark mode of Android system conveniently\nSupport Android 4.1+</string>
+    <string name="desc_Introduction">Switch the dark mode of Android system and some system displays conveniently,Support Android 4.1+.\nXposed function is also provided (can remove the restrictions of some applications on dark mode related functions, currently supports QQ, WeChat and Coolapk by default)</string>
     <string name="title_developer">Developer</string>
     <string name="desc_developer">Developer</string>
     <string name="title_certification">Certification</string>
