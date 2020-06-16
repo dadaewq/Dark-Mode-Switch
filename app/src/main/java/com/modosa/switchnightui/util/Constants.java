@@ -9,4 +9,5 @@ public class Constants {
     public static final String PACKAGE_NAME_DINGTALK = "com.alibaba.android.rimet";
     public static final String PACKAGE_NAME_MOBILEQQ = "com.tencent.mobileqq";
     public static final String PACKAGE_NAME_WECHAT = "com.tencent.mm";
+    public static final String PACKAGE_NAME_FLYTEK_INPUTMETHOD = "com.iflytek.inputmethod";
 }

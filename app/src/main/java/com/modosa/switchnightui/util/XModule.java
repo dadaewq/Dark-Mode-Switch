@@ -4,6 +4,7 @@ package com.modosa.switchnightui.util;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.util.Log;
 
@@ -14,6 +15,7 @@ import com.modosa.switchnightui.activity.MainActivity;
 import com.modosa.switchnightui.fragment.XFeatureFragment;
 import com.modosa.switchnightui.provider.MyPreferenceProvider;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -24,6 +26,8 @@ import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
+import static de.robv.android.xposed.XposedHelpers.setStaticBooleanField;
+import static de.robv.android.xposed.XposedHelpers.setStaticIntField;
 import static de.robv.android.xposed.XposedHelpers.setStaticObjectField;
 
 /**
@@ -50,6 +54,12 @@ public class XModule implements IXposedHookLoadPackage {
                 break;
             case Constants.PACKAGE_NAME_DINGTALK:
                 initPreferencesWithCallHook(this::hookDingTalk);
+                break;
+            case Constants.PACKAGE_NAME_FLYTEK_INPUTMETHOD:
+                initPreferencesWithCallHook(() -> hookCustomIflytekInput(() -> {
+                    //non-play 9.1.9652
+                    hookIflytekInput("app.apq");
+                }));
                 break;
             case Constants.PACKAGE_NAME_MOBILEQQ:
                 initPreferencesWithCallHook(() -> hookCustomTencent("x_mobileqq", () -> {
@@ -179,7 +189,7 @@ public class XModule implements IXposedHookLoadPackage {
                         XC_MethodReplacement.returnConstant(true)
                 );
             } catch (Exception e) {
-                XposedBridge.log("" + e);
+                XposedBridge.log("hookCoolapk e：" + e);
             }
         }
     }
@@ -200,46 +210,8 @@ public class XModule implements IXposedHookLoadPackage {
                 );
 
             } catch (Exception e) {
-                XposedBridge.log("" + e);
+                XposedBridge.log("hookDingTalk e：" + e);
             }
-        }
-    }
-
-    private void hookCustom(String key, boolean defaultValue) {
-
-        String x_custom_configs;
-        String packageName;
-        String className;
-        String[] methodNames;
-
-        if (sharedPreferences != null && sharedPreferences.getBoolean("x_enable_experimental", false) && sharedPreferences.getBoolean(key, false)) {
-            //获取自定义
-            x_custom_configs = sharedPreferences.getString(key + "_config", "");
-            Log.e("x_custom_configs", key + "_config——" + x_custom_configs);
-            if (!"".equals(x_custom_configs)) {
-                x_custom_configs = x_custom_configs.replaceAll("\\s*", "").replace("；", ";").replace("：", ":").replace("，", ",");
-                for (String x_config : x_custom_configs.split(";")) {
-                    if (x_config.length() >= 7) {
-                        try {
-                            String[] x_config1 = x_config.split(":");
-                            if (x_config1.length >= 3) {
-                                packageName = x_config1[0];
-                                if (packageName.equals(loadPackageParam.packageName)) {
-                                    className = x_config1[1];
-                                    methodNames = x_config1[2].split(",");
-                                    hookReturnBooleanWithmethodNames(loadPackageParam.classLoader, className, methodNames, defaultValue);
-                                }
-
-                            }
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-
         }
     }
 
@@ -317,6 +289,127 @@ public class XModule implements IXposedHookLoadPackage {
         }
     }
 
+    private void hookCustomIflytekInput(CallHook callHook) {
+        boolean useDefault = true;
+
+        String x_iflytek_input_config;
+        if (sharedPreferences != null) {
+            String key = "x_iflytek_input";
+            //不解除限制
+            if (!sharedPreferences.getBoolean(key, true)) {
+                return;
+            } else {
+                //获取自定义
+                x_iflytek_input_config = sharedPreferences.getString(key + "_config", "");
+                Log.e("x_iflytek_input_config", key + "_config——" + x_iflytek_input_config);
+
+                try {
+                    if (!"".equals(x_iflytek_input_config)) {
+                        x_iflytek_input_config = x_iflytek_input_config.replaceAll("\\s*", "");
+
+                        if (x_iflytek_input_config.length() > 2) {
+                            useDefault = false;
+                            hookIflytekInput(x_iflytek_input_config);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+        Log.e("useDefault", ": " + useDefault);
+        if (useDefault) {
+            callHook.call();
+        }
+
+    }
+
+    private void hookIflytekInput(String clazzName) {
+
+        boolean useHook = true;
+
+        if (sharedPreferences != null && !sharedPreferences.getBoolean("x_iflytek_input", true)) {
+            useHook = false;
+        }
+
+        if (useHook) {
+            try {
+                findAndHookMethod("com.iflytek.inputmethod.depend.config.settings.Settings", loadPackageParam.classLoader,
+                        "isDarkModeAdaptOpen",
+                        XC_MethodReplacement.returnConstant(true)
+                );
+
+            } catch (Exception e) {
+                XposedBridge.log("" + e);
+            }
+
+            String[] staticObjectFields = new String[]{"a", "b", "c", "d", "e", "f"};
+            int a, b, c;
+            Field d;
+
+            try {
+                setStaticBooleanField(
+                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                        staticObjectFields[4],
+                        true
+                );
+            } catch (Exception e) {
+                XposedBridge.log("hookIflytekInput e：" + e);
+            }
+            try {
+                setStaticObjectField(
+                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                        staticObjectFields[5],
+                        true
+                );
+            } catch (Exception e) {
+                XposedBridge.log("hookIflytekInput e：" + e);
+            }
+
+            try {
+                Field declaredField = Configuration.class.getDeclaredField("UI_MODE_NIGHT_YES");
+                declaredField.setAccessible(true);
+                a = declaredField.getInt(null);
+                Field declaredField2 = Configuration.class.getDeclaredField("UI_MODE_NIGHT_NO");
+                declaredField2.setAccessible(true);
+                b = declaredField2.getInt(null);
+                Field declaredField3 = Configuration.class.getDeclaredField("UI_MODE_NIGHT_MASK");
+                declaredField3.setAccessible(true);
+                c = declaredField3.getInt(null);
+                d = Configuration.class.getDeclaredField("uiMode");
+                d.setAccessible(true);
+
+                setStaticIntField(
+                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                        staticObjectFields[0],
+                        a
+                );
+                setStaticIntField(
+                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                        staticObjectFields[1],
+                        b
+                );
+                setStaticIntField(
+                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                        staticObjectFields[2],
+                        c
+                );
+
+                setStaticObjectField(
+                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                        staticObjectFields[3],
+                        d
+                );
+            } catch (Exception e) {
+                XposedBridge.log("hookIflytekInput e：" + e);
+            }
+
+        }
+    }
+
+
     private void hookMyself() {
         try {
 //            findAndHookMethod(MainActivity.class.getName(), loadPackageParam.classLoader,
@@ -336,6 +429,43 @@ public class XModule implements IXposedHookLoadPackage {
         }
     }
 
+    private void hookCustom(String key, boolean defaultValue) {
+
+        String x_custom_configs;
+        String packageName;
+        String className;
+        String[] methodNames;
+
+        if (sharedPreferences != null && sharedPreferences.getBoolean("x_enable_experimental", false) && sharedPreferences.getBoolean(key, false)) {
+            //获取自定义
+            x_custom_configs = sharedPreferences.getString(key + "_config", "");
+            Log.e("x_custom_configs", key + "_config——" + x_custom_configs);
+            if (!"".equals(x_custom_configs)) {
+                x_custom_configs = x_custom_configs.replaceAll("\\s*", "").replace("；", ";").replace("：", ":").replace("，", ",");
+                for (String x_config : x_custom_configs.split(";")) {
+                    if (x_config.length() >= 7) {
+                        try {
+                            String[] x_config1 = x_config.split(":");
+                            if (x_config1.length >= 3) {
+                                packageName = x_config1[0];
+                                if (packageName.equals(loadPackageParam.packageName)) {
+                                    className = x_config1[1];
+                                    methodNames = x_config1[2].split(",");
+                                    hookReturnBooleanWithmethodNames(loadPackageParam.classLoader, className, methodNames, defaultValue);
+                                }
+
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+        }
+    }
 
     private void hookReturnBooleanWithmethodNames(ClassLoader classLoader, String className, String[] methodNames, boolean booleanVlaue) {
 

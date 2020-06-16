@@ -30,6 +30,7 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
 
     private Preference x_mobileqq_config;
     private Preference x_wechat_config;
+    private Preference x_iflytek_input_config;
     private PreferenceCategory x_experimental;
     private Preference x_custom_return1_config;
     private Preference x_custom_return0_config;
@@ -67,6 +68,7 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
         }
         x_mobileqq_config = findPreference("x_mobileqq_config");
         x_wechat_config = findPreference("x_wechat_config");
+        x_iflytek_input_config = findPreference("x_iflytek_input_config");
         SwitchPreferenceCompat x_enable_experimental = findPreference("x_enable_experimental");
         x_experimental = findPreference("x_experimental");
         x_custom_return1_config = findPreference("x_custom_return1_config");
@@ -74,6 +76,7 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
 
         x_mobileqq_config.setOnPreferenceClickListener(this);
         x_wechat_config.setOnPreferenceClickListener(this);
+        x_iflytek_input_config.setOnPreferenceClickListener(this);
         x_enable_experimental.setOnPreferenceChangeListener((preference, newValue) -> {
             x_experimental.setVisible((boolean) newValue);
             return true;
@@ -91,6 +94,7 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
     private void refresh() {
         x_mobileqq_config.setSummary(spUtil.getString("x_mobileqq_config"));
         x_wechat_config.setSummary(spUtil.getString("x_wechat_config"));
+        x_iflytek_input_config.setSummary(spUtil.getString("x_iflytek_input_config"));
         x_custom_return1_config.setSummary(spUtil.getString("x_custom_return1_config"));
         x_custom_return0_config.setSummary(spUtil.getString("x_custom_return0_config"));
     }
@@ -131,6 +135,9 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
             case "x_wechat_config":
                 showDialogTencentHook(preferenceKey);
                 break;
+            case "x_iflytek_input_config":
+                showDialogIflytekInputHook(preferenceKey);
+                break;
             case "x_custom_return1_config":
             case "x_custom_return0_config":
                 showDialogCtomHook(preferenceKey);
@@ -170,6 +177,38 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
             if ("x_wechat_config".equals(preferenceKey)) {
                 value = value.replace("；", ";");
             }
+            valueOfpreferenceKey.setText(value);
+            opPreferenceValueFromDialog(preferenceKey, value, AlertDialog.BUTTON_POSITIVE);
+        });
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(v -> valueOfpreferenceKey.setText(null));
+        alertDialog.setOnDismissListener(dialog -> {
+            if (isOpSuccess) {
+                isOpSuccess = false;
+                refresh();
+            }
+        });
+    }
+
+    private void showDialogIflytekInputHook(String preferenceKey) {
+
+        final EditText valueOfpreferenceKey = new EditText(context);
+        valueOfpreferenceKey.setHint("类名");
+
+        valueOfpreferenceKey.setText(spUtil.getString(preferenceKey));
+        AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                .setTitle("自定义HOOK")
+                .setView(valueOfpreferenceKey)
+                .setNeutralButton("关闭", null)
+                .setNegativeButton("清空", null)
+                .setPositiveButton("保存", null);
+
+
+        alertDialog = builder.create();
+        OpUtil.showAlertDialog(context, alertDialog);
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            String value = valueOfpreferenceKey.getText().toString().replaceAll("\\s*", "");
+
             valueOfpreferenceKey.setText(value);
             opPreferenceValueFromDialog(preferenceKey, value, AlertDialog.BUTTON_POSITIVE);
         });

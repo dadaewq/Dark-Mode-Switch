@@ -75,7 +75,7 @@
     <string name="desc_install_lion">Provide multiple installers to install APK and uninstall apps silently without root or using root</string>
     <string name="title_licenses">About Open Source</string>
     <string name="License_MulanPSL_2">MulanPSL 2.0</string>
-    <string name="xposeddescription">Removed the restrictions on the dark mode of the following system in some applications.\nSupports Coolapk,Play QQ(8.2.9),QQ(8.3.6) and Wechat(7.0.15) currently.(Support custom configuration).</string>
+    <string name="xposeddescription">Removed the restrictions on the dark mode of the following system in some applications.\nSupports Coolapk,DingTalk,QQ(8.3.6,PLAY_8.2.9),Wechat(7.0.15) and Iflytek inputmethod(9.1.9652) currently.(Support custom configuration).</string>
     <string name="uptateSun">Click to update time according to sunrise and sunset</string>
     <string name="tip_need_access_Location_info">Need to allow access to location information</string>
     <string name="tip_fail_getLocation">Failed to get location</string>
