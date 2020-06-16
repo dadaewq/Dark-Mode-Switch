@@ -48,6 +48,9 @@ public class XModule implements IXposedHookLoadPackage {
             case Constants.PACKAGE_NAME_COOLAPK:
                 initPreferencesWithCallHook(this::hookCoolapk);
                 break;
+            case Constants.PACKAGE_NAME_DINGTALK:
+                initPreferencesWithCallHook(this::hookDingTalk);
+                break;
             case Constants.PACKAGE_NAME_MOBILEQQ:
                 initPreferencesWithCallHook(() -> hookCustomTencent("x_mobileqq", () -> {
                     //non-play 8.3.6_1406
@@ -181,6 +184,26 @@ public class XModule implements IXposedHookLoadPackage {
         }
     }
 
+    private void hookDingTalk() {
+
+        boolean useHook = true;
+
+        if (sharedPreferences != null && !sharedPreferences.getBoolean("x_dingtalk", true)) {
+            useHook = false;
+        }
+
+        if (useHook) {
+            try {
+                findAndHookMethod("com.alibaba.android.dingtalkui.dark.ThemeHelper", loadPackageParam.classLoader,
+                        "d",
+                        XC_MethodReplacement.returnConstant(true)
+                );
+
+            } catch (Exception e) {
+                XposedBridge.log("" + e);
+            }
+        }
+    }
 
     private void hookCustom(String key, boolean defaultValue) {
 

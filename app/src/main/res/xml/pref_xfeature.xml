@@ -19,6 +19,11 @@
             app:title="酷安" />
         <SwitchPreferenceCompat
             app:defaultValue="true"
+            app:key="x_dingtalk"
+            app:summary="设置-通用-深色主题设置-跟随系统"
+            app:title="钉钉" />
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
             app:key="x_mobileqq"
             app:summary="设置-通用-跟随系统深色模式"
             app:title="QQ" />
