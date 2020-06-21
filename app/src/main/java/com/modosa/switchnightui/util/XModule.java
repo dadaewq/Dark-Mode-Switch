@@ -61,6 +61,12 @@ public class XModule implements IXposedHookLoadPackage {
                     hookIflytekInput("app.apq");
                 }));
                 break;
+            case Constants.PACKAGE_NAME_CAIJ_SEE:
+                initPreferencesWithCallHook(() -> hookCustomCaijSee(() -> {
+                    //1.5.6.6
+                    hookCaijSee("com.caij.see.o0OoO", "Wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+                }));
+                break;
             case Constants.PACKAGE_NAME_MOBILEQQ:
                 initPreferencesWithCallHook(() -> hookCustomTencent("x_mobileqq", () -> {
                     //non-play 8.3.6_1406
@@ -289,6 +295,7 @@ public class XModule implements IXposedHookLoadPackage {
         }
     }
 
+
     private void hookCustomIflytekInput(CallHook callHook) {
         boolean useDefault = true;
 
@@ -328,84 +335,133 @@ public class XModule implements IXposedHookLoadPackage {
 
     private void hookIflytekInput(String clazzName) {
 
-        boolean useHook = true;
+        try {
+            findAndHookMethod("com.iflytek.inputmethod.depend.config.settings.Settings", loadPackageParam.classLoader,
+                    "isDarkModeAdaptOpen",
+                    XC_MethodReplacement.returnConstant(true)
+            );
 
-        if (sharedPreferences != null && !sharedPreferences.getBoolean("x_iflytek_input", true)) {
-            useHook = false;
+        } catch (Exception e) {
+            XposedBridge.log("" + e);
         }
 
-        if (useHook) {
-            try {
-                findAndHookMethod("com.iflytek.inputmethod.depend.config.settings.Settings", loadPackageParam.classLoader,
-                        "isDarkModeAdaptOpen",
-                        XC_MethodReplacement.returnConstant(true)
-                );
+        String[] staticObjectFields = new String[]{"a", "b", "c", "d", "e", "f"};
+        int a, b, c;
+        Field d;
 
-            } catch (Exception e) {
-                XposedBridge.log("" + e);
+        try {
+            setStaticBooleanField(
+                    XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                    staticObjectFields[4],
+                    true
+            );
+        } catch (Exception e) {
+            XposedBridge.log("hookIflytekInput e：" + e);
+        }
+        try {
+            setStaticObjectField(
+                    XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                    staticObjectFields[5],
+                    true
+            );
+        } catch (Exception e) {
+            XposedBridge.log("hookIflytekInput e：" + e);
+        }
+
+        try {
+            Field declaredField = Configuration.class.getDeclaredField("UI_MODE_NIGHT_YES");
+            declaredField.setAccessible(true);
+            a = declaredField.getInt(null);
+            Field declaredField2 = Configuration.class.getDeclaredField("UI_MODE_NIGHT_NO");
+            declaredField2.setAccessible(true);
+            b = declaredField2.getInt(null);
+            Field declaredField3 = Configuration.class.getDeclaredField("UI_MODE_NIGHT_MASK");
+            declaredField3.setAccessible(true);
+            c = declaredField3.getInt(null);
+            d = Configuration.class.getDeclaredField("uiMode");
+            d.setAccessible(true);
+
+            setStaticIntField(
+                    XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                    staticObjectFields[0],
+                    a
+            );
+            setStaticIntField(
+                    XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                    staticObjectFields[1],
+                    b
+            );
+            setStaticIntField(
+                    XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                    staticObjectFields[2],
+                    c
+            );
+
+            setStaticObjectField(
+                    XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
+                    staticObjectFields[3],
+                    d
+            );
+        } catch (Exception e) {
+            XposedBridge.log("hookIflytekInput e：" + e);
+        }
+
+    }
+
+
+    private void hookCustomCaijSee(CallHook callHook) {
+        boolean useDefault = true;
+
+        String x_caij_see_config;
+        if (sharedPreferences != null) {
+            String key = "x_caij_see";
+            //不解除限制
+            if (!sharedPreferences.getBoolean(key, true)) {
+                return;
+            } else {
+                //获取自定义
+                x_caij_see_config = sharedPreferences.getString(key + "_config", "");
+                Log.e("x_caij_see_config", key + "_config——" + x_caij_see_config);
+
+                try {
+                    if (!"".equals(x_caij_see_config)) {
+                        x_caij_see_config = x_caij_see_config.replaceAll("\\s*", "").replace("：", ":");
+
+                        if (x_caij_see_config.length() > 15) {
+                            String[] x_config1 = x_caij_see_config.split(":");
+                            String className, methodName;
+                            if (x_config1.length >= 2) {
+                                className = x_config1[0];
+                                methodName = x_config1[1];
+                                useDefault = false;
+                                hookCaijSee(className, methodName);
+                            }
+
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
+        }
 
-            String[] staticObjectFields = new String[]{"a", "b", "c", "d", "e", "f"};
-            int a, b, c;
-            Field d;
+        Log.e("useDefault", ": " + useDefault);
+        if (useDefault) {
+            callHook.call();
+        }
 
-            try {
-                setStaticBooleanField(
-                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
-                        staticObjectFields[4],
-                        true
-                );
-            } catch (Exception e) {
-                XposedBridge.log("hookIflytekInput e：" + e);
-            }
-            try {
-                setStaticObjectField(
-                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
-                        staticObjectFields[5],
-                        true
-                );
-            } catch (Exception e) {
-                XposedBridge.log("hookIflytekInput e：" + e);
-            }
+    }
 
-            try {
-                Field declaredField = Configuration.class.getDeclaredField("UI_MODE_NIGHT_YES");
-                declaredField.setAccessible(true);
-                a = declaredField.getInt(null);
-                Field declaredField2 = Configuration.class.getDeclaredField("UI_MODE_NIGHT_NO");
-                declaredField2.setAccessible(true);
-                b = declaredField2.getInt(null);
-                Field declaredField3 = Configuration.class.getDeclaredField("UI_MODE_NIGHT_MASK");
-                declaredField3.setAccessible(true);
-                c = declaredField3.getInt(null);
-                d = Configuration.class.getDeclaredField("uiMode");
-                d.setAccessible(true);
+    private void hookCaijSee(String className, String methodName) {
 
-                setStaticIntField(
-                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
-                        staticObjectFields[0],
-                        a
-                );
-                setStaticIntField(
-                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
-                        staticObjectFields[1],
-                        b
-                );
-                setStaticIntField(
-                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
-                        staticObjectFields[2],
-                        c
-                );
-
-                setStaticObjectField(
-                        XposedHelpers.findClass(clazzName, loadPackageParam.classLoader),
-                        staticObjectFields[3],
-                        d
-                );
-            } catch (Exception e) {
-                XposedBridge.log("hookIflytekInput e：" + e);
-            }
-
+        try {
+            findAndHookMethod(className, loadPackageParam.classLoader, methodName,
+                    Context.class,
+                    XC_MethodReplacement.returnConstant(true)
+            );
+        } catch (Exception e) {
+            XposedBridge.log("" + e);
         }
     }
 

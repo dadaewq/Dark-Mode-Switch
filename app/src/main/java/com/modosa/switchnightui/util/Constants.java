@@ -10,4 +10,6 @@ public class Constants {
     public static final String PACKAGE_NAME_MOBILEQQ = "com.tencent.mobileqq";
     public static final String PACKAGE_NAME_WECHAT = "com.tencent.mm";
     public static final String PACKAGE_NAME_FLYTEK_INPUTMETHOD = "com.iflytek.inputmethod";
+    public static final String PACKAGE_NAME_CAIJ_SEE = "com.caij.see";
+
 }
