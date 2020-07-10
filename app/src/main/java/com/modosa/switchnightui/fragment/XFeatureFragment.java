@@ -3,6 +3,8 @@ package com.modosa.switchnightui.fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -15,8 +17,19 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.modosa.switchnightui.BuildConfig;
 import com.modosa.switchnightui.R;
+import com.modosa.switchnightui.util.AppInfoUtil;
 import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SpUtil;
+
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.concurrent.Executors;
 
 
 /**
@@ -39,12 +52,29 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
     private boolean isOpSuccess = false;
     private AlertDialog alertDialog;
 
+    private MyHandler mHandler;
+    private int successNumber = 0;
+
+    public static String readParse(String urlPath) throws Exception {
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int len;
+        URL url = new URL(urlPath);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        InputStream inStream = conn.getInputStream();
+        while ((len = inStream.read(data)) != -1) {
+            outStream.write(data, 0, len);
+        }
+        inStream.close();
+        return new String(outStream.toByteArray());//通过out.Stream.toByteArray获取到写的数据
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mHandler = new MyHandler(this);
         init();
     }
-
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -90,10 +120,9 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
         x_custom_return0_config.setOnPreferenceClickListener(this);
 
         findPreference("view_hook_config").setOnPreferenceClickListener(this);
-
+        findPreference("update_hook_config").setOnPreferenceClickListener(this);
         refresh();
     }
-
 
     private void refresh() {
         x_mobileqq_config.setSummary(spUtil.getString("x_mobileqq_config"));
@@ -118,7 +147,6 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
         refresh();
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -135,6 +163,9 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
         switch (preferenceKey) {
             case "view_hook_config":
                 OpUtil.launchCustomTabsUrl(context, "https://dadaewq.gitee.io/tutorials/config/hook_config.html");
+                break;
+            case "update_hook_config":
+                updateHookConfig();
                 break;
             case "x_mobileqq_config":
             case "x_wechat_config":
@@ -156,6 +187,71 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
         return false;
     }
 
+    private void updateHookConfig() {
+        successNumber = 0;
+        Executors.newSingleThreadExecutor().execute(() -> {
+            Message msg = mHandler.obtainMessage();
+            msg.arg1 = 9;
+            try {
+                String configs = readParse("https://gitee.com/dadaewq/Tutorials/raw/master/config/hook_config.json");
+                Object Obconfigs = new JSONObject(configs).opt("custom_configs");
+                Log.d("Obconfigs", ": " + Obconfigs.toString());
+                if (Obconfigs == null) {
+                    msg.arg1 = 6;
+                    mHandler.sendMessage(msg);
+                    return;
+                }
+                HashMap<String, String>[] hashMaps = new HashMap[4];
+
+                for (int i = 0; i < hashMaps.length; i++) {
+                    hashMaps[i] = new HashMap<>(2);
+                }
+
+                hashMaps[0].put("pref_key", "x_mobileqq");
+                hashMaps[0].put("pkgName", "com.tencent.mobileqq");
+                hashMaps[1].put("pref_key", "x_wechat");
+                hashMaps[1].put("pkgName", "com.tencent.mm");
+                hashMaps[2].put("pref_key", "x_iflytek_input");
+                hashMaps[2].put("pkgName", "com.iflytek.inputmethod");
+                hashMaps[3].put("pref_key", "x_caij_see");
+                hashMaps[3].put("pkgName", "com.caij.see");
+
+                for (int i = 0; i < 2; i++) {
+                    String pref_key = hashMaps[i].get("pref_key");
+                    if (spUtil.getBoolean(pref_key, true)) {
+                        try {
+                            String pkgName = hashMaps[i].get("pkgName");
+                            String config = ((JSONObject) ((JSONObject) Obconfigs).get(pkgName)).getString(AppInfoUtil.getAppVersions(context, pkgName));
+                            spUtil.putString(pref_key + "_config", config);
+                            successNumber++;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                for (int i = 2; i < 4; i++) {
+                    Log.d("forupdateHookConfig", hashMaps[i].get("pkgName"));
+                    String pref_key = hashMaps[i].get("pref_key");
+                    if (spUtil.getBoolean(pref_key, true)) {
+                        try {
+                            String pkgName = hashMaps[i].get("pkgName");
+                            String config = ((JSONObject) ((JSONObject) Obconfigs).get(pkgName)).getString(AppInfoUtil.getAppVersion(context, pkgName));
+                            spUtil.putString(pref_key + "_config", config);
+                            successNumber++;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                msg.arg1 = 6;
+            }
+
+            mHandler.sendMessage(msg);
+        });
+    }
 
     private void showDialogTencentHook(String preferenceKey) {
 
@@ -306,6 +402,29 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
 
     }
 
+    private static class MyHandler extends Handler {
+
+        private final WeakReference<XFeatureFragment> wrFragment;
+
+        MyHandler(XFeatureFragment fragment) {
+            this.wrFragment = new WeakReference<>(fragment);
+        }
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            if (wrFragment.get() == null) {
+                return;
+            }
+            XFeatureFragment xFeatureFragment = wrFragment.get();
+
+            if (msg.arg1 == 9) {
+                OpUtil.showToast0(xFeatureFragment.context, "成功更新" + xFeatureFragment.successNumber + "项自定义配置");
+                xFeatureFragment.refresh();
+            } else if (msg.arg1 == 6) {
+                OpUtil.showToast0(xFeatureFragment.context, "更新失败");
+            }
+        }
+    }
 }
 
 
