@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory>
         <Preference
+            app:icon="@drawable/ic_warnning"
             app:key="check_xfeature"
             app:title="Xposed 当前未生效" />
         <Preference
+            app:icon="@drawable/ic_url"
             app:key="view_hook_config"
-            app:summary="(当前默认支持解除限制的有QQ_8.3.6、Play QQ_8.2.9、微信_7.0.15、讯飞输入法_9.1.9652、See_1.5.6.6，更多版本请按需设置自定义配置)"
-            app:title="查看自定义配置集合" />
+            app:summary="(当前默认支持解除限制的有QQ_8.3.9、Play QQ_8.2.9、微信_7.0.16、讯飞输入法_9.1.9696、See_1.5.6.15，更多版本请按需设置自定义配置)"
+            app:title="点击查看自定义配置集合" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="解除应用对深色模式的限制">
@@ -28,6 +30,7 @@
             app:summary="设置-通用-跟随系统深色模式"
             app:title="QQ" />
         <Preference
+            app:icon="@drawable/ic_qq"
             app:key="x_mobileqq_config"
             app:title="自定义配置QQ" />
         <SwitchPreferenceCompat
@@ -36,6 +39,7 @@
             app:summary="强制跟随系统深色模式\n或解除相关限制"
             app:title="微信" />
         <Preference
+            app:icon="@drawable/ic_wechat"
             app:key="x_wechat_config"
             app:title="自定义配置微信" />
         <SwitchPreferenceCompat
@@ -54,6 +58,16 @@
         <Preference
             app:key="x_caij_see_config"
             app:title="自定义See" />
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:isPreferenceVisible="false"
+            app:key="x_gboard"
+            app:summary="强制Gboard默认皮肤跟随系统"
+            app:title="Gboard" />
+        <Preference
+            app:isPreferenceVisible="false"
+            app:key="x_gboard_config"
+            app:title="自定义Gboard" />
     </PreferenceCategory>
     <PreferenceCategory>
         <SwitchPreferenceCompat

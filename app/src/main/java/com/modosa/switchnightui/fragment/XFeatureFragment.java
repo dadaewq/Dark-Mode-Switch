@@ -65,6 +65,7 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
             check_xfeature.setSummary("v" + BuildConfig.VERSION_NAME + "（" + BuildConfig.VERSION_CODE + "）");
             if (hook2ReturnTrue()) {
                 check_xfeature.setTitle(R.string.check_xfeature_ok);
+                check_xfeature.setIcon(R.drawable.ic_passed);
             }
         }
         x_mobileqq_config = findPreference("x_mobileqq_config");

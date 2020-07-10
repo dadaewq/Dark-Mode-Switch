@@ -216,7 +216,7 @@ final class OPThemeUtils {
         }
         enableAospDarkTheme(false);
         disableAllThemes(context);
-        new HashMap();
+//        new HashMap();
         OpTheme opTheme = new OpTheme(context);
         HashMap<String, String> disableMap = new HashMap<>();
         disableMap.put(OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR, OP_CUSTOMIZATION_THEME_ONEPLUS_BASICCOLOR_WHITE);

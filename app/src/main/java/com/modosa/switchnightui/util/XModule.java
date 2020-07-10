@@ -53,24 +53,31 @@ public class XModule implements IXposedHookLoadPackage {
                 initPreferencesWithCallHook(this::hookCoolapk);
                 break;
             case Constants.PACKAGE_NAME_DINGTALK:
+            case Constants.PACKAGE_NAME_DINGTALK_GLOBAL:
                 initPreferencesWithCallHook(this::hookDingTalk);
                 break;
             case Constants.PACKAGE_NAME_FLYTEK_INPUTMETHOD:
                 initPreferencesWithCallHook(() -> hookCustomIflytekInput(() -> {
-                    //non-play 9.1.9652
-                    hookIflytekInput("app.apq");
+                    //non-play 9.1.9696
+                    hookIflytekInput("app.apl");
                 }));
                 break;
             case Constants.PACKAGE_NAME_CAIJ_SEE:
                 initPreferencesWithCallHook(() -> hookCustomCaijSee(() -> {
-                    //1.5.6.6
-                    hookCaijSee("com.caij.see.o0OoO", "Wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+                    //1.5.6.15
+                    hookCaijSee("com.caij.see.o0Oo0Oo0", "Wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
                 }));
                 break;
+//            case Constants.PACKAGE_NAME_GBOARD:
+//                initPreferencesWithCallHook(() -> hookCustomBoard(() -> {
+//                    //1.5.6.6
+//                    hookBoard("dur", "d");
+//                }));
+//                break;
             case Constants.PACKAGE_NAME_MOBILEQQ:
                 initPreferencesWithCallHook(() -> hookCustomTencent("x_mobileqq", () -> {
-                    //non-play 8.3.6_1406
-                    hookReturnBooleanWithmethodName(loadPackageParam.classLoader, "bbom", "a", true);
+                    //non-play 8.3.9_1424
+                    hookReturnBooleanWithmethodName(loadPackageParam.classLoader, "bdbg", "a", true);
 
                     //play 8.2.9_1353
                     hookReturnBooleanWithmethodName(loadPackageParam.classLoader, "ayhx", "a", true);
@@ -78,13 +85,13 @@ public class XModule implements IXposedHookLoadPackage {
                 break;
             case Constants.PACKAGE_NAME_WECHAT:
                 initPreferencesWithCallHook(() -> hookCustomTencent("x_wechat", () -> {
-                    //non-play 7.0.15_1680
+                    //non-play 7.0.16_1700
 
 //                    new config
 //                    hookTencentBrandApi("com.tencent.mm.ui.ai", "FSW");
 //
 //                    old config
-                    hookReturnBooleanWithmethodNames(loadPackageParam.classLoader, "com.tencent.mm.ui.ai", new String[]{"eRY", "eRZ", "eSb"}, true);
+                    hookReturnBooleanWithmethodNames(loadPackageParam.classLoader, "com.tencent.mm.ui.aj", new String[]{"fhI", "fhJ", "fhL"}, true);
 
 
 //                if (!eRV() || eRX() || ((!eSb() && !eRW()) || !eRY())) {return false}
@@ -465,6 +472,64 @@ public class XModule implements IXposedHookLoadPackage {
         }
     }
 
+    private void hookCustomBoard(CallHook callHook) {
+        boolean useDefault = true;
+
+        String x_gboard_config;
+        if (sharedPreferences != null) {
+            String key = "x_gboard";
+            //不解除限制
+            if (!sharedPreferences.getBoolean(key, true)) {
+                return;
+            } else {
+                //获取自定义
+                x_gboard_config = sharedPreferences.getString(key + "_config", "");
+                Log.e("x_gboard_config", key + "_config——" + x_gboard_config);
+
+                try {
+                    if (!"".equals(x_gboard_config)) {
+                        x_gboard_config = x_gboard_config.replaceAll("\\s*", "").replace("：", ":");
+
+                        if (x_gboard_config.length() > 15) {
+                            String[] x_config1 = x_gboard_config.split(":");
+                            String className, methodName;
+                            if (x_config1.length >= 2) {
+                                className = x_config1[0];
+                                methodName = x_config1[1];
+                                useDefault = false;
+                                hookCaijSee(className, methodName);
+                            }
+
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+        Log.e("useDefault", ": " + useDefault);
+        if (useDefault) {
+            callHook.call();
+        }
+
+    }
+
+    private void hookBoard(String className, String methodName) {
+
+        try {
+            Log.e("isdark", ":" + (context != null) + " | " + context);
+            boolean isdark = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+            Log.e("isdark config", ":" + (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK));
+            Log.e("isdark", ":" + isdark);
+            findAndHookMethod(className, loadPackageParam.classLoader, methodName,
+                    XC_MethodReplacement.returnConstant(isdark)
+            );
+        } catch (Exception e) {
+            XposedBridge.log("" + e);
+        }
+    }
 
     private void hookMyself() {
         try {
