@@ -9,7 +9,6 @@
         <Preference
             app:icon="@drawable/ic_url"
             app:key="view_hook_config"
-            app:summary="(当前默认支持解除限制的有QQ_8.3.9、Play QQ_8.2.9、微信_7.0.16、讯飞输入法_9.1.9696、See_1.5.6.15，更多版本请按需设置自定义配置)"
             app:title="查看自定义配置集合" />
         <Preference
             app:icon="@drawable/ic_update"

@@ -92,7 +92,7 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
 
         Preference check_xfeature = findPreference("check_xfeature");
         if (check_xfeature != null) {
-            check_xfeature.setSummary("v" + BuildConfig.VERSION_NAME + "（" + BuildConfig.VERSION_CODE + "）");
+            check_xfeature.setSummary("v" + BuildConfig.VERSION_NAME + "（" + BuildConfig.VERSION_CODE + "）" + "\n(当前版本默认支持解除限制的有QQ_8.3.9、Play QQ_8.2.9、微信_7.0.16、讯飞输入法_9.1.9696、See_1.5.6.15，更多版本请按需设置自定义配置)");
             if (hook2ReturnTrue()) {
                 check_xfeature.setTitle(R.string.check_xfeature_ok);
                 check_xfeature.setIcon(R.drawable.ic_passed);
