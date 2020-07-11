@@ -100,5 +100,6 @@
     <string name="summary_oneplus_use_colorful_theme">Use colorful theme</string>
     <string name="title_xfeature">Xposed settings</string>
     <string name="check_xfeature_ok">Xposed is in effect</string>
+    <string name="title_switch_screen_off">Switch only when the screen is off</string>
 
 </resources>

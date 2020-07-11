@@ -17,6 +17,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.PowerManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -32,6 +33,8 @@ import com.modosa.switchnightui.activity.MainActivity;
 import com.modosa.switchnightui.activity.SwitchDarkModeActivity;
 import com.modosa.switchnightui.receiver.TimingSwitchReceiver;
 import com.modosa.switchnightui.service.NotificationService;
+
+import java.lang.reflect.Method;
 
 /**
  * @author dadaewq
@@ -64,6 +67,20 @@ public class OpUtil {
                 alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(context.getResources().getColor(R.color.rBackground));
             }
         }
+    }
+
+    public static boolean isScreenOn(Context context) {
+        boolean isScreenOn = true;
+        try {
+            Method mReflectScreenState = PowerManager.class.getMethod("isScreenOn");
+            PowerManager pm = (PowerManager) context.getSystemService(Activity.POWER_SERVICE);
+            isScreenOn = (Boolean) mReflectScreenState.invoke(pm);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isScreenOn;
+
     }
 
     static void copyCmd(Context context, CharSequence text) {

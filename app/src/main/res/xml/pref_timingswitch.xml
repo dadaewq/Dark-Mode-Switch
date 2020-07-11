@@ -2,6 +2,9 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory>
         <SwitchPreferenceCompat
+            app:key="switchScreenOff"
+            app:title="@string/title_switch_screen_off" />
+        <SwitchPreferenceCompat
             app:key="enableTimingSwitch"
             app:title="@string/title_dark_mode" />
         <Preference

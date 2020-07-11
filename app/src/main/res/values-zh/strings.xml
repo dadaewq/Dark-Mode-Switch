@@ -100,5 +100,6 @@
     <string name="summary_oneplus_use_colorful_theme">关闭深色模式时使用多彩主题</string>
     <string name="title_xfeature">Xposed设置</string>
     <string name="check_xfeature_ok">Xposed 已生效</string>
+    <string name="title_switch_screen_off">仅在熄屏时进行切换</string>
 
 </resources>
