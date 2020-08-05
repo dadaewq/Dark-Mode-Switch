@@ -37,27 +37,27 @@ public class OpSwitchDarkModeUtil {
     private List<String> getOneplusCommands(int theme) {
         switch (theme) {
             case 1:
-                return getOneplusCommands(1, 1, 2, 1);
+                return getOneplusCommands(1, 2);
             case 2:
-                return getOneplusCommands(2, 2, 1, 2);
+                return getOneplusCommands(2, 1);
             default:
-                return getOneplusCommands(0, 0, 1, 0);
+                return getOneplusCommands(0, 1);
         }
     }
 
-    private List<String> getOneplusCommands(int parm1, int parm2, int parm3, int parm4) {
+    private List<String> getOneplusCommands(int parm1, int parm2) {
         String cmd;
         List<String> cmds = new ArrayList<>();
         cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_DARK_MODE_ACTION + BLANK + parm1;
         cmds.add(cmd);
 
-        cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION + BLANK + parm2;
+        cmd = OPThemeUtils.CMD_SETTINGS_PUT_SYSTEM + OPThemeUtils.KEY_ORIGIN_DARK_MODE_ACTION + BLANK + parm1;
         cmds.add(cmd);
 
-        cmd = OpSwitchForceDarkUtil.CMD_SETPROP_THEME + parm3;
+        cmd = OpSwitchForceDarkUtil.CMD_SETPROP_THEME + parm2;
         cmds.add(cmd);
 
-        cmd = OPThemeUtils.CMD_SETPROP_THEME_STATUS + parm4;
+        cmd = OPThemeUtils.CMD_SETPROP_THEME_STATUS + parm1;
         cmds.add(cmd);
 
         return cmds;

@@ -34,8 +34,6 @@ import com.modosa.switchnightui.activity.SwitchDarkModeActivity;
 import com.modosa.switchnightui.receiver.TimingSwitchReceiver;
 import com.modosa.switchnightui.service.NotificationService;
 
-import java.lang.reflect.Method;
-
 /**
  * @author dadaewq
  */
@@ -70,17 +68,15 @@ public class OpUtil {
     }
 
     public static boolean isScreenOn(Context context) {
-        boolean isScreenOn = true;
-        try {
-            Method mReflectScreenState = PowerManager.class.getMethod("isScreenOn");
-            PowerManager pm = (PowerManager) context.getSystemService(Activity.POWER_SERVICE);
-            isScreenOn = (Boolean) mReflectScreenState.invoke(pm);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        PowerManager powerManager = (PowerManager)
+                context.getSystemService(Context.POWER_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            return powerManager.isInteractive();
+        } else {
+            return powerManager.isScreenOn();
         }
-        return isScreenOn;
-
     }
 
     static void copyCmd(Context context, CharSequence text) {
