@@ -140,12 +140,9 @@ public class SwitchDarkModeUtil {
      */
     private boolean switch1(final int nightmode) {
         boolean av = true;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            uiModeManager.enableCarMode(2);
-        }
-
+        opCarModeForOldSdk(UiModeManager.MODE_NIGHT_YES);
         uiModeManager.setNightMode(nightmode);
-
+        opCarModeForOldSdk(nightmode);
         if (uiModeManager.getNightMode() == nightmode) {
             av = false;
         }
@@ -160,6 +157,7 @@ public class SwitchDarkModeUtil {
      */
     private ResultMsg switch2(int nightmode) {
 
+        opCarModeForOldSdk(nightmode);
         ResultMsg resultMsg = WriteSettingsUtil.putKey(context, nightmode);
 
         if (resultMsg.isSuccess()) {
@@ -192,23 +190,30 @@ public class SwitchDarkModeUtil {
      * @return wether without su
      */
     private boolean switch3(int nightmode) {
-
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            uiModeManager.enableCarMode(2);
-        }
+        opCarModeForOldSdk(UiModeManager.MODE_NIGHT_YES);
         String cmd = SERVICE_CALL_UIMODE + nightmode;
 
         String[] checkRoot = ShellUtil.execWithRoot("exit");
 
         if ("0".equals(checkRoot[3])) {
             ShellUtil.execWithRoot(cmd);
+            opCarModeForOldSdk(nightmode);
             return false;
         } else {
             ShellUtil.exec(cmd, false);
+            opCarModeForOldSdk(nightmode);
             return true;
         }
 
     }
 
-
+    private void opCarModeForOldSdk(int nightmode) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            if (nightmode == UiModeManager.MODE_NIGHT_YES) {
+                uiModeManager.enableCarMode(2);
+            } else {
+                uiModeManager.disableCarMode(0);
+            }
+        }
+    }
 }

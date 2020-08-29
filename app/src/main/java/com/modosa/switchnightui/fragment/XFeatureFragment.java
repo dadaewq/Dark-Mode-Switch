@@ -204,7 +204,7 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
                 HashMap<String, String>[] hashMaps = new HashMap[4];
 
                 for (int i = 0; i < hashMaps.length; i++) {
-                    hashMaps[i] = new HashMap<>(2);
+                    hashMaps[i] = new HashMap<>();
                 }
 
                 hashMaps[0].put("pref_key", "x_mobileqq");
