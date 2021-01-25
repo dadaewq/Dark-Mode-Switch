@@ -81,6 +81,7 @@ public class AboutActivity extends AbsAboutActivity {
 
         items.add(new Category(getString(R.string.title_other_works)));
         items.add(new Contributor(R.mipmap.ic_install_lion, getString(R.string.name_install_lion), getString(R.string.desc_install_lion), "https://www.coolapk.com/apk/com.modosa.apkinstaller"));
+        items.add(new Contributor(R.mipmap.ic_unblock_darkmode, getString(R.string.name_unblock_darkmode), getString(R.string.desc_unblock_darkmode), "https://www.coolapk.com/apk/com.modosa.unblockdarkmode"));
 
 
         items.add(new Category(getString(R.string.title_licenses)));

@@ -9,6 +9,7 @@
         <Preference
             app:icon="@drawable/ic_url"
             app:key="view_hook_config"
+            app:summary="(注：本应用的Xposed功能不再维护，请点我获取独立的应用)"
             app:title="查看自定义配置集合" />
         <Preference
             app:icon="@drawable/ic_update"
@@ -63,12 +64,10 @@
             app:title="自定义See" />
         <SwitchPreferenceCompat
             app:defaultValue="true"
-            app:isPreferenceVisible="false"
             app:key="x_gboard"
             app:summary="强制Gboard默认皮肤跟随系统"
             app:title="Gboard" />
         <Preference
-            app:isPreferenceVisible="false"
             app:key="x_gboard_config"
             app:title="自定义Gboard" />
     </PreferenceCategory>

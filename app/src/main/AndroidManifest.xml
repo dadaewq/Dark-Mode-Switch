@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.modosa.switchnightui">
 
+    <queries>
+        <package android:name="com.modosa.apkinstaller" />
+        <package android:name="com.modosa.unblockdarkmode" />
+    </queries>
+
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />

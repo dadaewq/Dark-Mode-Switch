@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.PowerManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -276,6 +277,28 @@ public class OpUtil {
         };
         //调用 CountDownTimer 对象的 start() 方法开始倒计时，也不涉及到线程处理
         timer.start();
+
+        View alertTitle = null;
+        try {
+            alertTitle = alertDialog.findViewById(context.getResources().getIdentifier("alertTitle", "id", "android"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (null != alertTitle) {
+            alertTitle.setOnLongClickListener(v -> {
+                ViewGroup viewGroup = alertDialog.findViewById(R.id.checkboxParrent);
+                if (null != viewGroup) {
+                    for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                        ((CheckBox) viewGroup.getChildAt(i)).setChecked(true);
+                    }
+                }
+
+                timer.cancel();
+                timer.onFinish();
+                return false;
+            });
+        }
     }
 
     public static void launchCustomTabsUrl(Context context, String url) {

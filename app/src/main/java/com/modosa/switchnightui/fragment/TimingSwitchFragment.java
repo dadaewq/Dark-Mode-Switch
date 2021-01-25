@@ -2,7 +2,6 @@ package com.modosa.switchnightui.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.TimePickerDialog;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +20,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator;
 import com.modosa.switchnightui.R;
 import com.modosa.switchnightui.util.LocationUtil;
+import com.modosa.switchnightui.util.MyTimePickerDialog;
 import com.modosa.switchnightui.util.OpUtil;
 import com.modosa.switchnightui.util.SpUtil;
 import com.modosa.switchnightui.util.TimingSwitchUtil;
@@ -37,7 +37,7 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
     private Context context;
     private SpUtil spUtil;
     private TimingSwitchUtil timingSwitchUtil;
-    private TimePickerDialog timePickerDialog;
+    private MyTimePickerDialog timePickerDialog;
     private AlertDialog alertDialog;
     private SwitchPreferenceCompat enableTimingSwitch;
     private Preference timeon;
@@ -287,7 +287,7 @@ public class TimingSwitchFragment extends PreferenceFragmentCompat implements Pr
 
 
         } else {
-            timePickerDialog = new TimePickerDialog(context, (view, hourOfDay, minute1) -> {
+            timePickerDialog = new MyTimePickerDialog(context, (view, hourOfDay, minute1) -> {
                 String h;
                 String m;
 

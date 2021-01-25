@@ -24,41 +24,50 @@
             android:checked="true"
             android:textSize="16sp" />
 
-        <CheckBox
-            android:id="@+id/confirm_checkbox1"
+        <LinearLayout
+            android:id="@+id/checkboxParrent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/confirm_checkbox2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:textSize="16sp" />
 
-        <CheckBox
-            android:id="@+id/confirm_checkbox3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:textSize="16sp" />
+            <CheckBox
+                android:id="@+id/confirm_checkbox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/confirm_checkbox4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <CheckBox
+                android:id="@+id/confirm_checkbox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:textSize="16sp" />
 
-        <CheckBox
-            android:id="@+id/confirm_checkbox_last"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:textSize="16sp" />
+            <CheckBox
+                android:id="@+id/confirm_checkbox3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/confirm_checkbox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/confirm_checkbox_last"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:textSize="16sp" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
