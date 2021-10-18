@@ -1,5 +1,7 @@
 package com.modosa.switchnightui.util.oneplus;
 
+import static com.modosa.switchnightui.util.OpUtil.BLANK;
+
 import android.content.Context;
 
 import com.modosa.switchnightui.util.ShellUtil;
@@ -8,8 +10,6 @@ import com.modosa.switchnightui.util.SpUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.modosa.switchnightui.util.OpUtil.BLANK;
 
 /**
  * @author dadaewq

@@ -66,7 +66,8 @@ public class XFeatureFragment extends PreferenceFragmentCompat implements Prefer
             outStream.write(data, 0, len);
         }
         inStream.close();
-        return new String(outStream.toByteArray());//通过out.Stream.toByteArray获取到写的数据
+        // 通过out.Stream.toByteArray获取到写的数据
+        return outStream.toString();
     }
 
     @Override

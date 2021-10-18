@@ -2,8 +2,11 @@ package com.modosa.switchnightui.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 
 import androidx.preference.PreferenceManager;
+
+import com.modosa.switchnightui.BuildConfig;
 
 /**
  * @author dadaewq
@@ -13,7 +16,18 @@ public class SpUtil {
     private SharedPreferences.Editor editor;
 
     public SpUtil(Context context) {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            sharedPreferences = context.createDeviceProtectedStorageContext().getSharedPreferences(BuildConfig.APPLICATION_ID + "_preferences", Context.MODE_PRIVATE);
+        } else {
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        }
+    }
+
+    private SharedPreferences.Editor getEditor() {
+        if (editor == null) {
+            editor = sharedPreferences.edit();
+        }
+        return editor;
     }
 
     public int getWorkMode() {
@@ -21,9 +35,7 @@ public class SpUtil {
     }
 
     public void putWorkMode(int checked) {
-        editor = sharedPreferences.edit();
-        editor.putInt("method", checked);
-        editor.apply();
+        getEditor().putInt("method", checked).apply();
     }
 
     public boolean isStableMode() {
@@ -40,9 +52,7 @@ public class SpUtil {
     }
 
     void putBoolean(String key, boolean value) {
-        editor = sharedPreferences.edit();
-        editor.putBoolean(key, value);
-        editor.apply();
+        getEditor().putBoolean(key, value).apply();
     }
 
     public String getString(String key) {
@@ -50,8 +60,6 @@ public class SpUtil {
     }
 
     public void putString(String key, String value) {
-        editor = sharedPreferences.edit();
-        editor.putString(key, value);
-        editor.apply();
+        getEditor().putString(key, value).apply();
     }
 }

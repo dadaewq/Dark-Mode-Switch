@@ -1,5 +1,7 @@
 package com.modosa.switchnightui.util;
 
+import static com.modosa.switchnightui.util.OpUtil.BLANK;
+
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
@@ -18,8 +20,6 @@ import com.modosa.switchnightui.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.modosa.switchnightui.util.OpUtil.BLANK;
 
 /**
  * @author dadaewq

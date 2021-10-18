@@ -1,5 +1,7 @@
 package com.modosa.switchnightui.util.oneplus;
 
+import static com.modosa.switchnightui.util.OpUtil.BLANK;
+
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Build;
@@ -10,8 +12,6 @@ import com.modosa.switchnightui.util.SwitchDarkModeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.modosa.switchnightui.util.OpUtil.BLANK;
 
 /**
  * @author dadaewq
@@ -102,7 +102,7 @@ public class OpSwitchForceDarkUtil {
         List<String> cmds = new ArrayList<>();
 
         if (enable) {
-            cmd = SwitchDarkModeUtil.SERVICE_CALL_UIMODE + 2;
+            cmd = SwitchDarkModeUtil.getServiceNightCMD(2);
             cmds.add(cmd);
 
             cmd = CMD_SETPROP_THEME + 2;
@@ -115,13 +115,13 @@ public class OpSwitchForceDarkUtil {
 
         } else {
             if (oneplusTheme == 1) {
-                cmd = SwitchDarkModeUtil.SERVICE_CALL_UIMODE + 2;
+                cmd = SwitchDarkModeUtil.getServiceNightCMD(2);
                 cmds.add(cmd);
 
-                cmd = CMD_SETPROP_THEME + 2;
+                cmd = SwitchDarkModeUtil.getServiceNightCMD(2);
 
             } else {
-                cmd = SwitchDarkModeUtil.SERVICE_CALL_UIMODE + 1;
+                cmd = SwitchDarkModeUtil.getServiceNightCMD(1);
                 cmds.add(cmd);
 
                 cmd = CMD_SETPROP_THEME + 1;

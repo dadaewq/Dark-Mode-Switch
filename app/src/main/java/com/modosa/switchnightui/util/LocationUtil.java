@@ -1,5 +1,8 @@
 package com.modosa.switchnightui.util;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -19,9 +22,6 @@ import androidx.annotation.RequiresPermission;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 /**
  * <pre>

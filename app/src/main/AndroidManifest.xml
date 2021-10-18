@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.modosa.switchnightui">
 
+    <uses-sdk tools:overrideLibrary="com.microsoft.appcenter.analytics,com.microsoft.appcenter.crashes" />
+
     <queries>
         <package android:name="com.modosa.apkinstaller" />
         <package android:name="com.modosa.unblockdarkmode" />

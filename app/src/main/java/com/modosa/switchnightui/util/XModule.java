@@ -1,6 +1,11 @@
 package com.modosa.switchnightui.util;
 
 
+import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
+import static de.robv.android.xposed.XposedHelpers.setStaticBooleanField;
+import static de.robv.android.xposed.XposedHelpers.setStaticIntField;
+import static de.robv.android.xposed.XposedHelpers.setStaticObjectField;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,11 +29,6 @@ import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
-
-import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
-import static de.robv.android.xposed.XposedHelpers.setStaticBooleanField;
-import static de.robv.android.xposed.XposedHelpers.setStaticIntField;
-import static de.robv.android.xposed.XposedHelpers.setStaticObjectField;
 
 /**
  * @author dadaewq

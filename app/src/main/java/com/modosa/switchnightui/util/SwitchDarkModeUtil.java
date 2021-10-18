@@ -17,8 +17,6 @@ import java.util.Objects;
  */
 public class SwitchDarkModeUtil {
 
-    public static final String SERVICE_CALL_UIMODE = "service call uimode 4 i32 ";
-
     private final UiModeManager uiModeManager;
     private final Context context;
 
@@ -26,6 +24,14 @@ public class SwitchDarkModeUtil {
     public SwitchDarkModeUtil(Context context) {
         this.context = context;
         this.uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+    }
+
+    public static String getServiceNightCMD(int nightmode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return "cmd uimode night " + Shell.nightModeToStr(nightmode);
+        } else {
+            return Shell.SERVICE_CALL_UIMODE + nightmode;
+        }
     }
 
     public boolean isDarkMode() {
@@ -131,7 +137,6 @@ public class SwitchDarkModeUtil {
 
     }
 
-
     /**
      * Switch Dark Mode  WorkMode1
      *
@@ -166,7 +171,7 @@ public class SwitchDarkModeUtil {
                     if (Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType()) {
                         uiModeManager.disableCarMode(0);
                     } else {
-                        uiModeManager.enableCarMode(2);
+                        uiModeManager.enableCarMode(UiModeManager.ENABLE_CAR_MODE_ALLOW_SLEEP);
                         uiModeManager.disableCarMode(0);
                     }
                 }
@@ -191,7 +196,7 @@ public class SwitchDarkModeUtil {
      */
     private boolean switch3(int nightmode) {
         opCarModeForOldSdk(UiModeManager.MODE_NIGHT_YES);
-        String cmd = SERVICE_CALL_UIMODE + nightmode;
+        String cmd = getServiceNightCMD(nightmode);
 
         String[] checkRoot = ShellUtil.execWithRoot("exit");
 
@@ -213,6 +218,27 @@ public class SwitchDarkModeUtil {
                 uiModeManager.enableCarMode(2);
             } else {
                 uiModeManager.disableCarMode(0);
+            }
+        }
+    }
+
+    private static class Shell {
+        public static final String NIGHT_MODE_STR_YES = "yes";
+        public static final String NIGHT_MODE_STR_NO = "no";
+        public static final String NIGHT_MODE_STR_AUTO = "auto";
+        public static final String NIGHT_MODE_STR_UNKNOWN = "unknown";
+        public static final String SERVICE_CALL_UIMODE = "service call uimode 4 i32 ";
+
+        private static String nightModeToStr(int mode) {
+            switch (mode) {
+                case UiModeManager.MODE_NIGHT_YES:
+                    return NIGHT_MODE_STR_YES;
+                case UiModeManager.MODE_NIGHT_NO:
+                    return NIGHT_MODE_STR_NO;
+                case UiModeManager.MODE_NIGHT_AUTO:
+                    return NIGHT_MODE_STR_AUTO;
+                default:
+                    return NIGHT_MODE_STR_UNKNOWN;
             }
         }
     }
