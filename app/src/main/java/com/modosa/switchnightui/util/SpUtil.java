@@ -16,11 +16,11 @@ public class SpUtil {
     private SharedPreferences.Editor editor;
 
     public SpUtil(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            sharedPreferences = context.createDeviceProtectedStorageContext().getSharedPreferences(BuildConfig.APPLICATION_ID + "_preferences", Context.MODE_PRIVATE);
-        } else {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            sharedPreferences = context.createDeviceProtectedStorageContext().getSharedPreferences(BuildConfig.APPLICATION_ID + "_preferences", Context.MODE_PRIVATE);
+//        } else {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        }
+//        }
     }
 
     private SharedPreferences.Editor getEditor() {
