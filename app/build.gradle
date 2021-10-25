@@ -40,11 +40,11 @@ dependencies {
     //noinspection GradleDependency
     implementation 'androidx.appcompat:appcompat:1.4.0-beta01'
     implementation 'androidx.preference:preference:1.1.1'
-    implementation 'androidx.browser:browser:1.4.0-beta01'
+    implementation 'androidx.browser:browser:1.4.0-rc01'
 
     //be careful to dump this
     //    implementation 'com.google.android.material:material:1.2.0-alpha05'
-    implementation 'com.google.android.material:material:1.4.0-alpha02'
+    implementation 'com.google.android.material:material:1.5.0-alpha04'
 
     implementation 'com.drakeet.about:about:2.4.1'
     implementation 'com.drakeet.multitype:multitype:4.3.0'
