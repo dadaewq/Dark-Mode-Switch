@@ -124,7 +124,7 @@ public class OpUtil {
                     .setWhen(System.currentTimeMillis())
                     .setSmallIcon(R.drawable.ic_qs_dark_mode)
                     .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0))
-                    .setNotificationSilent()
+                    .setSilent(true)
                     .addAction(0, context.getString(R.string.on), getSwitchPendingIntent(context, UiModeManager.MODE_NIGHT_YES))
                     .addAction(0, context.getString(R.string.off), getSwitchPendingIntent(context, UiModeManager.MODE_NIGHT_NO))
                     .build();

@@ -93,9 +93,9 @@ public class SwitchDisplayUtil {
             Log.e("Exception", e + "");
             if (message.contains("WRITE_SETTINGS")) {
                 message = context.getString(R.string.tip_needpermission_WRITE_SETTINGS);
-                @SuppressLint("InlinedApi") Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
-                        Uri.parse("package:" + context.getPackageName()));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                @SuppressLint("InlinedApi")
+                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + context.getPackageName()))
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 try {
                     context.startActivity(intent);
                 } catch (ActivityNotFoundException ignore) {

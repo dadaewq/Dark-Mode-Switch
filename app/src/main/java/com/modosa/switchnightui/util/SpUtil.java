@@ -2,11 +2,8 @@ package com.modosa.switchnightui.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 
 import androidx.preference.PreferenceManager;
-
-import com.modosa.switchnightui.BuildConfig;
 
 /**
  * @author dadaewq
@@ -19,7 +16,7 @@ public class SpUtil {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //            sharedPreferences = context.createDeviceProtectedStorageContext().getSharedPreferences(BuildConfig.APPLICATION_ID + "_preferences", Context.MODE_PRIVATE);
 //        } else {
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 //        }
     }
 

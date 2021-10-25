@@ -57,13 +57,13 @@ public class XModule implements IXposedHookLoadPackage {
                 initPreferencesWithCallHook(this::hookDingTalk);
                 break;
             case Constants.PACKAGE_NAME_FLYTEK_INPUTMETHOD:
-                initPreferencesWithCallHook(() -> hookCustomIflytekInput());
+                initPreferencesWithCallHook(this::hookCustomIflytekInput);
                 break;
             case Constants.PACKAGE_NAME_CAIJ_SEE:
-                initPreferencesWithCallHook(() -> hookCustomCaijSee());
+                initPreferencesWithCallHook(this::hookCustomCaijSee);
                 break;
             case Constants.PACKAGE_NAME_GBOARD:
-                initPreferencesWithCallHook(() -> hookCustomBoard());
+                initPreferencesWithCallHook(this::hookCustomBoard);
                 break;
             case Constants.PACKAGE_NAME_MOBILEQQ:
                 initPreferencesWithCallHook(() -> hookCustomTencent("x_mobileqq"));

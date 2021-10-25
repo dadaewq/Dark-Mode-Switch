@@ -67,6 +67,7 @@ public class TimingSwitchActivity extends BaseAppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 666) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Objects.requireNonNull(getSupportFragmentManager().findFragmentByTag("TimingSwitch")).onActivityResult(665, 666, null);
