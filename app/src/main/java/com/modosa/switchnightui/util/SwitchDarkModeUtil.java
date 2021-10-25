@@ -167,13 +167,18 @@ public class SwitchDarkModeUtil {
 
         if (resultMsg.isSuccess()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                if (TelephonyManager.CALL_STATE_IDLE == ((TelephonyManager) Objects.requireNonNull(context.getSystemService(Context.TELEPHONY_SERVICE))).getCallState()) {
-                    if (Configuration.UI_MODE_TYPE_CAR == uiModeManager.getCurrentModeType()) {
-                        uiModeManager.disableCarMode(0);
-                    } else {
+                int getCallState = TelephonyManager.CALL_STATE_IDLE;
+                try {
+                    getCallState = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getCallState();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (TelephonyManager.CALL_STATE_IDLE == getCallState) {
+                    if (Configuration.UI_MODE_TYPE_CAR != uiModeManager.getCurrentModeType()) {
                         uiModeManager.enableCarMode(UiModeManager.ENABLE_CAR_MODE_ALLOW_SLEEP);
-                        uiModeManager.disableCarMode(0);
                     }
+                    uiModeManager.disableCarMode(0);
                 }
             }
         } else {
